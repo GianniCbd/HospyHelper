@@ -3,12 +3,17 @@ package Capstone.HospyHelper.entities;
 import Capstone.HospyHelper.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 
 @Entity
@@ -29,14 +34,11 @@ public class User implements UserDetails {
     @Enumerated (EnumType.STRING)
     private Set<Role> roles=new HashSet<>();
 
-    @OneToMany
-    @JoinTable(
-            name = "booking_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "booking_id")
-    )
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
     private Set<Booking> bookings;
 
+    @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new HashSet<>();
 

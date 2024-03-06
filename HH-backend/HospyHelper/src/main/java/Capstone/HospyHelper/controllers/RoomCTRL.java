@@ -14,8 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/room")
 public class RoomCTRL {
 
+    private final RoomSRV roomSRV;
+
     @Autowired
-    RoomSRV roomSRV;
+    public RoomCTRL(RoomSRV roomSrv) {
+        this.roomSRV = roomSrv;
+    }
+//    @Autowired
+//    RoomSRV roomSRV;
 
 
     @GetMapping
@@ -34,6 +40,7 @@ public class RoomCTRL {
         }
         return this.roomSRV.saveRoom(roomDTO);
     }
+
 
 
     @GetMapping("/{id}")

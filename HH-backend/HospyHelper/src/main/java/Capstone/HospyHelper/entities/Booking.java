@@ -1,5 +1,7 @@
 package Capstone.HospyHelper.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,12 +25,14 @@ public class Booking {
         private String checkIn;
         private String checkOut;
 
+    @JsonIgnoreProperties({"user"})
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToOne
     @JoinColumn(name = "id_room")
+    @JsonIgnore
     private Room room;
 
     public Booking(String fullName, String email, String phone, String checkIn, String checkOut,Room room,User user) {
@@ -39,8 +43,6 @@ public class Booking {
         this.checkOut = checkOut;
         this.room = room;
         this.user = user;
-
     }
-
 }
 

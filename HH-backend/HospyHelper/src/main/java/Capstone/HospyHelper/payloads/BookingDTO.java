@@ -6,9 +6,7 @@ public record BookingDTO(
        String phone,
        String checkIn,
        String checkOut,
-       long id_room
-
-
+       long roomId
 
 ) {
 }

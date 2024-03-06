@@ -1,6 +1,7 @@
 package Capstone.HospyHelper.entities;
 
 import Capstone.HospyHelper.Enums.RoomType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,11 +28,9 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
 
-
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private Set<Booking> bookings;
-
-
 
     public Room(int number, double price, int maxCustomer, RoomType roomType) {
         this.number = number;

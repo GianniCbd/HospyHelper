@@ -5,6 +5,7 @@ import Capstone.HospyHelper.entities.Room;
 import Capstone.HospyHelper.entities.User;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.payloads.BookingDTO;
+import Capstone.HospyHelper.payloads.BookingResponseDTO;
 import Capstone.HospyHelper.repositories.BookingDAO;
 import Capstone.HospyHelper.repositories.RoomDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -29,13 +31,22 @@ public class BookingSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return bookingDAO.findAll(pageable);
     }
-    public Booking saveBooking(BookingDTO bookingDTO, User user) {
-        Room room = roomDAO.findById(bookingDTO.id_room()).orElseThrow(() -> new NotFoundException(bookingDTO.id_room()));
-            Booking booking = new Booking(bookingDTO.fullName(),bookingDTO.email(),  bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room,user);
-//            room.addBooking(booking);
-            bookingDAO.save(booking);
-            return booking;
-        }
+
+    @Transactional
+    public BookingResponseDTO saveBooking(BookingDTO bookingDTO, User user) {
+        Room room = roomDAO.findById(bookingDTO.roomId()).orElseThrow(() -> new NotFoundException(bookingDTO.roomId()));
+        Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room, user);
+        bookingDAO.save(booking);
+        BookingResponseDTO responseDTO = new BookingResponseDTO(
+                booking.getFullName(),
+                booking.getEmail(),
+                booking.getPhone(),
+                booking.getCheckIn(),
+                booking.getCheckOut()
+        );
+        return responseDTO;
+    }
+
 
     public Booking findById(Long id) {
         return bookingDAO.findById(id).orElseThrow(() -> new NotFoundException(id));

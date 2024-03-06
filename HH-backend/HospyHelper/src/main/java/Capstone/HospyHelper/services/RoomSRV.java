@@ -4,7 +4,6 @@ import Capstone.HospyHelper.entities.Room;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.payloads.RoomDTO;
 import Capstone.HospyHelper.repositories.RoomDAO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+
 @Service
 public class RoomSRV {
 
@@ -32,6 +31,7 @@ public class RoomSRV {
     public Room getRoomById(Long id) {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
+
     public Room updateBooking(Long id, RoomDTO roomDTO) {
         Room existingRoom = roomDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingRoom.setNumber(roomDTO.number());
