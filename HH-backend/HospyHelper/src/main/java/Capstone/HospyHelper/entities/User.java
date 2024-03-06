@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.entities;
 
+import Capstone.HospyHelper.Enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,19 +22,23 @@ public class User implements UserDetails {
     @GeneratedValue
     @Column(name = "id",nullable = false)
     private UUID id;
-
     private String email;
     private String password;
     private String name;
     private String surname;
-
     @Enumerated (EnumType.STRING)
     private Set<Role> roles=new HashSet<>();
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "user")
+    @OneToMany
+    @JoinTable(
+            name = "booking_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "booking_id")
+    )
     private Set<Booking> bookings;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Employee> employees = new HashSet<>();
 
 
     public User(String email, String password, String name, String surname) {

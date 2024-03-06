@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.UUID;
-
 @Entity
 @Table(name = "booking")
 @Getter
@@ -16,8 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Booking {
     @Id
-    @GeneratedValue
-        private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id",nullable = false)
+        private long id;
         private String fullName;
         private String email;
         private String phone;
@@ -25,19 +24,23 @@ public class Booking {
         private String checkOut;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_room")
     private Room room;
 
-    public Booking(String fullName, String email, String phone, String checkIn, String checkOut, Room room) {
+    public Booking(String fullName, String email, String phone, String checkIn, String checkOut,Room room,User user) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.room = room;
+        this.user = user;
+
     }
+
 }
 

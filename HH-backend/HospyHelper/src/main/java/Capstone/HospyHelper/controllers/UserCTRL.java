@@ -35,7 +35,6 @@ public class UserCTRL {
         return authenticatedCustomer;
     }
 
-
     @PutMapping("me/{id}")
     @PreAuthorize("hasAuthority('USER')")
     public User findByIdAndUpdate(@PathVariable UUID id, @RequestBody UserDTO userDTO, @AuthenticationPrincipal User currentAuthenticatedUser) {

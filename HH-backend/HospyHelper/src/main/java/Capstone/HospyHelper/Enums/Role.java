@@ -1,4 +1,4 @@
-package Capstone.HospyHelper.entities;
+package Capstone.HospyHelper.Enums;
 
 public enum Role {
     ADMIN,
