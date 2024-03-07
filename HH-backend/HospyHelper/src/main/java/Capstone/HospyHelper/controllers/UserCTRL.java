@@ -42,7 +42,7 @@ public class UserCTRL {
     }
 
     @DeleteMapping("me/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAuthorById(@PathVariable UUID id, @AuthenticationPrincipal User currentAuthenticatedUser) {
         userSRV.deleteById(id, currentAuthenticatedUser);
