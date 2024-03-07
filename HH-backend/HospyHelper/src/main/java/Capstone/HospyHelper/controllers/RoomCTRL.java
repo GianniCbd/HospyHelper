@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/room")
 public class RoomCTRL {
@@ -56,5 +58,23 @@ public class RoomCTRL {
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Long id) {
         roomSRV.deleteRoom(id);
+    }
+
+//******************************************************************************************//
+    @GetMapping("/total-price")
+    public ResponseEntity<Double> getTotalPriceOfAllRooms() {
+        Double totalPrice = roomSRV.getTotalPriceOfAllRooms();
+        return ResponseEntity.ok(totalPrice);
+    }
+
+    @GetMapping("/order-by-price-desc")
+    public ResponseEntity<List<Room>> getRoomsOrderByPriceDesc() {
+        List<Room> rooms = roomSRV.getRoomsOrderByPriceDesc();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+    @GetMapping("/order-by-price-asc")
+    public ResponseEntity<List<Room>> getRoomsOrderByPriceAsc() {
+        List<Room> rooms = roomSRV.getRoomsOrderByPriceAsc();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
 }
