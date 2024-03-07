@@ -38,7 +38,6 @@ public class Room {
         this.maxCustomer = maxCustomer;
         this.roomType = roomType;
     }
-
     public void addBooking(Booking booking) {
         if (bookings == null) {
             bookings = new HashSet<>();

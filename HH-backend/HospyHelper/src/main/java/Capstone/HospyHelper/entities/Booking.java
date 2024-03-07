@@ -35,6 +35,7 @@ public class Booking {
     @JsonIgnore
     private Room room;
 
+
     public Booking(String fullName, String email, String phone, String checkIn, String checkOut,Room room,User user) {
         this.fullName = fullName;
         this.email = email;
@@ -43,6 +44,10 @@ public class Booking {
         this.checkOut = checkOut;
         this.room = room;
         this.user = user;
+
     }
+
+
+
 }
 

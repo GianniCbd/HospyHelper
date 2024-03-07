@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -32,11 +31,13 @@ public class BookingSRV {
         return bookingDAO.findAll(pageable);
     }
 
-    @Transactional
+
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO, User user) {
         Room room = roomDAO.findById(bookingDTO.roomId()).orElseThrow(() -> new NotFoundException(bookingDTO.roomId()));
         Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room, user);
         bookingDAO.save(booking);
+
+        // Creare un oggetto BookingResponseDTO dalla prenotazione salvata
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 booking.getFullName(),
                 booking.getEmail(),
@@ -44,23 +45,33 @@ public class BookingSRV {
                 booking.getCheckIn(),
                 booking.getCheckOut()
         );
+
         return responseDTO;
     }
-
 
     public Booking findById(Long id) {
         return bookingDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public Booking updateBooking(Long id, BookingDTO bookingDTO) {
+    public BookingResponseDTO updateBooking(Long id, BookingDTO bookingDTO) {
         Booking existingBooking = bookingDAO.findById(id).orElseThrow(() -> new NotFoundException("Booking not found with ID: " + id));
         existingBooking.setFullName(bookingDTO.fullName());
         existingBooking.setEmail(bookingDTO.email());
         existingBooking.setPhone(bookingDTO.phone());
         existingBooking.setCheckIn(bookingDTO.checkIn());
         existingBooking.setCheckOut(bookingDTO.checkOut());
-//        existingBooking.setRoom(bookingDTO.room());
-        return bookingDAO.save(existingBooking);
+
+        existingBooking = bookingDAO.save(existingBooking);
+
+        BookingResponseDTO responseDTO = new BookingResponseDTO(
+                existingBooking.getFullName(),
+                existingBooking.getEmail(),
+                existingBooking.getPhone(),
+                existingBooking.getCheckIn(),
+                existingBooking.getCheckOut()
+        );
+
+        return responseDTO;
     }
 
     public void deleteById(Long id) {

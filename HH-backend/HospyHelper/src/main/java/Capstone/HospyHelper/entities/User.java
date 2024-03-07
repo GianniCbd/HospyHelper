@@ -43,6 +43,7 @@ public class User implements UserDetails {
     private Set<Employee> employees = new HashSet<>();
 
 
+
     public User(String email, String password, String name, String surname) {
         this.email = email;
         this.password = password;

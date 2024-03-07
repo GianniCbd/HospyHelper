@@ -5,7 +5,6 @@ import Capstone.HospyHelper.entities.User;
 import Capstone.HospyHelper.payloads.BookingDTO;
 import Capstone.HospyHelper.payloads.BookingResponseDTO;
 import Capstone.HospyHelper.services.BookingSRV;
-import Capstone.HospyHelper.services.RoomSRV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,8 +17,7 @@ public class BookingCTRL {
 
     @Autowired
     BookingSRV bookingSRV;
-    @Autowired
-    private RoomSRV roomSRV;
+
 
     @GetMapping
     public Page<Booking> getAll(@RequestParam(defaultValue = "0") int pageNumber,
@@ -28,13 +26,12 @@ public class BookingCTRL {
         return bookingSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-        @PostMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookingResponseDTO saveBooking(@RequestBody BookingDTO bookingDTO, @AuthenticationPrincipal User currentAuthenticatedUser) {
 
         return this.bookingSRV.saveBooking(bookingDTO, currentAuthenticatedUser);
     }
-
 
     @GetMapping("/{id}")
     public Booking findById(@PathVariable Long id) {
@@ -42,7 +39,7 @@ public class BookingCTRL {
     }
 
     @PutMapping("/{id}")
-    public Booking updateBooking(@PathVariable Long id, @RequestBody BookingDTO bookingDTO) {
+    public BookingResponseDTO updateBooking(@PathVariable Long id, @RequestBody BookingDTO bookingDTO) {
         return bookingSRV.updateBooking(id,bookingDTO);
     }
 

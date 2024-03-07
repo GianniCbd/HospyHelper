@@ -31,7 +31,6 @@ public class RoomCTRL {
         return roomSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Room saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
@@ -40,7 +39,6 @@ public class RoomCTRL {
         }
         return this.roomSRV.saveRoom(roomDTO);
     }
-
 
 
     @GetMapping("/{id}")
