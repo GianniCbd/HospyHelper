@@ -36,8 +36,6 @@ public class BookingSRV {
         Room room = roomDAO.findById(bookingDTO.roomId()).orElseThrow(() -> new NotFoundException(bookingDTO.roomId()));
         Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room, user);
         bookingDAO.save(booking);
-
-        // Creare un oggetto BookingResponseDTO dalla prenotazione salvata
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 booking.getFullName(),
                 booking.getEmail(),
@@ -60,9 +58,7 @@ public class BookingSRV {
         existingBooking.setPhone(bookingDTO.phone());
         existingBooking.setCheckIn(bookingDTO.checkIn());
         existingBooking.setCheckOut(bookingDTO.checkOut());
-
         existingBooking = bookingDAO.save(existingBooking);
-
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 existingBooking.getFullName(),
                 existingBooking.getEmail(),
@@ -70,7 +66,6 @@ public class BookingSRV {
                 existingBooking.getCheckIn(),
                 existingBooking.getCheckOut()
         );
-
         return responseDTO;
     }
 

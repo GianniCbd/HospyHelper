@@ -7,6 +7,7 @@ import Capstone.HospyHelper.services.RoomSRV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,15 +32,16 @@ public class RoomCTRL {
         return roomSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-    @PostMapping
+
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public Room saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
+    public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        return this.roomSRV.saveRoom(roomDTO);
+        Room savedRoom = roomSRV.saveRoom(roomDTO);
+        return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
     }
-
 
     @GetMapping("/{id}")
     public Room findById(@PathVariable Long id) {

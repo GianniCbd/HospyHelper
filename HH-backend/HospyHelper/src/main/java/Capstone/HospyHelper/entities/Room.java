@@ -1,6 +1,6 @@
 package Capstone.HospyHelper.entities;
 
-import Capstone.HospyHelper.Enums.RoomType;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +25,11 @@ public class Room {
     private int number;
     private double price;
     private int maxCustomer;
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
+//    private RoomType roomType;
+
+    @ManyToOne
+    @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 
     @OneToMany(mappedBy = "room")
@@ -37,6 +41,7 @@ public class Room {
         this.price = price;
         this.maxCustomer = maxCustomer;
         this.roomType = roomType;
+
     }
     public void addBooking(Booking booking) {
         if (bookings == null) {
