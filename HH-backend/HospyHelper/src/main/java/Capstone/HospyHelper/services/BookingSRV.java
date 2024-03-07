@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class BookingSRV {
@@ -68,9 +70,18 @@ public class BookingSRV {
         );
         return responseDTO;
     }
-
     public void deleteById(Long id) {
         bookingDAO.deleteById(id);
+    }
+
+    //*******************************************************************************
+    public List<Booking> findByEmail(String email) {
+        return bookingDAO.findByEmail(email);
+    }
+
+
+    public List<Booking> findByFullNameAndPhone(String fullName, String phone) {
+        return bookingDAO.findByFullNameAndPhone(fullName, phone);
     }
 
 

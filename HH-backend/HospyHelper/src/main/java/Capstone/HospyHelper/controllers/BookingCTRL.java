@@ -8,8 +8,11 @@ import Capstone.HospyHelper.services.BookingSRV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/booking")
@@ -48,6 +51,18 @@ public class BookingCTRL {
         bookingSRV.deleteById(id);
     }
 
+    //***********************************************************************************************
 
+    @GetMapping("/by-email")
+    public ResponseEntity<List<Booking>> findByEmail(@RequestParam String email) {
+        List<Booking> bookings = bookingSRV.findByEmail(email);
+        return ResponseEntity.ok(bookings);
+    }
 
+    @GetMapping("/by-fullness-and-phone")
+    public ResponseEntity<List<Booking>> findByFullNameAndPhone(@RequestParam String fullName,
+                                                                @RequestParam String phone) {
+        List<Booking> bookings = bookingSRV.findByFullNameAndPhone(fullName, phone);
+        return ResponseEntity.ok(bookings);
+    }
 }
