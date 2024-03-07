@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -75,15 +76,44 @@ public class BookingSRV {
     }
 
     //*******************************************************************************
-    public List<Booking> findByEmail(String email) {
-        return bookingDAO.findByEmail(email);
+//    public List<Booking> findByEmail(String email) {
+//        return bookingDAO.findByEmail(email);
+//    }
+//
+//
+//    public List<Booking> findByFullNameAndPhone(String fullName, String phone) {
+//        return bookingDAO.findByFullNameAndPhone(fullName, phone);
+//    }
+//
+//    public List<Booking> findByPartialName(String partialName) {
+//        return bookingDAO.findByPartialName(partialName);
+//    }
+
+    public List<BookingResponseDTO> findByEmail(String email) {
+        List<Booking> bookings = bookingDAO.findByEmail(email);
+        return mapToDtoList(bookings);
     }
 
-
-    public List<Booking> findByFullNameAndPhone(String fullName, String phone) {
-        return bookingDAO.findByFullNameAndPhone(fullName, phone);
+    public List<BookingResponseDTO> findByFullNameAndPhone(String fullName, String phone) {
+        List<Booking> bookings = bookingDAO.findByFullNameAndPhone(fullName, phone);
+        return mapToDtoList(bookings);
     }
 
+    public List<BookingResponseDTO> findByPartialName(String partialName) {
+        List<Booking> bookings = bookingDAO.findByPartialName(partialName);
+        return mapToDtoList(bookings);
+    }
 
+    private List<BookingResponseDTO> mapToDtoList(List<Booking> bookings) {
+        return bookings.stream()
+                .map(booking -> new BookingResponseDTO(
+                        booking.getFullName(),
+                        booking.getEmail(),
+                        booking.getPhone(),
+                        booking.getCheckIn(),
+                        booking.getCheckOut()
+                ))
+                .collect(Collectors.toList());
+    }
 
 }

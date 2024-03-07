@@ -17,4 +17,7 @@ public interface BookingDAO extends JpaRepository<Booking, Long> {
     @Query("SELECT b FROM Booking b WHERE b.fullName = :fullName AND b.phone = :phone")
     List<Booking> findByFullNameAndPhone(@Param("fullName") String fullName, @Param("phone") String phone);
 
+    @Query("SELECT b FROM Booking b WHERE LOWER(b.fullName) LIKE LOWER(concat('%', :fullName, '%'))")
+    List<Booking> findByPartialName(@Param("fullName") String fullName);
+
 }

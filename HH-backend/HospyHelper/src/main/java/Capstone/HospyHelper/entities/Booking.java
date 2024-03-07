@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "booking")
 @Getter
@@ -22,8 +24,8 @@ public class Booking {
         private String fullName;
         private String email;
         private String phone;
-        private String checkIn;
-        private String checkOut;
+        private LocalDate checkIn;
+        private LocalDate checkOut;
 
     @JsonIgnoreProperties({"user"})
     @ManyToOne
@@ -36,7 +38,7 @@ public class Booking {
     private Room room;
 
 
-    public Booking(String fullName, String email, String phone, String checkIn, String checkOut,Room room,User user) {
+    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut,Room room,User user) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
@@ -46,7 +48,6 @@ public class Booking {
         this.user = user;
 
     }
-
 
 
 }

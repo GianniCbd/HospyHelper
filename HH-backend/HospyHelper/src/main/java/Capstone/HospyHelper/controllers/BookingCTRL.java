@@ -54,15 +54,19 @@ public class BookingCTRL {
     //***********************************************************************************************
 
     @GetMapping("/by-email")
-    public ResponseEntity<List<Booking>> findByEmail(@RequestParam String email) {
-        List<Booking> bookings = bookingSRV.findByEmail(email);
+    public ResponseEntity<List<BookingResponseDTO>> findByEmail(@RequestParam String email) {
+        List<BookingResponseDTO> bookings = bookingSRV.findByEmail(email);
+        return ResponseEntity.ok(bookings);
+    }
+    @GetMapping("/by-fullness-and-phone")
+    public ResponseEntity<List<BookingResponseDTO>> findByFullNameAndPhone(@RequestParam String fullName,
+                                                                           @RequestParam String phone) {
+        List<BookingResponseDTO> bookings = bookingSRV.findByFullNameAndPhone(fullName, phone);
         return ResponseEntity.ok(bookings);
     }
 
-    @GetMapping("/by-fullness-and-phone")
-    public ResponseEntity<List<Booking>> findByFullNameAndPhone(@RequestParam String fullName,
-                                                                @RequestParam String phone) {
-        List<Booking> bookings = bookingSRV.findByFullNameAndPhone(fullName, phone);
-        return ResponseEntity.ok(bookings);
+    @GetMapping("/findByPartialName/{partialName}")
+    public List<BookingResponseDTO> findByPartialName(@PathVariable String partialName) {
+        return bookingSRV.findByPartialName(partialName);
     }
 }
