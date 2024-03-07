@@ -51,7 +51,7 @@ public class RoomSRV {
         Room existingRoom = roomDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingRoom.setNumber(roomDTO.number());
         existingRoom.setPrice(roomDTO.price());
-        existingRoom.setMaxCustomer(roomDTO.maxCostumer());
+        existingRoom.setMaxCostumer(roomDTO.maxCostumer());
         return roomDAO.save(existingRoom);
     }
     public void deleteRoom(Long id) {
@@ -69,4 +69,11 @@ public class RoomSRV {
     public List<Room> getRoomsOrderByPriceAsc() {
         return roomDAO.getRoomsOrderByPriceAsc();
     }
+    public List<Room> getRoomsOrderByRoomNumberDesc() {
+        return roomDAO.getRoomsOrderByRoomNumberDesc();
+    }
+    public List<Room> getRoomsOrderByRoomNumberAsc() {
+        return roomDAO.getRoomsOrderByRoomNumberAsc();
+    }
+
 }

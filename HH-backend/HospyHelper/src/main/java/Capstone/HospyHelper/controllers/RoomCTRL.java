@@ -27,6 +27,7 @@ public class RoomCTRL {
 //    RoomSRV roomSRV;
 
 
+
     @GetMapping
     public Page<Room> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                              @RequestParam(defaultValue = "10") int pageSize,
@@ -77,4 +78,16 @@ public class RoomCTRL {
         List<Room> rooms = roomSRV.getRoomsOrderByPriceAsc();
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
+
+    @GetMapping("/order-by-room-number-desc")
+    public ResponseEntity<List<Room>> getRoomsOrderByRoomNumberDesc() {
+        List<Room> rooms = roomSRV.getRoomsOrderByRoomNumberDesc();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+    @GetMapping("/order-by-room-number-asc")
+    public ResponseEntity<List<Room>> getRoomsOrderByRoomNumberAsc() {
+        List<Room> rooms = roomSRV.getRoomsOrderByRoomNumberAsc();
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
+
 }

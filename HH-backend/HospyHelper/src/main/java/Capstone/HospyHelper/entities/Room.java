@@ -24,7 +24,7 @@ public class Room {
     private long id;
     private int number;
     private double price;
-    private int maxCustomer;
+    private int maxCostumer;
 //    @Enumerated(EnumType.STRING)
 //    private RoomType roomType;
 
@@ -36,10 +36,10 @@ public class Room {
     @JsonIgnore
     private Set<Booking> bookings;
 
-    public Room(int number, double price, int maxCustomer, RoomType roomType) {
+    public Room(int number, double price, int maxCostumer, RoomType roomType) {
         this.number = number;
         this.price = price;
-        this.maxCustomer = maxCustomer;
+        this.maxCostumer = maxCostumer;
         this.roomType = roomType;
 
     }

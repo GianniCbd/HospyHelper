@@ -47,4 +47,7 @@ public class BookingCTRL {
     public void deleteBooking(@PathVariable Long id) {
         bookingSRV.deleteById(id);
     }
+
+
+
 }

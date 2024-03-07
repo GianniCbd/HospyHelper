@@ -18,4 +18,11 @@ public interface RoomDAO extends JpaRepository<Room, Long> {
 
     @Query("SELECT r FROM Room r ORDER BY r.price ASC")
     List<Room> getRoomsOrderByPriceAsc();
+
+    @Query("SELECT r FROM Room r ORDER BY r.number DESC")
+    List<Room> getRoomsOrderByRoomNumberDesc();
+    @Query("SELECT r FROM Room r ORDER BY r.number ASC")
+    List<Room> getRoomsOrderByRoomNumberAsc();
+
+
 }
