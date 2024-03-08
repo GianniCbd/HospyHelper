@@ -52,8 +52,8 @@ public class RoomCTRL {
     }
 
     @PutMapping("/{id}")
-    public Room updateBooking(@PathVariable Long id, @RequestBody RoomDTO roomDTO) {
-        return roomSRV.updateBooking(id,roomDTO);
+    public Room updateAccommodation(@PathVariable Long id, @RequestBody RoomDTO roomDTO) {
+        return roomSRV.updateRoom(id,roomDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -25,8 +25,6 @@ public class Room {
     private int number;
     private double price;
     private int maxCostumer;
-//    @Enumerated(EnumType.STRING)
-//    private RoomType roomType;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")

@@ -1,7 +1,7 @@
 package Capstone.HospyHelper.controllers;
 
 import Capstone.HospyHelper.entities.Booking;
-import Capstone.HospyHelper.entities.User;
+import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.payloads.BookingDTO;
 import Capstone.HospyHelper.payloads.BookingResponseDTO;
 import Capstone.HospyHelper.services.BookingSRV;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +31,14 @@ public class BookingCTRL {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingResponseDTO saveBooking(@RequestBody BookingDTO bookingDTO, @AuthenticationPrincipal User currentAuthenticatedUser) {
+    public BookingResponseDTO saveBooking(@RequestBody BookingDTO bookingDTO, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
 
-        return this.bookingSRV.saveBooking(bookingDTO, currentAuthenticatedUser);
+        return this.bookingSRV.saveBooking(bookingDTO);
     }
+
 
     @GetMapping("/{id}")
     public Booking findById(@PathVariable Long id) {

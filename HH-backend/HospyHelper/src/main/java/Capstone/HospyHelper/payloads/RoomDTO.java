@@ -8,7 +8,6 @@ public record RoomDTO(
         int maxCostumer,
        RoomType roomType
 
-
 ) {
 
 }

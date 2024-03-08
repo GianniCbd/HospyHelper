@@ -34,14 +34,10 @@ public class User implements UserDetails {
     @Enumerated (EnumType.STRING)
     private Set<Role> roles=new HashSet<>();
 
-    @JsonIgnoreProperties({"user"})
-    @OneToMany(mappedBy = "user")
-    private Set<Booking> bookings;
 
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user")
     private Set<Employee> employees = new HashSet<>();
-
 
 
     public User(String email, String password, String name, String surname) {

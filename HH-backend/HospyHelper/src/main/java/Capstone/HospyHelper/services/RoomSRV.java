@@ -47,7 +47,7 @@ public class RoomSRV {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
-    public Room updateBooking(Long id, RoomDTO roomDTO) {
+    public Room updateRoom(Long id, RoomDTO roomDTO) {
         Room existingRoom = roomDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingRoom.setNumber(roomDTO.number());
         existingRoom.setPrice(roomDTO.price());

@@ -2,10 +2,10 @@ package Capstone.HospyHelper.services;
 
 import Capstone.HospyHelper.entities.Booking;
 import Capstone.HospyHelper.entities.Room;
-import Capstone.HospyHelper.entities.User;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.payloads.BookingDTO;
 import Capstone.HospyHelper.payloads.BookingResponseDTO;
+import Capstone.HospyHelper.repositories.AccommodationDAO;
 import Capstone.HospyHelper.repositories.BookingDAO;
 import Capstone.HospyHelper.repositories.RoomDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,8 @@ public class BookingSRV {
     BookingDAO bookingDAO;
     @Autowired
     RoomDAO roomDAO;
+    @Autowired
+    private AccommodationDAO accommodationDAO;
 
 
     public Page<Booking> getAll(int pageNumber, int pageSize, String orderBy) {
@@ -35,9 +37,9 @@ public class BookingSRV {
     }
 
 
-    public BookingResponseDTO saveBooking(BookingDTO bookingDTO, User user) {
+    public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
         Room room = roomDAO.findById(bookingDTO.roomId()).orElseThrow(() -> new NotFoundException(bookingDTO.roomId()));
-        Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room, user);
+        Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room);
         bookingDAO.save(booking);
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 booking.getFullName(),

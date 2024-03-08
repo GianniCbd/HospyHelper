@@ -1,7 +1,6 @@
 package Capstone.HospyHelper.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "booking")
@@ -27,10 +27,10 @@ public class Booking {
         private LocalDate checkIn;
         private LocalDate checkOut;
 
-    @JsonIgnoreProperties({"user"})
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
+    @OneToMany(mappedBy = "booking")
+    @JsonIgnore
+    private Set<Accommodation> accommodations;
 
     @OneToOne
     @JoinColumn(name = "id_room")
@@ -38,15 +38,13 @@ public class Booking {
     private Room room;
 
 
-    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut,Room room,User user) {
+    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut,Room room) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.room = room;
-        this.user = user;
-
     }
 
 
