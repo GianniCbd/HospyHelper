@@ -7,11 +7,13 @@ import Capstone.HospyHelper.payloads.BookingResponseDTO;
 import Capstone.HospyHelper.services.BookingSRV;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -72,5 +74,19 @@ public class BookingCTRL {
     @GetMapping("/findByPartialName/{partialName}")
     public List<BookingResponseDTO> findByPartialName(@PathVariable String partialName) {
         return bookingSRV.findByPartialName(partialName);
+    }
+
+    @GetMapping("/checkIn-between")
+    public List<BookingResponseDTO> findBookingsByCheckInBetween(
+            @RequestParam("startCheckIn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startCheckIn,
+            @RequestParam("endCheckIn") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endCheckIn) {
+        return bookingSRV.findBookingsByCheckInBetween(startCheckIn, endCheckIn);
+    }
+
+    @GetMapping("/checkOut-between")
+    public List<BookingResponseDTO> findBookingsByCheckOutBetween(
+            @RequestParam("startCheckOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startCheckOut,
+            @RequestParam("endCheckOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endCheckOut) {
+        return bookingSRV.findBookingsByCheckOutBetween(startCheckOut, endCheckOut);
     }
 }

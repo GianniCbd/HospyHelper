@@ -39,7 +39,7 @@ public class UserSRV {
 
     public User save(UserDTO userDTO) throws IOException {
         if (userDAO.existsByEmail(userDTO.email())) throw new BadRequestException("email already exist");
-        User user = new User(userDTO.email(), passwordEncoder.encode(userDTO.password()), userDTO.name(), userDTO.surname());
+        User user = new User(userDTO.email(), passwordEncoder.encode(userDTO.password()),passwordEncoder.encode(userDTO.confirmPassword()), userDTO.name(), userDTO.surname());
         //    emailSender.sendRegistrationEmail(userDTO);
         return userDAO.save(user);
     }
@@ -60,6 +60,7 @@ public class UserSRV {
         if (!user.getId().equals(found.getId())) throw new UnauthorizedException("User with wrong id");
         found.setEmail(userDTO.email());
         found.setPassword(userDTO.password());
+        found.setConfirmPassword(user.getConfirmPassword());
         found.setName(userDTO.name());
         found.setSurname(userDTO.surname());
 

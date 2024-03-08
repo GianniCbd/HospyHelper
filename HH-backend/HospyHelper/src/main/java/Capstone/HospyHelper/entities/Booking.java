@@ -27,16 +27,15 @@ public class Booking {
         private LocalDate checkIn;
         private LocalDate checkOut;
 
-
     @OneToMany(mappedBy = "booking")
     @JsonIgnore
     private Set<Accommodation> accommodations;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_room")
     @JsonIgnore
     private Room room;
-
 
     public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut,Room room) {
         this.fullName = fullName;
@@ -46,7 +45,5 @@ public class Booking {
         this.checkOut = checkOut;
         this.room = room;
     }
-
-
 }
 

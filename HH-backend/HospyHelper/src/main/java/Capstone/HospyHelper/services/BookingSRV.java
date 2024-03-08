@@ -5,7 +5,6 @@ import Capstone.HospyHelper.entities.Room;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.payloads.BookingDTO;
 import Capstone.HospyHelper.payloads.BookingResponseDTO;
-import Capstone.HospyHelper.repositories.AccommodationDAO;
 import Capstone.HospyHelper.repositories.BookingDAO;
 import Capstone.HospyHelper.repositories.RoomDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,8 +26,7 @@ public class BookingSRV {
     BookingDAO bookingDAO;
     @Autowired
     RoomDAO roomDAO;
-    @Autowired
-    private AccommodationDAO accommodationDAO;
+
 
 
     public Page<Booking> getAll(int pageNumber, int pageSize, String orderBy) {
@@ -78,18 +77,6 @@ public class BookingSRV {
     }
 
     //*******************************************************************************
-//    public List<Booking> findByEmail(String email) {
-//        return bookingDAO.findByEmail(email);
-//    }
-//
-//
-//    public List<Booking> findByFullNameAndPhone(String fullName, String phone) {
-//        return bookingDAO.findByFullNameAndPhone(fullName, phone);
-//    }
-//
-//    public List<Booking> findByPartialName(String partialName) {
-//        return bookingDAO.findByPartialName(partialName);
-//    }
 
     public List<BookingResponseDTO> findByEmail(String email) {
         List<Booking> bookings = bookingDAO.findByEmail(email);
@@ -106,6 +93,17 @@ public class BookingSRV {
         return mapToDtoList(bookings);
     }
 
+    public List<BookingResponseDTO> findBookingsByCheckInBetween(LocalDate startCheckIn, LocalDate endCheckIn) {
+        List<Booking> bookings = bookingDAO.findByCheckInBetween(startCheckIn, endCheckIn);
+        return mapToDtoList(bookings);
+    }
+
+    public List<BookingResponseDTO> findBookingsByCheckOutBetween(LocalDate startCheckOut, LocalDate endCheckOut) {
+        List<Booking> bookings = bookingDAO.findByCheckOutBetween(startCheckOut, endCheckOut);
+        return mapToDtoList(bookings);
+    }
+
+
     private List<BookingResponseDTO> mapToDtoList(List<Booking> bookings) {
         return bookings.stream()
                 .map(booking -> new BookingResponseDTO(
@@ -117,5 +115,6 @@ public class BookingSRV {
                 ))
                 .collect(Collectors.toList());
     }
+
 
 }

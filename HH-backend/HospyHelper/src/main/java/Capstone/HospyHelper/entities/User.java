@@ -21,7 +21,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties({"password", "credentialsNonExpired", "accountNonExpired", "authorities", "username", "accountNonLocked", "enabled"})
+@JsonIgnoreProperties({"password","confirmPassword", "credentialsNonExpired", "accountNonExpired", "authorities", "username", "accountNonLocked", "enabled"})
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private UUID id;
     private String email;
     private String password;
+    private String confirmPassword;
     private String name;
     private String surname;
     @Enumerated (EnumType.STRING)
@@ -36,13 +37,14 @@ public class User implements UserDetails {
 
 
     @JsonIgnoreProperties({"user"})
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Employee> employees = new HashSet<>();
 
 
-    public User(String email, String password, String name, String surname) {
+    public User(String email, String password,String confirmPassword, String name, String surname) {
         this.email = email;
         this.password = password;
+        this.confirmPassword = confirmPassword;
         this.name = name;
         this.surname = surname;
 

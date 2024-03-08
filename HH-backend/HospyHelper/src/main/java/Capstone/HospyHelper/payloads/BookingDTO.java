@@ -10,8 +10,8 @@ public record BookingDTO(
        LocalDate checkIn,
 //       @NotEmpty(message = "la data è obbligatoria")
        LocalDate checkOut,
-       long roomId,
-       long accommodationId
+       long roomId
+
 
 ) {
 }

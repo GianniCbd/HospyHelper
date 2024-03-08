@@ -19,21 +19,28 @@ import java.util.List;
 @Service
 public class RoomSRV {
 
-
+    @Autowired
+    StatisticOperation statisticOperation;
     @Autowired
     RoomDAO roomDAO;
     @Autowired
     RoomTypeDAO roomTypeDAO;
+
+
+
 
     public Page<Room> getAll(int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return roomDAO.findAll(pageable);
     }
-//    public Room saveRoom(RoomDTO newRoom) {
-//        return roomDAO.save(
-//                new Room(newRoom.number(), newRoom.price(), newRoom.maxCostumer(),newRoom.roomType())
-//        );
+
+//    public Room saveRoom(RoomDTO roomDTO) {
+//        RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid RoomType Id"));
+//
+//        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.maxCostumer(), roomType);
+//        return roomDAO.save(room);
 //    }
 
     public Room saveRoom(RoomDTO roomDTO) {
@@ -41,8 +48,12 @@ public class RoomSRV {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid RoomType Id"));
 
         Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.maxCostumer(), roomType);
+
+        double calculatedPrice = statisticOperation.calculateRoomPrice(room);
+        room.setPrice(calculatedPrice);
         return roomDAO.save(room);
     }
+
     public Room getRoomById(Long id) {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }

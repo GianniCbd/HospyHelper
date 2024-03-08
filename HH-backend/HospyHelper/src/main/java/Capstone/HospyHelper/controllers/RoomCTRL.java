@@ -36,13 +36,25 @@ public class RoomCTRL {
     }
 
 
+//    @PostMapping("/save")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
+//        if (validation.hasErrors()) {
+//            throw new BadRequestException(validation.getAllErrors());
+//        }
+//        Room savedRoom = roomSRV.saveRoom(roomDTO);
+//        return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
+//    }
+
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
+
         Room savedRoom = roomSRV.saveRoom(roomDTO);
+
         return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
     }
 
