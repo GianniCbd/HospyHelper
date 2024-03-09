@@ -3,6 +3,7 @@ package Capstone.HospyHelper.auth;
 import Capstone.HospyHelper.Enums.Role;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.employee.Employee;
+import Capstone.HospyHelper.post.Post;
 import Capstone.HospyHelper.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -38,6 +39,9 @@ public class User implements UserDetails {
     @Enumerated (EnumType.STRING)
     private Set<Role> roles=new HashSet<>();
 
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Post> posts = new HashSet<>();
 
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
