@@ -1,9 +1,9 @@
 package Capstone.HospyHelper.employee;
 
 import Capstone.HospyHelper.Enums.RoleEmployee;
-import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.accommodation.Accommodation;
+import Capstone.HospyHelper.accommodation.AccommodationDAO;
 import Capstone.HospyHelper.exceptions.NotFoundException;
-import Capstone.HospyHelper.auth.UserDAO;
 import Capstone.HospyHelper.services.StatisticOperation;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +22,9 @@ public class EmployeeSRV {
     @Autowired
     EmployeeDAO employeeDAO;
     @Autowired
-    UserDAO userDAO;
-    @Autowired
     StatisticOperation statisticOperation;
+    @Autowired
+    private AccommodationDAO accommodationDAO;
 
     public Page<Employee> getAll(int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
@@ -33,9 +32,9 @@ public class EmployeeSRV {
         return employeeDAO.findAll(pageable);
     }
 
-    public Employee saveEmployee(EmployeeDTO employeeDTO, UUID userId) {
-        User user = userDAO.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+    public Employee saveEmployee(EmployeeDTO employeeDTO, Long accommodation_id) {
+        Accommodation accommodation = accommodationDAO.findById(accommodation_id)
+                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + accommodation_id + " not found"));
 
         Employee employee = new Employee(
                 employeeDTO.name(),
@@ -44,7 +43,7 @@ public class EmployeeSRV {
                 employeeDTO.email(),
                 employeeDTO.salary(),
                 employeeDTO.roleEmployee(),
-                user
+                accommodation
         );
         return employeeDAO.save(employee);
     }

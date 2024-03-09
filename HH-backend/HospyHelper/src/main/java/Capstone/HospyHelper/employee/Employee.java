@@ -1,7 +1,7 @@
 package Capstone.HospyHelper.employee;
 
 import Capstone.HospyHelper.Enums.RoleEmployee;
-import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.accommodation.Accommodation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,16 +30,16 @@ public class Employee {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
 
-    public Employee(String name, String surname, int age, String email, double salary, RoleEmployee roleEmployee,User user) {
+    public Employee(String name, String surname, int age, String email, double salary, RoleEmployee roleEmployee,Accommodation accommodation) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
         this.salary = salary;
         this.roleEmployee = roleEmployee;
-        this.user = user;
+        this.accommodation = accommodation;
     }
 }

@@ -2,12 +2,16 @@ package Capstone.HospyHelper.accommodation;
 
 import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.booking.Booking;
+import Capstone.HospyHelper.employee.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "accommodation")
@@ -25,6 +29,9 @@ public class Accommodation {
     @ManyToOne
     @JsonIgnore
     private Booking booking;
+
+    @OneToMany(mappedBy = "accommodation",cascade = CascadeType.ALL)
+    private Set<Employee> employees = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore

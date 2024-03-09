@@ -2,7 +2,6 @@ package Capstone.HospyHelper.auth;
 
 import Capstone.HospyHelper.Enums.Role;
 import Capstone.HospyHelper.accommodation.Accommodation;
-import Capstone.HospyHelper.employee.Employee;
 import Capstone.HospyHelper.post.Post;
 import Capstone.HospyHelper.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,9 +42,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Post> posts = new HashSet<>();
 
-    @JsonIgnoreProperties({"user"})
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private Set<Employee> employees = new HashSet<>();
 
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)

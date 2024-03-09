@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/employee")
@@ -27,13 +26,13 @@ public class EmployeeCTRL {
         return employeeSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-    @PostMapping("/save/{userId}")
+    @PostMapping("/save/{accommodation_id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Employee> saveEmployee(@RequestBody @Validated EmployeeDTO employeeDTO, @PathVariable UUID userId, BindingResult validation) throws IOException {
+    public ResponseEntity<Employee> saveEmployee(@RequestBody @Validated EmployeeDTO employeeDTO, @PathVariable Long accommodation_id, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Employee savedEmployee = employeeSRV.saveEmployee(employeeDTO, userId);
+        Employee savedEmployee = employeeSRV.saveEmployee(employeeDTO, accommodation_id);
         return ResponseEntity.ok(savedEmployee);
     }
 
