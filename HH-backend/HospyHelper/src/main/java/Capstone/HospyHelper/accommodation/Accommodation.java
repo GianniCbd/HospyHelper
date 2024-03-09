@@ -3,6 +3,7 @@ package Capstone.HospyHelper.accommodation;
 import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.booking.Booking;
 import Capstone.HospyHelper.employee.Employee;
+import Capstone.HospyHelper.opex.OperationExpenses;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class Accommodation {
 
     @OneToMany(mappedBy = "accommodation",cascade = CascadeType.ALL)
     private Set<Employee> employees = new HashSet<>();
+
+    @OneToMany(mappedBy = "accommodation",cascade = CascadeType.ALL)
+    private Set<OperationExpenses> operationExpenses = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore

@@ -28,6 +28,7 @@ public class Room {
     private double price;
     private int maxCostumer;
 
+
     @ManyToOne( cascade = CascadeType.ALL)
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;

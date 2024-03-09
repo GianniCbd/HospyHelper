@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.services;
 
+import Capstone.HospyHelper.employee.Employee;
 import Capstone.HospyHelper.room.Room;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,13 @@ public class StatisticOperation {
         int currentMonth = LocalDate.now().getMonthValue();
         return currentMonth >= 6 && currentMonth <= 8;
     }
-//    public double calculateTotalCost(Employee employee, Room room) {
-//        double employeeSalary = calculateEmployeeSalary(employee);
-//        double roomPrice = calculateRoomPrice(room);
-//        return employeeSalary + roomPrice;
-//    }
-//    public double calculateEmployeeSalary(Employee employee) {
-//        return employee.getSalary();
-//    }
+    public double calculateTotalCost(Employee employee, Room room) {
+        double employeeSalary = calculateEmployeeSalary(employee);
+        double roomPrice = calculateRoomPrice(room);
+        return employeeSalary + roomPrice;
+    }
+    public double calculateEmployeeSalary(Employee employee) {
+        return employee.getSalary();
+    }
 
 }

@@ -9,5 +9,4 @@ public record RoomDTO(
        RoomType roomType
 
 ) {
-
 }
