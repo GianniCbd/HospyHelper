@@ -1,6 +1,6 @@
 package Capstone.HospyHelper.security;
 
-import Capstone.HospyHelper.entities.User;
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
