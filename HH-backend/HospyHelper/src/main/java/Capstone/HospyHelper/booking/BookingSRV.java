@@ -3,6 +3,7 @@ package Capstone.HospyHelper.booking;
 import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.room.RoomDAO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Slf4j
 @Service
 public class BookingSRV {
 
@@ -42,6 +43,7 @@ public class BookingSRV {
                 booking.getPhone(),
                 booking.getCheckIn(),
                 booking.getCheckOut()
+
         );
 
         return responseDTO;
@@ -98,7 +100,9 @@ public class BookingSRV {
         List<Booking> bookings = bookingDAO.findByCheckOutBetween(startCheckOut, endCheckOut);
         return mapToDtoList(bookings);
     }
-
+    public Integer getTotalGuestsByDate(LocalDate targetDate) {
+        return bookingDAO.getTotalGuestsByDate(targetDate);
+    }
 
     private List<BookingResponseDTO> mapToDtoList(List<Booking> bookings) {
         return bookings.stream()

@@ -1,6 +1,7 @@
 package Capstone.HospyHelper.booking;
 
 import Capstone.HospyHelper.exceptions.BadRequestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/booking")
 public class BookingCTRL {
@@ -86,5 +87,11 @@ public class BookingCTRL {
             @RequestParam("startCheckOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startCheckOut,
             @RequestParam("endCheckOut") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endCheckOut) {
         return bookingSRV.findBookingsByCheckOutBetween(startCheckOut, endCheckOut);
+    }
+
+    @GetMapping("/totalGuestsByDate")
+    public Integer getTotalGuestsByDate(@RequestParam("targetDate") String targetDateString) {
+        LocalDate targetDate = LocalDate.parse(targetDateString);
+        return bookingSRV.getTotalGuestsByDate(targetDate);
     }
 }

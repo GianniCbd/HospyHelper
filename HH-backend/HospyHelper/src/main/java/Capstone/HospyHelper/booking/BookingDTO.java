@@ -1,9 +1,6 @@
 package Capstone.HospyHelper.booking;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -21,8 +18,9 @@ public record BookingDTO(
         @NotNull(message = "Check-out date cannot be empty")
         @Future(message = "Check-out date must be in the future")
        LocalDate checkOut,
-       long roomId
+       long roomId,
 
+        int numberOfGuests
 
 ) {
 }

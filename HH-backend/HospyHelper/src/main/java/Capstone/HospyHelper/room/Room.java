@@ -26,7 +26,7 @@ public class Room {
     @Column(name = "numberRoom", unique = true, nullable = false)
     private int number;
     private double price;
-    private int maxCostumer;
+    private int capacity;
 
 
     @ManyToOne( cascade = CascadeType.ALL)
@@ -37,10 +37,11 @@ public class Room {
     @JsonIgnore
     private Set<Booking> bookings;
 
-    public Room(int number, double price, int maxCostumer, RoomType roomType) {
+    public Room(int number, double price, int capacity, RoomType roomType) {
         this.number = number;
         this.price = price;
-        this.maxCostumer = maxCostumer;
+        this.capacity = capacity;
         this.roomType = roomType;
     }
+
 }

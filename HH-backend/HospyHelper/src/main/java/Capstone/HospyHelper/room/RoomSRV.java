@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.room;
 
+import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.roomType.RoomType;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.roomType.RoomTypeDAO;
@@ -25,30 +26,23 @@ public class RoomSRV {
     RoomTypeDAO roomTypeDAO;
 
 
-
-
     public Page<Room> getAll(int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return roomDAO.findAll(pageable);
     }
 
-//    public Room saveRoom(RoomDTO roomDTO) {
-//        RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("Invalid RoomType Id"));
-//
-//        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.maxCostumer(), roomType);
-//        return roomDAO.save(room);
-//    }
-
     public Room saveRoom(RoomDTO roomDTO) {
         RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid RoomType Id"));
-
-        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.maxCostumer(), roomType);
-
+                .orElseThrow(() -> new BadRequestException("Invalid RoomType Id"));
+        int capacity = roomDTO.capacity();
+        if (capacity < 1 || capacity > 6) {
+            throw new BadRequestException("Capacity must be between 1 to 6.");
+        }
+        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.capacity(), roomType);
         double calculatedPrice = statisticOperation.calculateRoomPrice(room);
         room.setPrice(calculatedPrice);
+
         return roomDAO.save(room);
     }
 
@@ -60,7 +54,7 @@ public class RoomSRV {
         Room existingRoom = roomDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingRoom.setNumber(roomDTO.number());
         existingRoom.setPrice(roomDTO.price());
-        existingRoom.setMaxCostumer(roomDTO.maxCostumer());
+        existingRoom.setCapacity(roomDTO.capacity());
         return roomDAO.save(existingRoom);
     }
     public void deleteRoom(Long id) {

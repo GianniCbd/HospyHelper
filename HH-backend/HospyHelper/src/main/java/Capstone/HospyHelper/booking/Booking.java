@@ -28,6 +28,7 @@ public class Booking {
         private String phone;
         private LocalDate checkIn;
         private LocalDate checkOut;
+        private int numberOfGuests;
 
     @OneToMany(mappedBy = "booking")
     @JsonIgnore
@@ -39,13 +40,16 @@ public class Booking {
     @JsonIgnore
     private Room room;
 
-    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut,Room room) {
+
+    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut, Room room) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.room = room;
+
+        this.numberOfGuests = room.getCapacity();
     }
 }
 
