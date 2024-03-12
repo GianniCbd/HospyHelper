@@ -1,0 +1,74 @@
+.container {
+  height: 100vh;
+  max-width: 100%;
+  background-image: linear-gradient(
+    to left,
+    rgba(121, 121, 118, 0.823),
+    #e9d1b1
+  );
+  padding-top: 50px;
+  cursor: pointer;
+}
+
+.login-container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+.logo {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  z-index: -1;
+}
+
+.card {
+  width: 500px;
+
+  background-color: transparent;
+  border: transparent;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-control {
+  box-shadow: 5px 8px 2px -2px rgb(73, 72, 72);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.placeholder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: gray;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  transform: translateY(-10px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.form-control:focus + .placeholder {
+  opacity: 0;
+}
+
+.form-control:hover {
+  transform: scale(0.98);
+}
+
+.btn {
+  box-shadow: 5px 8px 2px -2px rgb(73, 72, 72);
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}

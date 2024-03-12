@@ -1,0 +1,49 @@
+<div
+  class="container d-flex align-items-center justify-content-center login-container"
+>
+  <img class="logo" src="" alt="Logo" />
+  <div class="card">
+    <div class="card-body">
+      <form #form="ngForm" (ngSubmit)="login(form)">
+        <div class="form-group">
+          <h6 class="mb-5 fs-1">
+            HospyHelper <br />
+            <h5 class="fs-5">Prende per mano il tuo business</h5>
+          </h6>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="form-control"
+            ngModel
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            class="form-control"
+            ngModel
+          />
+        </div>
+        <div class="d-flex justify-content-center">
+          <button
+            type="submit"
+            class="btn btn-primary mt-3"
+            [disabled]="form.invalid"
+          >
+            Accedi
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="d-flex align-items-center justify-content-center">
+      Non hai un account? <a href="/register">Registrati</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<nav
+  class="navbar navbar-expand"
+  [style.background-color]="getBackgroundColor()"
+>
+  <div class="container-fluid">
+    <a [routerLink]="['/intro']" *ngIf="!utente" routerLinkActive="active">
+      <img
+        src="../../../assets/images/HH-Photoroom.png-Photoroom.png"
+        alt=""
+        class="imgLogo"
+        width="30px"
+        style="background-color: transparent"
+      />
+    </a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngIf="utente">
+          <a
+            class="nav-link active text-dark"
+            [routerLink]="['/home']"
+            routerLinkActive="active"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="utente">
+          <a
+            class="nav-link text-dark"
+            [routerLink]="['/servizi']"
+            routerLinkActive="active"
+            >I nostri servizi</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="utente">
+          <a
+            class="nav-link text-dark"
+            [routerLink]="['/profilo']"
+            routerLinkActive="active"
+            >Profilo</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!utente">
+          <a
+            class="nav-link text-dark"
+            [routerLink]="['/login']"
+            routerLinkActive="active"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="!utente">
+          <a
+            class="nav-link text-dark"
+            [routerLink]="['/register']"
+            routerLinkActive="active"
+            >Registrati</a
+          >
+        </li>
+      </ul>
+
+      <div class="d-flex ms-auto">
+        <div
+          class="d-flex justify-content-center align-items-center"
+          *ngIf="utente"
+        >
+          <h6 class="d-none d-md-block d-sm-none">{{ utente.name }}</h6>
+        </div>
+        <button
+          type="button"
+          class="btn btn-primary ms-2"
+          *ngIf="utente"
+          (click)="logout()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-x-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="bg-primary sticky-bottom d-block d-sm-none p-2 fixed-bottom"
+  style="position: fixed; bottom: 0; left: 0; width: 100%"
+>
+  <div class="container-fluid d-flex justify-content-between">
+    <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+      ><i class="bi bi-house-door-fill"></i
+    ></a>
+
+    <a class="nav-link" [routerLink]="['/profilo']">About</a>
+
+    <a
+      class="link logout2 ms-2 rounded-5 nav-link"
+      *ngIf="utente"
+      (click)="logout()"
+    >
+      <i class="fas fa-power-off">X</i></a
+    >
+  </div>
+</div>
