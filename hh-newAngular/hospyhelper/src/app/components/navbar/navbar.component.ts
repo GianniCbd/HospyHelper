@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDto } from 'src/app/auth/user-dto';
 import { AuthService } from 'src/app/auth/auth.service';
-import { LoginRegisterDto } from 'src/app/auth/login-register-dto';
 
 @Component({
   selector: 'app-navbar',
@@ -16,8 +15,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authSrv.restore();
-    this.authSrv.user$.subscribe((user) => {
-      this.utente = user;
+    this.authSrv.user$.subscribe((user$) => {
+      this.utente = user$;
     });
 
     window.addEventListener('scroll', () => {

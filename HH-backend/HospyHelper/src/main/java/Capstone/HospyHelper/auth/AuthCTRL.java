@@ -28,7 +28,7 @@ public class AuthCTRL {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public User register(@RequestBody @Validated UserDTO userDTO, BindingResult validation) throws IOException {
+    public UserResponseDTO register(@RequestBody @Validated UserDTO userDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }

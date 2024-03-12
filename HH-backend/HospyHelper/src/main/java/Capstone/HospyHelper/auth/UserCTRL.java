@@ -28,8 +28,15 @@ public class UserCTRL {
     }
 
     @GetMapping("/me")
-    public User getCurrentUser(@AuthenticationPrincipal User authenticatedCustomer) {
-        return authenticatedCustomer;
+    public UserResponseDTO getCurrentUser(@AuthenticationPrincipal User authenticatedUser) {
+        return new UserResponseDTO(
+                authenticatedUser.getId(),
+                authenticatedUser.getName(),
+                authenticatedUser.getSurname(),
+                authenticatedUser.getEmail(),
+                authenticatedUser.getPassword(),
+                authenticatedUser.getConfirmPassword()
+        );
     }
 
     @PutMapping("me/{id}")

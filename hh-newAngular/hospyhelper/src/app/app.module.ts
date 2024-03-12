@@ -15,6 +15,7 @@ import { Route, RouterModule } from '@angular/router';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
 import { ProfiloComponent } from './components/profilo/profilo.component';
+import { NostriServiziComponent } from './components/nostri-servizi/nostri-servizi.component';
 
 const routes: Route[] = [
   {
@@ -38,6 +39,10 @@ const routes: Route[] = [
     component: ProfiloComponent,
   },
   {
+    path: 'servizi',
+    component: NostriServiziComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
   },
@@ -52,6 +57,7 @@ const routes: Route[] = [
     HomeComponent,
     IntroPageComponent,
     ProfiloComponent,
+    NostriServiziComponent,
   ],
   imports: [
     BrowserModule,

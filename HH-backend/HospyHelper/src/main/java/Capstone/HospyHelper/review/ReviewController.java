@@ -29,7 +29,7 @@ public class ReviewController {
 
     @PostMapping("/save/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Review> saveEmployee(@RequestBody @Validated ReviewDTO reviewDTO, @PathVariable UUID userId, BindingResult validation) throws IOException {
+    public ResponseEntity<Review> saveReview(@RequestBody @Validated ReviewDTO reviewDTO, @PathVariable UUID userId, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }

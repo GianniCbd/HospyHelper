@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,19 +32,31 @@ public class UserSRV {
         return userDAO.findById(UUID.fromString(String.valueOf(id))).orElseThrow(() -> new NotFoundException(String.valueOf(id)));
     }
 
-    public User save(UserDTO userDTO) throws IOException {
-        if (userDAO.existsByEmail(userDTO.email())) throw new BadRequestException("email already exist");
-        User user = new User( userDTO.name(), userDTO.surname(),userDTO.email(), passwordEncoder.encode(userDTO.password()),passwordEncoder.encode(userDTO.confirmPassword()));
-        //    emailSender.sendRegistrationEmail(userDTO);
-        return userDAO.save(user);
-    }
-
-    public boolean getCurrentUser(Authentication authentication) {
-        if (authentication != null) {
-            return userDAO.findByName(authentication.getName());
-        } else {
-            return false;
+    public UserResponseDTO save(UserDTO userDTO) throws IOException {
+        if (userDAO.existsByEmail(userDTO.email())) {
+            throw new BadRequestException("email already exist");
         }
+
+        User user = new User(
+                userDTO.name(),
+                userDTO.surname(),
+                userDTO.email(),
+                passwordEncoder.encode(userDTO.password()),
+                passwordEncoder.encode(userDTO.confirmPassword())
+        );
+
+        // emailSender.sendRegistrationEmail(userDTO);
+
+        User savedUser = userDAO.save(user);
+
+        return new UserResponseDTO(
+                savedUser.getId(),
+                savedUser.getName(),
+                savedUser.getSurname(),
+                savedUser.getEmail(),
+                savedUser.getPassword(),
+                savedUser.getConfirmPassword()
+        );
     }
 
     public User findByEmail(String email) {

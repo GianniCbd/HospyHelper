@@ -39,6 +39,7 @@ public class PostCTRL {
         return ResponseEntity.ok(savedPost);
     }
 
+
     @GetMapping("/{id}")
     public Post findById(@PathVariable Long id) {
         return this.postSRV.getPostById(id);

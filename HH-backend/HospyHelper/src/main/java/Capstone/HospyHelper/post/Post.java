@@ -1,6 +1,7 @@
 package Capstone.HospyHelper.post;
 
 import Capstone.HospyHelper.auth.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class Post {
     private long id;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "content", nullable = false)
     private String content;
     @Column(name = "creationDate", nullable = false)
     private LocalDateTime creationDate;
@@ -33,8 +34,9 @@ public class Post {
     private int shares;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "author_id", nullable = false)
-    private Capstone.HospyHelper.auth.User user;
+    private User user;
 
     public Post(String title, String content, LocalDateTime creationDate, int likes, int views, int shares, User user) {
         this.title = title;
