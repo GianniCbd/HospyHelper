@@ -30,11 +30,11 @@ public class User implements UserDetails {
     @GeneratedValue
     @Column(name = "id",nullable = false)
     private UUID id;
+    private String name;
+    private String surname;
     private String email;
     private String password;
     private String confirmPassword;
-    private String name;
-    private String surname;
     @Enumerated (EnumType.STRING)
     private Set<Role> roles=new HashSet<>();
 
@@ -51,12 +51,12 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Accommodation> accommodations = new HashSet<>();
 
-    public User(String email, String password,String confirmPassword, String name, String surname) {
+    public User(String name, String surname, String email, String password, String confirmPassword) {
+        this.name = name;
+        this.surname = surname;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
-        this.name = name;
-        this.surname = surname;
 
         this.roles.add(Role.ADMIN);
     }

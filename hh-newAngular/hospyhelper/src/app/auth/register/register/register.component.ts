@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.registrationForm = this.fb.group({
-      nome: [
+      name: [
         '',
         [
           Validators.required,
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
           Validators.pattern(/^[a-zA-Z]+$/),
         ],
       ],
-      cognome: [
+      surname: [
         '',
         [
           Validators.required,

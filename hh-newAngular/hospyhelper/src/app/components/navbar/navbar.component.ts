@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserDto } from 'src/app/auth/user-dto';
 import { AuthService } from 'src/app/auth/auth.service';
 import { LoginRegisterDto } from 'src/app/auth/login-register-dto';
-import { CombinedUserDto } from 'src/app/auth/combined-user-dto';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +9,7 @@ import { CombinedUserDto } from 'src/app/auth/combined-user-dto';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  utente!: CombinedUserDto | null;
+  utente!: UserDto | null;
   private scrollY = 0;
 
   constructor(private authSrv: AuthService) {}

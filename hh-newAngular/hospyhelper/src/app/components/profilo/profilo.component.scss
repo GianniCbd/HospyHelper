@@ -1,0 +1,71 @@
+main {
+  background-color: rgb(199, 210, 208);
+  height: 100vh;
+  padding-top: 40px;
+}
+
+.container {
+  padding-top: 40px;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.allInfo {
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.allInfo ul {
+  list-style: none;
+  padding: 0;
+}
+
+.allInfo li {
+  margin-bottom: 10px;
+}
+
+.allInfo label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.allInfo input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.allInfo button {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.listSecond {
+  list-style: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .col-5,
+  .col-7 {
+    width: 100%;
+  }
+}

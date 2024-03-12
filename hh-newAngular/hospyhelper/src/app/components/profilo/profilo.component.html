@@ -1,0 +1,49 @@
+<main>
+  <div class="container">
+    <div class="row d-flex justify-content-between align-items-center">
+      <div class="col-5">
+        <h1>Benvenuto</h1>
+        <p>
+          Questa è la tua pagina aziendale, aggiungi i tuoi contenuti e tieni
+          sotto controllo la tua azienda
+        </p>
+      </div>
+
+      <div
+        class="col-7 d-flex flex-column justify-content-between align-items-center my-5"
+      >
+        <div class="mt-5 text-center">
+          <h1>Cosa vuoi fare?</h1>
+        </div>
+        <div class="row w-100">
+          <div
+            class="col-6 d-flex flex-column justify-content-center align-items-center"
+          >
+            <h4>Controlla le prenotazioni</h4>
+            <p>Clicca qua per vedere tutte le prenotazioni!</p>
+            <a
+              type="button"
+              class="btn btn-primary"
+              [routerLink]="['/tabellaPrenotati']"
+              >Clicca qui</a
+            >
+          </div>
+          <div
+            class="col-6 d-flex flex-column justify-content-center align-items-center"
+          >
+            <h4>Aggiungi Prenotazioni</h4>
+            <p>Clicca qua per aggiungere nuove prenotazioni!</p>
+            <div class="">
+              <a
+                type="button"
+                class="btn btn-primary"
+                [routerLink]="['/gestionePrenotazioni']"
+                >Accedi</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

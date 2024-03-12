@@ -32,7 +32,6 @@ public class AuthCTRL {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-
         return this.userSRV.save(userDTO);
     }
 

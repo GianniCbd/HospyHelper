@@ -5,29 +5,29 @@
     (ngSubmit)="registra()"
   >
     <div class="formGroup">
-      <label for="nome" class="formLabel mb-1">Nome:</label>
+      <label for="name" class="formLabel mb-1">Nome:</label>
       <input
         type="text"
-        id="nome"
-        formControlName="nome"
+        id="name"
+        formControlName="name"
         class="form-control"
         pattern="^[a-zA-Z]+$"
         title="
         {{
-          registrationForm.get('nome')?.hasError('required') &&
-          registrationForm.get('nome')?.touched
+          registrationForm.get('name')?.hasError('required') &&
+          registrationForm.get('name')?.touched
             ? 'Nome richiesto!'
             : ''
         }}
         {{
-          registrationForm.get('nome')?.hasError('minlength') &&
-          registrationForm.get('nome')?.touched
+          registrationForm.get('name')?.hasError('minlength') &&
+          registrationForm.get('name')?.touched
             ? 'Il nome deve essere lungo almeno 3 caratteri.'
             : ''
         }}
         {{
-          registrationForm.get('nome')?.hasError('pattern') &&
-          registrationForm.get('nome')?.touched
+          registrationForm.get('name')?.hasError('pattern') &&
+          registrationForm.get('name')?.touched
             ? 'Il nome deve contenere solo caratteri alfabetici.'
             : ''
         }}
@@ -36,29 +36,29 @@
     </div>
 
     <div class="formGroup">
-      <label for="cognome" class="formLabel mb-1">Cognome:</label>
+      <label for="surname" class="formLabel mb-1">surname:</label>
       <input
         type="text"
-        id="cognome"
-        formControlName="cognome"
+        id="surname"
+        formControlName="surname"
         class="form-control"
         pattern="^[a-zA-Z]+$"
         title="
           {{
-          registrationForm.get('cognome')?.hasError('required') &&
-          registrationForm.get('cognome')?.touched
+          registrationForm.get('surname')?.hasError('required') &&
+          registrationForm.get('surname')?.touched
             ? 'Cognome richiesto!'
             : ''
         }}
           {{
-          registrationForm.get('cognome')?.hasError('minlength') &&
-          registrationForm.get('cognome')?.touched
-            ? 'Il Cognome deve essere lungo almeno 3 caratteri.'
+          registrationForm.get('surname')?.hasError('minlength') &&
+          registrationForm.get('surname')?.touched
+            ? 'Il surname deve essere lungo almeno 3 caratteri.'
             : ''
         }}
           {{
-          registrationForm.get('cognome')?.hasError('pattern') &&
-          registrationForm.get('cognome')?.touched
+          registrationForm.get('surname')?.hasError('pattern') &&
+          registrationForm.get('surname')?.touched
             ? 'Il Cognome deve contenere solo caratteri alfabetici.'
             : ''
         }}

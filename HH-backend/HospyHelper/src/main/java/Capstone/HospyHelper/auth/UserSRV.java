@@ -1,11 +1,8 @@
 package Capstone.HospyHelper.auth;
 
-import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.exceptions.UnauthorizedException;
-import Capstone.HospyHelper.auth.UserDTO;
-import Capstone.HospyHelper.auth.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +23,6 @@ public class UserSRV {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-
     public Page<User> getAll(int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
@@ -39,7 +35,7 @@ public class UserSRV {
 
     public User save(UserDTO userDTO) throws IOException {
         if (userDAO.existsByEmail(userDTO.email())) throw new BadRequestException("email already exist");
-        User user = new User(userDTO.email(), passwordEncoder.encode(userDTO.password()),passwordEncoder.encode(userDTO.confirmPassword()), userDTO.name(), userDTO.surname());
+        User user = new User( userDTO.name(), userDTO.surname(),userDTO.email(), passwordEncoder.encode(userDTO.password()),passwordEncoder.encode(userDTO.confirmPassword()));
         //    emailSender.sendRegistrationEmail(userDTO);
         return userDAO.save(user);
     }
@@ -58,12 +54,11 @@ public class UserSRV {
     public User findByIdAndUpdate(UUID id, UserDTO userDTO,User user){
         User found= findById(UUID.fromString(String.valueOf(id)));
         if (!user.getId().equals(found.getId())) throw new UnauthorizedException("User with wrong id");
+        found.setName(userDTO.name());
+        found.setSurname(userDTO.surname());
         found.setEmail(userDTO.email());
         found.setPassword(userDTO.password());
         found.setConfirmPassword(user.getConfirmPassword());
-        found.setName(userDTO.name());
-        found.setSurname(userDTO.surname());
-
         return userDAO.save(found);
     }
     public void deleteById(UUID id, User user) {

@@ -14,8 +14,13 @@ import { Route, RouterModule } from '@angular/router';
 
 import { TokenInterceptor } from './auth/token.interceptor';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
+import { ProfiloComponent } from './components/profilo/profilo.component';
 
 const routes: Route[] = [
+  {
+    path: '',
+    component: IntroPageComponent,
+  },
   {
     path: 'home',
     component: HomeComponent,
@@ -27,6 +32,10 @@ const routes: Route[] = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'profilo',
+    component: ProfiloComponent,
   },
   {
     path: '**',
@@ -42,6 +51,7 @@ const routes: Route[] = [
     NavbarComponent,
     HomeComponent,
     IntroPageComponent,
+    ProfiloComponent,
   ],
   imports: [
     BrowserModule,
