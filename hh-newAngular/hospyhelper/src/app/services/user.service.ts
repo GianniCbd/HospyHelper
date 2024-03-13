@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
   apiUrl: string = environment.apiUrl;
-  isEditing: boolean = false;
 
   constructor(private http: HttpClient) {}
 
@@ -18,7 +17,7 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  updateCurrentUser(id: string, userDTO: any): Observable<User> {
+  updateCurrentUser(id: string, userDTO: Partial<User>): Observable<User> {
     const url = `${this.apiUrl}/users/me/${id}`;
     return this.http.put<User>(url, userDTO);
   }

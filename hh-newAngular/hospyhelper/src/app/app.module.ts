@@ -17,6 +17,7 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 import { ProfiloComponent } from './components/profiloUser/profilo/profilo.component';
 import { NostriServiziComponent } from './components/nostri-servizi/nostri-servizi.component';
 import { UserDetailsComponent } from './components/profiloUser/user-details/user-details.component';
+import { HomePostComponent } from './components/childPages/homePost/home-post/home-post.component';
 
 const routes: Route[] = [
   {
@@ -61,6 +62,7 @@ const routes: Route[] = [
     ProfiloComponent,
     NostriServiziComponent,
     UserDetailsComponent,
+    HomePostComponent,
   ],
   imports: [
     BrowserModule,

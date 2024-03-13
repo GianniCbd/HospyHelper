@@ -40,8 +40,13 @@ export class UserDetailsComponent implements OnInit {
 
   updateUserDetails(): void {
     if (this.currentUser) {
+      const userToUpdate: Partial<User> = {
+        name: this.currentUser.name,
+        surname: this.currentUser.surname,
+        email: this.currentUser.email,
+      };
       this.userService
-        .updateCurrentUser(this.currentUser.id, this.currentUser)
+        .updateCurrentUser(this.currentUser.id, userToUpdate)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (updatedUser: User) => {
