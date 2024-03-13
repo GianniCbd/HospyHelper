@@ -29,7 +29,7 @@ public class PostSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return postDAO.findAll(pageable);
     }
-    public Post savePost(PostDTO postDTO, UUID userId) {
+    public Post savePost(PostDTO postDTO, UUID userId, User currentAuthenticatedUser) {
         User user = userDAO.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
         Post post = new Post(

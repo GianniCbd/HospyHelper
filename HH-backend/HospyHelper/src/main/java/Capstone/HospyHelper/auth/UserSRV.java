@@ -67,8 +67,7 @@ public class UserSRV {
         found.setName(userDTO.name());
         found.setSurname(userDTO.surname());
         found.setEmail(userDTO.email());
-        found.setPassword(userDTO.password());
-        found.setConfirmPassword(user.getConfirmPassword());
+
         return userDAO.save(found);
     }
     public void deleteById(UUID id, User user) {
