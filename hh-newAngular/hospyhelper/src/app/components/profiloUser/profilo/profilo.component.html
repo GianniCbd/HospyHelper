@@ -1,0 +1,49 @@
+<main>
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-6 col-md-8 col-sm-10 text-center">
+        <h1 class="mb-4">Benvenuto, {{ currentUser?.name }}!</h1>
+        <p class="lead mb-5">Ecco cosa puoi fare:</p>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h4 class="card-title">Controlla le prenotazioni</h4>
+                <p class="card-text">
+                  Visualizza tutte le prenotazioni effettuate.
+                </p>
+                <a href="/tabellaPrenotati" class="btn btn-primary"
+                  >Vai alla tabella</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h4 class="card-title">Aggiungi Prenotazioni</h4>
+                <p class="card-text">Aggiungi nuove prenotazioni al sistema.</p>
+                <a href="/gestionePrenotazioni" class="btn btn-primary"
+                  >Gestisci prenotazioni</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h4 class="card-title">Modifica Dati Utente</h4>
+                <p class="card-text">
+                  Modifica le informazioni del tuo profilo.
+                </p>
+                <a [routerLink]="'profilo'" class="btn btn-primary"
+                  >Modifica Dati</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

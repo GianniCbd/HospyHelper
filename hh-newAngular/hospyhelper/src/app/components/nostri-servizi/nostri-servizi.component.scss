@@ -1,0 +1,61 @@
+#carouselExampleIndicators {
+  background-image: linear-gradient(
+    to left,
+    rgba(228, 159, 140, 0.823),
+    #328b9adf
+  );
+  color: white;
+  padding-top: 100px;
+  color: black;
+}
+
+.paragraphs {
+  width: 300px;
+  height: 300px;
+}
+
+.btn {
+  background-color: #c8a068;
+  color: black;
+  border: none;
+  float: right;
+  margin-right: calc(50% - 50px);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  animation: pulsate-bck 0.4s ease-in-out infinite both;
+  -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
+}
+
+.carousel-control-prev {
+  padding-right: 6rem;
+}
+.carousel-control-next {
+  padding-left: 6rem;
+}
+
+@keyframes pulsate-bck {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 576px) {
+  #carouselExampleIndicators {
+    padding-top: 20px;
+  }
+}
