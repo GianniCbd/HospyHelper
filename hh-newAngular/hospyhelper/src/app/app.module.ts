@@ -14,8 +14,9 @@ import { Route, RouterModule } from '@angular/router';
 
 import { TokenInterceptor } from './auth/token.interceptor';
 import { IntroPageComponent } from './components/intro-page/intro-page.component';
-import { ProfiloComponent } from './components/profilo/profilo.component';
+import { ProfiloComponent } from './components/profiloUser/profilo/profilo.component';
 import { NostriServiziComponent } from './components/nostri-servizi/nostri-servizi.component';
+import { UserDetailsComponent } from './components/profiloUser/user-details/user-details.component';
 
 const routes: Route[] = [
   {
@@ -38,6 +39,7 @@ const routes: Route[] = [
     path: 'profilo',
     component: ProfiloComponent,
   },
+  { path: 'profilo/:id', component: UserDetailsComponent },
   {
     path: 'servizi',
     component: NostriServiziComponent,
@@ -58,6 +60,7 @@ const routes: Route[] = [
     IntroPageComponent,
     ProfiloComponent,
     NostriServiziComponent,
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,

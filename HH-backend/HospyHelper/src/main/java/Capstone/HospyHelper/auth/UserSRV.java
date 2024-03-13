@@ -48,7 +48,6 @@ public class UserSRV {
         // emailSender.sendRegistrationEmail(userDTO);
 
         User savedUser = userDAO.save(user);
-
         return new UserResponseDTO(
                 savedUser.getId(),
                 savedUser.getName(),

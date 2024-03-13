@@ -8,5 +8,23 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class UserService {
+  apiUrl: string = environment.apiUrl;
+  isEditing: boolean = false;
+
   constructor(private http: HttpClient) {}
+
+  getCurrentUser(): Observable<User> {
+    const url = `${this.apiUrl}/users/me`;
+    return this.http.get<User>(url);
+  }
+
+  updateCurrentUser(id: string, userDTO: any): Observable<User> {
+    const url = `${this.apiUrl}/users/me/${id}`;
+    return this.http.put<User>(url, userDTO);
+  }
+
+  findById(id: string): Observable<User> {
+    const url = `${this.apiUrl}/users/${id}`;
+    return this.http.get<User>(url);
+  }
 }

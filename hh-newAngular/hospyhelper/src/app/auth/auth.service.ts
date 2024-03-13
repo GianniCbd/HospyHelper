@@ -6,7 +6,6 @@ import { UserDto } from './user-dto';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LoginData } from './login-data';
-import { LoginRegisterDto } from './login-register-dto';
 import { catchError } from 'rxjs';
 
 @Injectable({
@@ -18,6 +17,7 @@ export class AuthService {
   accessToken!: UserDto;
   user$ = this.authSubj.asObservable();
   apiUrl: string = environment.apiUrl;
+  utente!: UserDto;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -38,6 +38,8 @@ export class AuthService {
       tap((dataLogin) => {
         this.authSubj.next(dataLogin);
         this.accessToken = dataLogin;
+        this.utente = dataLogin;
+
         localStorage.setItem('user', JSON.stringify(dataLogin));
         console.log('Login effettuato');
         this.router.navigate(['/home']);
