@@ -17,7 +17,13 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 import { ProfiloComponent } from './components/profiloUser/profilo/profilo.component';
 import { NostriServiziComponent } from './components/nostri-servizi/nostri-servizi.component';
 import { UserDetailsComponent } from './components/profiloUser/user-details/user-details.component';
-import { HomePostComponent } from './components/childPages/homePost/home-post/home-post.component';
+import { GestionePrenotazioniComponent } from './components/childPages/gestione-prenotazioni/gestione-prenotazioni/gestione-prenotazioni.component';
+import { AmministraClientiComponent } from './components/childPages/amministra-clienti/amministra-clienti/amministra-clienti.component';
+import { TabellaPrenotazioniComponent } from './components/childPages/tabella-prenotazioni/tabella-prenotazioni/tabella-prenotazioni.component';
+import { RoomComponent } from './components/childPages/room/room.component';
+import { RoomTypeComponent } from './components/childPages/roomType/room-type/room-type.component';
+import { AccommodationComponent } from './components/accommodation/accommodation.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 const routes: Route[] = [
   {
@@ -45,6 +51,23 @@ const routes: Route[] = [
     path: 'servizi',
     component: NostriServiziComponent,
   },
+  { path: 'gestionePrenotazioni', component: GestionePrenotazioniComponent },
+  {
+    path: 'accommodation',
+    component: AccommodationComponent,
+  },
+  {
+    path: 'booking',
+    component: BookingComponent,
+  },
+  {
+    path: 'room',
+    component: RoomComponent,
+  },
+  {
+    path: 'roomType',
+    component: RoomTypeComponent,
+  },
   {
     path: '**',
     redirectTo: '',
@@ -62,7 +85,13 @@ const routes: Route[] = [
     ProfiloComponent,
     NostriServiziComponent,
     UserDetailsComponent,
-    HomePostComponent,
+    GestionePrenotazioniComponent,
+    AmministraClientiComponent,
+    TabellaPrenotazioniComponent,
+    RoomComponent,
+    RoomTypeComponent,
+    AccommodationComponent,
+    BookingComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,8 +103,8 @@ const routes: Route[] = [
   ],
   providers: [
     {
-      useClass: TokenInterceptor,
       provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
       multi: true,
     },
   ],

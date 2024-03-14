@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.authSrv.restore();
-    this.authSrv.user$.subscribe((user$) => {
-      this.utente = user$;
+    this.authSrv.user$.subscribe((user) => {
+      this.utente = user;
     });
 
     window.addEventListener('scroll', () => {

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-6 col-md-8 col-sm-10 text-center">
-        <h1 class="mb-4">Benvenuto, {{ currentUser?.name }}!</h1>
+        <h1 class="mb-4">Benvenuto, {{ currentUser!.name }}!</h1>
         <p class="lead mb-5">Ecco cosa puoi fare:</p>
         <div class="row">
           <div class="col-md-4 mb-4">
@@ -23,7 +23,9 @@
               <div class="card-body">
                 <h4 class="card-title">Aggiungi Prenotazioni</h4>
                 <p class="card-text">Aggiungi nuove prenotazioni al sistema.</p>
-                <a href="/gestionePrenotazioni" class="btn btn-primary"
+                <a
+                  [routerLink]="['/gestionePrenotazioni']"
+                  class="btn btn-primary"
                   >Gestisci
                 </a>
               </div>
@@ -37,6 +39,19 @@
                   Modifica le informazioni del tuo profilo.
                 </p>
                 <a [routerLink]="'profilo'" class="btn btn-primary"
+                  >Modifica Dati</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h4 class="card-title">Le stanze</h4>
+                <p class="card-text">
+                  Gestisci le tue stanze e aggiorna i tuoi dati.
+                </p>
+                <a [routerLink]="['/room']" class="btn btn-primary"
                   >Modifica Dati</a
                 >
               </div>

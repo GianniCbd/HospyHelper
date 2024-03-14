@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let roomType of roomTypes" class="col-md-3">
+      <div class="card">
+        <img
+          [src]="roomType.image"
+          class="card-img-top"
+          alt="Room Type Image"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ roomType.typeName }}</h5>
+          <p class="card-text">{{ roomType.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="mt-5 pt-5" *ngIf="currentUser">
+  <h2>Welcome, {{ currentUser.name }}!</h2>
+
+  <div>
+    <h3>Your Accommodations:</h3>
+    <ul>
+      <li *ngFor="let accommodation of accommodation">
+        <div><strong>Name:</strong> {{ accommodation.name }}</div>
+        <div><strong>Location:</strong> {{ accommodation.address }}</div>
+        <div><strong>City:</strong> {{ accommodation.city }}</div>
+        <!-- Add more details as needed -->
+      </li>
+    </ul>
+  </div>
+  <div>
+    <p>No accommodations found.</p>
+  </div>
+  <button [routerLink]="['/booking']">Prenotazioni</button>
+  <button [routerLink]="['/room']">Stanze</button>
+  <button [routerLink]="['/roomType']">Tipologie di Stanze</button>
+</div>
+<div *ngIf="!currentUser">
+  <p>Please log in to view your accommodations.</p>
+</div>
