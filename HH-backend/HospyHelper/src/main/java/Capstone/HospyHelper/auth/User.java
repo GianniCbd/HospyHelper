@@ -60,7 +60,7 @@ public class User implements UserDetails {
         this.password = password;
         this.confirmPassword = confirmPassword;
 
-        this.roles.add(Role.USER);
+        this.roles.add(Role.ADMIN);
     }
 
     @Override

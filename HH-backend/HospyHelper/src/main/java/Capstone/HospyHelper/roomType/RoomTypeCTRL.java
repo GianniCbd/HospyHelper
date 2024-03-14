@@ -3,7 +3,6 @@ package Capstone.HospyHelper.roomType;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/roomType")
@@ -20,12 +20,8 @@ public class RoomTypeCTRL {
     private RoomTypeSRV roomTypeService;
 
     @GetMapping
-    public ResponseEntity<Page<RoomType>> getAllRoomTypes(
-            @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "10") int pageSize,
-            @RequestParam(defaultValue = "typeName") String orderBy
-    ) {
-        Page<RoomType> roomTypes = roomTypeService.getAll(pageNumber, pageSize, orderBy);
+    public ResponseEntity<List<RoomType>> getAllRoomTypes() {
+        List<RoomType> roomTypes = roomTypeService.getAll();
         return ResponseEntity.ok(roomTypes);
     }
     @GetMapping("/{id}")

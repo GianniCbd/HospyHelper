@@ -23,10 +23,10 @@ public class BookingCTRL {
     BookingSRV bookingSRV;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public Page<Booking> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                 @RequestParam(defaultValue = "10") int pageSize,
-                                @RequestParam(defaultValue = "name") String orderBy) {
+                                @RequestParam(defaultValue = "phone") String orderBy) {
         return bookingSRV.getAll(pageNumber, pageSize, orderBy);
     }
 

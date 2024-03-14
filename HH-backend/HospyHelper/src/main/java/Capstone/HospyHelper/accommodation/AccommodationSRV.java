@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,13 +31,16 @@ public class AccommodationSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return accommodationDAO.findAll(pageable);
     }
+    public List<Accommodation> getByUserId(UUID userId) {
+        return accommodationDAO.getByUserId(userId);
+    }
 
     public Accommodation saveAccommodation(AccommodationDTO ac, UUID userId){
         User user = userDAO.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
         Booking booking = bookingDAO.findById(ac.booking().getId()).orElseThrow(()-> new IllegalArgumentException("Invalid Booking id"));
 
-        Accommodation accommodation = new Accommodation(ac.typeAccommodation(), booking,user);
+        Accommodation accommodation = new Accommodation(ac.name(),ac.address(), ac.city(), ac.typeAccommodation(), ac.description(), booking,user);
         return accommodationDAO.save(accommodation);
 }
     public Accommodation getAccommodationById(Long id) {
@@ -45,14 +49,16 @@ public class AccommodationSRV {
 
     public Accommodation updateAccommodation(Long id, AccommodationDTO ac) {
         Accommodation existingAccommodation = accommodationDAO.findById(id).orElseThrow(() -> new NotFoundException("Accommodation not found with ID: " + id));
+        existingAccommodation.setName(ac.name());
+        existingAccommodation.setAddress(ac.address());
+        existingAccommodation.setCity(ac.city());
         existingAccommodation.setTypeAccommodation(ac.typeAccommodation());
+        existingAccommodation.setDescription(ac.description());
+
         return accommodationDAO.save(existingAccommodation);
     }
     public void deleteAccommodation(Long id) {
         Accommodation ac = this.getAccommodationById(id);
         accommodationDAO.delete(ac);
     }
-
-
-
 }

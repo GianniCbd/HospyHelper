@@ -26,10 +26,14 @@ public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String address;
+    private String city;
     private String typeAccommodation;
+    private String description;
 
     @ManyToOne
-    @JsonIgnore
+
     private Booking booking;
 
     @JsonIgnoreProperties({"id","email","salary"})
@@ -44,8 +48,12 @@ public class Accommodation {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Accommodation(String typeAccommodation, Booking booking,User user) {
+    public Accommodation(String name,String address,String city,String typeAccommodation,String description, Booking booking,User user) {
+        this.name=name;
+        this.address = address;
+        this.city = city;
         this.typeAccommodation = typeAccommodation;
+        this.description = description;
         this.booking = booking;
         this.user = user;
     }

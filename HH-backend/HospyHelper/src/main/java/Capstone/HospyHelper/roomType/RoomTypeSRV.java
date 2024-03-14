@@ -4,14 +4,11 @@ import Capstone.HospyHelper.exceptions.NotFoundException;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class RoomTypeSRV {
@@ -20,10 +17,8 @@ public class RoomTypeSRV {
     RoomTypeDAO roomTypeDAO;
     @Autowired
     private Cloudinary cloudinaryUploader;
-    public Page<RoomType> getAll(int pageNumber, int pageSize, String orderBy) {
-        if (pageNumber > 20) pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return roomTypeDAO.findAll(pageable);
+    public List<RoomType> getAll() {
+        return roomTypeDAO.findAll();
     }
     public RoomType saveRoomType(RoomTypeDTO newRt) {
         return roomTypeDAO.save(

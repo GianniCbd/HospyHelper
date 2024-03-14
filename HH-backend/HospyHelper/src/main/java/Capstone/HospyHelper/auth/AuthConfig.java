@@ -1,6 +1,5 @@
 package Capstone.HospyHelper.auth;
 
-import Capstone.HospyHelper.security.Filter;
 import Capstone.HospyHelper.security.JWTFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,8 +25,6 @@ public class AuthConfig {
     @Autowired
     private JWTFilter jwtFilter;
 
-    @Autowired
-    private Filter handler;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -36,9 +33,8 @@ public class AuthConfig {
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
 
-        httpSecurity.addFilterBefore(handler, UsernamePasswordAuthenticationFilter.class);
-
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
 
