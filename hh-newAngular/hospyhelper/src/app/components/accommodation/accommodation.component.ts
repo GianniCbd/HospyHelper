@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./accommodation.component.scss'],
 })
 export class AccommodationComponent implements OnInit {
-  accommodation!: Accommodation[];
+  accommodation: Accommodation[] = [];
   currentUser: User | undefined;
 
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -24,6 +24,7 @@ export class AccommodationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
+    this.fetchAccommodation();
   }
 
   ngOnDestroy(): void {
@@ -35,8 +36,6 @@ export class AccommodationComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user: User) => {
         this.currentUser = user;
-
-        this.saveAccommodations();
       },
       (error) => {
         console.log('Errore', error);
@@ -44,19 +43,15 @@ export class AccommodationComponent implements OnInit {
     );
   }
 
-  private saveAccommodations(): void {
-    if (this.currentUser) {
-      const userId = this.currentUser.id;
-      this.accommodationService.getAccommodations(userId).subscribe(
-        (savedAccommodations: Accommodation[]) => {
-          console.log('Alloggi salvati con successo:', savedAccommodations);
-        },
-        (error) => {
-          console.error('Errore durante il salvataggio degli alloggi:', error);
-        }
-      );
-    } else {
-      console.error('Utente non trovato.');
-    }
+  fetchAccommodation() {
+    this.accommodationService.getAccommodation().subscribe(
+      (data: Accommodation[]) => {
+        this.accommodation = data;
+        console.log(this.accommodation);
+      },
+      (error) => {
+        console.error('Error retrieving rooms', error);
+      }
+    );
   }
 }

@@ -1,3 +1,21 @@
+.outer-container {
+  background-color: rgb(199, 210, 208);
+}
+
 .container {
-  padding: 10%;
+  margin: auto;
+  padding-top: 10%;
+}
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 20);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  .card-title {
+    color: rgba(0, 0, 0, 0.808);
+  }
+
+  &:hover {
+    opacity: 1;
+  }
 }
