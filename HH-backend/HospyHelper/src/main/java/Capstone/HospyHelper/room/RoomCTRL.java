@@ -22,28 +22,14 @@ public class RoomCTRL {
     public RoomCTRL(RoomSRV roomSrv) {
         this.roomSRV = roomSrv;
     }
-//    @Autowired
-//    RoomSRV roomSRV;
-
 
 
     @GetMapping
     public Page<Room> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                              @RequestParam(defaultValue = "10") int pageSize,
-                             @RequestParam(defaultValue = "name") String orderBy) {
+                             @RequestParam(defaultValue = "number") String orderBy) {
         return roomSRV.getAll(pageNumber, pageSize, orderBy);
     }
-
-
-//    @PostMapping("/save")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO, BindingResult validation) {
-//        if (validation.hasErrors()) {
-//            throw new BadRequestException(validation.getAllErrors());
-//        }
-//        Room savedRoom = roomSRV.saveRoom(roomDTO);
-//        return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
-//    }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
