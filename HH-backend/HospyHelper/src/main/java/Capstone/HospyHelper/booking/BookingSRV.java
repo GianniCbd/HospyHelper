@@ -1,5 +1,7 @@
 package Capstone.HospyHelper.booking;
 
+import Capstone.HospyHelper.accommodation.Accommodation;
+import Capstone.HospyHelper.accommodation.AccommodationDAO;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.room.RoomDAO;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class BookingSRV {
+    @Autowired
+    private AccommodationDAO accommodationDAO;
 
     @Autowired
     BookingDAO bookingDAO;
@@ -35,8 +39,9 @@ public class BookingSRV {
 
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
         Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));
+        Accommodation accommodation = accommodationDAO.findById(bookingDTO.accommodation().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Accommodation id"));
 
-        Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room);
+        Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room, accommodation);
         bookingDAO.save(booking);
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 booking.getFullName(),
@@ -44,7 +49,8 @@ public class BookingSRV {
                 booking.getPhone(),
                 booking.getCheckIn(),
                 booking.getCheckOut(),
-                room
+                room,
+                accommodation
 
         );
 
@@ -71,7 +77,8 @@ public class BookingSRV {
                 existingBooking.getPhone(),
                 existingBooking.getCheckIn(),
                 existingBooking.getCheckOut(),
-                existingBooking.getRoom()
+                existingBooking.getRoom(),
+                existingBooking.getAccommodation()
 
         );
         return responseDTO;
@@ -118,7 +125,8 @@ public class BookingSRV {
                         booking.getPhone(),
                         booking.getCheckIn(),
                         booking.getCheckOut(),
-                        booking.getRoom()
+                        booking.getRoom(),
+                        booking.getAccommodation()
                 ))
                 .collect(Collectors.toList());
     }

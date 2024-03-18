@@ -2,7 +2,6 @@ package Capstone.HospyHelper.accommodation;
 
 import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.auth.UserDAO;
-import Capstone.HospyHelper.booking.Booking;
 import Capstone.HospyHelper.booking.BookingDAO;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import jakarta.persistence.EntityNotFoundException;
@@ -38,11 +37,12 @@ public class AccommodationSRV {
     public Accommodation saveAccommodation(AccommodationDTO ac, UUID userId){
         User user = userDAO.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
-        Booking booking = bookingDAO.findById(ac.booking().getId()).orElseThrow(()-> new IllegalArgumentException("Invalid Booking id"));
 
-        Accommodation accommodation = new Accommodation(ac.name(),ac.address(), ac.city(), ac.typeAccommodation(), ac.description(), booking,user);
+
+        Accommodation accommodation = new Accommodation(ac.name(),ac.address(), ac.city(), ac.typeAccommodation(), ac.description(),user);
         return accommodationDAO.save(accommodation);
-}
+    }
+
     public Accommodation getAccommodationById(Long id) {
         return accommodationDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }

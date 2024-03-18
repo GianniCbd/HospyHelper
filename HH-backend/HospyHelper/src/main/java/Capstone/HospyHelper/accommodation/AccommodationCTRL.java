@@ -34,7 +34,7 @@ public class AccommodationCTRL {
 
     @PostMapping("/save/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Accommodation> saveAccommodation(@RequestBody AccommodationDTO accommodationDTO, @PathVariable UUID userId, BindingResult validation) throws IOException {
+    public ResponseEntity<Accommodation> saveAccommodation(@RequestBody AccommodationDTO accommodationDTO, @PathVariable UUID userId,  BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }

@@ -2,7 +2,7 @@ package Capstone.HospyHelper.booking;
 
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.room.Room;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "booking")
@@ -30,9 +29,10 @@ public class Booking {
         private LocalDate checkOut;
         private int numberOfGuests;
 
-    @OneToMany(mappedBy = "booking")
-    @JsonIgnore
-    private Set<Accommodation> accommodations;
+    @ManyToOne
+    @JoinColumn(name = "accommodation_id")
+    @JsonBackReference
+    private Accommodation accommodation;
 
 
     @OneToOne
@@ -40,13 +40,14 @@ public class Booking {
     private Room room;
 
 
-    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut, Room room) {
+    public Booking(String fullName, String email, String phone, LocalDate checkIn, LocalDate checkOut, Room room,Accommodation accommodation) {
         this.fullName = fullName;
         this.email = email;
         this.phone = phone;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.room = room;
+        this.accommodation = accommodation;
 
         this.numberOfGuests = room.getCapacity();
     }

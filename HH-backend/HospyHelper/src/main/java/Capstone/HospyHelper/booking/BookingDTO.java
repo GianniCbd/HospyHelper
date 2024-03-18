@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.booking;
 
+import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.room.Room;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Future;
@@ -23,7 +24,8 @@ public record BookingDTO(
         @Future(message = "Check-out date must be in the future")
        LocalDate checkOut,
        Room room,
-        int numberOfGuests
+        int numberOfGuests,
+        Accommodation accommodation
 
 ) {
 }
