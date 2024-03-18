@@ -28,8 +28,7 @@ public class Room {
     private double price;
     private int capacity;
 
-
-    @ManyToOne( cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "room_type_id")
     private RoomType roomType;
 

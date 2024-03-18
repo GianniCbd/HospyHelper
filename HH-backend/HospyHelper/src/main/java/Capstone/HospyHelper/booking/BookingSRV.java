@@ -1,8 +1,7 @@
 package Capstone.HospyHelper.booking;
 
-import Capstone.HospyHelper.exceptions.AlreadyBooked;
-import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.exceptions.NotFoundException;
+import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.room.RoomDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +35,7 @@ public class BookingSRV {
 
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
         Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));
-        boolean isRoomAvailable = bookingDAO.isRoomAvailable(bookingDTO.checkIn(), bookingDTO.checkOut(), room.getId());
-        if (!isRoomAvailable) {
-            throw new AlreadyBooked("The room is already booked for the specified dates");
-        }
+
         Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room);
         bookingDAO.save(booking);
         BookingResponseDTO responseDTO = new BookingResponseDTO(

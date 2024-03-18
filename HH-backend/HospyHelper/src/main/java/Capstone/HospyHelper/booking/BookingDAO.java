@@ -23,9 +23,6 @@ public interface BookingDAO extends JpaRepository<Booking, Long> {
     @Query("SELECT SUM(b.numberOfGuests) FROM Booking b WHERE b.checkIn = :targetDate OR b.checkOut = :targetDate")
     Integer getTotalGuestsByDate(@Param("targetDate") LocalDate targetDate);
 
-    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN TRUE ELSE FALSE END FROM Booking b WHERE b.room.id = :roomId AND "
-            + "((b.checkIn BETWEEN :checkIn AND :checkOut) OR (b.checkOut BETWEEN :checkIn AND :checkOut))")
-    boolean isRoomAvailable(@Param("checkIn") LocalDate checkIn, @Param("checkOut") LocalDate checkOut,
-                            @Param("roomId") long roomId);
+
 
 }

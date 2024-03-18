@@ -19,11 +19,7 @@ public class RoomTypeCTRL {
     @Autowired
     private RoomTypeSRV roomTypeService;
 
-//    @GetMapping
-//    public ResponseEntity<List<RoomType>> getAllRoomTypes() {
-//        List<RoomType> roomTypes = roomTypeService.getAll();
-//        return ResponseEntity.ok(roomTypes);
-//    }
+
 @GetMapping("/all")
 public Page<RoomType> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                          @RequestParam(defaultValue = "10") int pageSize,

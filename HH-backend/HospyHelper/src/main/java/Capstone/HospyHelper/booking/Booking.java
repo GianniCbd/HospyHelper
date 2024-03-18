@@ -35,7 +35,7 @@ public class Booking {
     private Set<Accommodation> accommodations;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "id_room")
     private Room room;
 

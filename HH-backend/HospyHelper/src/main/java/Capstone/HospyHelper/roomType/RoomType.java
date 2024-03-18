@@ -22,15 +22,16 @@ public class RoomType {
     private String image;
 
 
-
-
     public RoomType(String typeName, String description,String image) {
         this.typeName = typeName;
         this.description = description;
         this.image = image;
     }
+    public RoomType(String typeName) {
+        this.typeName = typeName;
+    }
 
-
-
-
+    public static RoomType fromTypeName(String typeName) {
+        return new RoomType(typeName);
+    }
 }
