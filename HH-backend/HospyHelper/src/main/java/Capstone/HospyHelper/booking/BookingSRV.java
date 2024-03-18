@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.booking;
 
+import Capstone.HospyHelper.exceptions.AlreadyBooked;
 import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.room.RoomDAO;
@@ -34,7 +35,11 @@ public class BookingSRV {
 
 
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
-        Room room = roomDAO.findById(bookingDTO.roomId()).orElseThrow(() -> new NotFoundException(bookingDTO.roomId()));
+        Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));
+        boolean isRoomAvailable = bookingDAO.isRoomAvailable(bookingDTO.checkIn(), bookingDTO.checkOut(), room.getId());
+        if (!isRoomAvailable) {
+            throw new AlreadyBooked("The room is already booked for the specified dates");
+        }
         Booking booking = new Booking(bookingDTO.fullName(), bookingDTO.email(), bookingDTO.phone(), bookingDTO.checkIn(), bookingDTO.checkOut(), room);
         bookingDAO.save(booking);
         BookingResponseDTO responseDTO = new BookingResponseDTO(
@@ -42,12 +47,14 @@ public class BookingSRV {
                 booking.getEmail(),
                 booking.getPhone(),
                 booking.getCheckIn(),
-                booking.getCheckOut()
+                booking.getCheckOut(),
+                room
 
         );
 
         return responseDTO;
     }
+
 
     public Booking findById(Long id) {
         return bookingDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -60,13 +67,16 @@ public class BookingSRV {
         existingBooking.setPhone(bookingDTO.phone());
         existingBooking.setCheckIn(bookingDTO.checkIn());
         existingBooking.setCheckOut(bookingDTO.checkOut());
+
         existingBooking = bookingDAO.save(existingBooking);
         BookingResponseDTO responseDTO = new BookingResponseDTO(
                 existingBooking.getFullName(),
                 existingBooking.getEmail(),
                 existingBooking.getPhone(),
                 existingBooking.getCheckIn(),
-                existingBooking.getCheckOut()
+                existingBooking.getCheckOut(),
+                existingBooking.getRoom()
+
         );
         return responseDTO;
     }
@@ -111,7 +121,8 @@ public class BookingSRV {
                         booking.getEmail(),
                         booking.getPhone(),
                         booking.getCheckIn(),
-                        booking.getCheckOut()
+                        booking.getCheckOut(),
+                        booking.getRoom()
                 ))
                 .collect(Collectors.toList());
     }

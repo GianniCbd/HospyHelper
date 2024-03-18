@@ -37,7 +37,6 @@ public class Booking {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_room")
-    @JsonIgnore
     private Room room;
 
 

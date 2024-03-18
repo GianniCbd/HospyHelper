@@ -1,14 +1,16 @@
 package Capstone.HospyHelper.roomType;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "roomType")
 @Getter
 @Setter
 @NoArgsConstructor
-
 @ToString
 public class RoomType {
     @Id
@@ -19,9 +21,16 @@ public class RoomType {
     private String description;
     private String image;
 
+
+
+
     public RoomType(String typeName, String description,String image) {
         this.typeName = typeName;
         this.description = description;
         this.image = image;
     }
+
+
+
+
 }

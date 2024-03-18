@@ -26,9 +26,7 @@ public class RoomTypeSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return roomTypeDAO.findAll(pageable);
     }
-//    public List<RoomType> getAll() {
-//        return roomTypeDAO.findAll();
-//    }
+
     public RoomType saveRoomType(RoomTypeDTO newRt) {
         return roomTypeDAO.save(
                 new RoomType(newRt.typeName(), newRt.description(), newRt.image())

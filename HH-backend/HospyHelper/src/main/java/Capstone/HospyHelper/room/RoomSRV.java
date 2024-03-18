@@ -43,8 +43,11 @@ public class RoomSRV {
         double calculatedPrice = statisticOperation.calculateRoomPrice(room);
         room.setPrice(calculatedPrice);
 
+
         return roomDAO.save(room);
     }
+
+
 
     public Room getRoomById(Long id) {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));

@@ -1,5 +1,7 @@
 package Capstone.HospyHelper.booking;
 
+import Capstone.HospyHelper.room.Room;
+
 import java.time.LocalDate;
 
 public record BookingResponseDTO(
@@ -8,7 +10,9 @@ public record BookingResponseDTO(
         String email,
         String phone,
         LocalDate checkIn,
-        LocalDate checkOut
+        LocalDate checkOut,
+        Room room
+
 
 ) {
 }

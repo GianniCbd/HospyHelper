@@ -30,7 +30,7 @@ public class BookingCTRL {
         return bookingSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public BookingResponseDTO saveBooking(@RequestBody @Validated BookingDTO bookingDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
@@ -39,7 +39,6 @@ public class BookingCTRL {
 
         return this.bookingSRV.saveBooking(bookingDTO);
     }
-
 
     @GetMapping("/{id}")
     public Booking findById(@PathVariable Long id) {
