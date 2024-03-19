@@ -1,6 +1,6 @@
 main {
   background-color: rgb(199, 210, 208);
-  height: 100vh;
+  height: 100%;
   padding-top: 40px;
 }
 
@@ -67,6 +67,7 @@ p {
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  margin-bottom: 30px;
 }
 
 .card:hover {

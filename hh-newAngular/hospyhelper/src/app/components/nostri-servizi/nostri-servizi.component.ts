@@ -12,7 +12,7 @@ export class NostriServiziComponent implements OnInit {
   ngOnInit(): void {}
 
   goToChildPage(): void {
-    this.router.navigate(['/gestionePrenotazioni']);
+    this.router.navigate(['/booking']);
   }
 
   goToChildPage2(): void {

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { RoomType } from 'src/app/models/room-type';
 import { RoomTypeService } from 'src/app/services/room-type.service';
@@ -13,11 +12,11 @@ export class RoomTypeComponent implements OnInit {
   roomTypes: RoomType[] = [];
   editingRoomType: any = null;
   newRoomType: any = {};
+  showCard: boolean = false;
 
-  constructor(
-    private roomTypeService: RoomTypeService,
-    private route: ActivatedRoute
-  ) {}
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  constructor(private roomTypeService: RoomTypeService) {}
 
   ngOnInit(): void {
     this.fetchRoomTypes();
@@ -27,7 +26,6 @@ export class RoomTypeComponent implements OnInit {
     this.roomTypeService.getRoomType().subscribe(
       (data) => {
         this.roomTypes = data;
-        console.log(this.roomTypes);
       },
       (error) => {
         console.error('Errore durante il recupero dei tipi di stanza:', error);
@@ -83,7 +81,6 @@ export class RoomTypeComponent implements OnInit {
   addNewRoomType() {
     this.roomTypeService.createRoomType(this.newRoomType).subscribe(
       (response) => {
-        console.log('Nuovo tipo di stanza aggiunto:', response);
         this.newRoomType = {};
       },
       (error) => {
@@ -95,10 +92,15 @@ export class RoomTypeComponent implements OnInit {
     );
   }
 
+  toggleCardVisibility() {
+    this.showCard = !this.showCard;
+  }
+  close() {
+    this.showCard = false;
+  }
+
   deleteRoomType(roomType: any) {
     const selectedRoomTypeId = roomType.id;
-    console.log(selectedRoomTypeId);
-
     this.roomTypeService.deleteRoomType(selectedRoomTypeId).subscribe(
       () => {
         this.roomTypes = this.roomTypes.filter(
@@ -112,5 +114,21 @@ export class RoomTypeComponent implements OnInit {
         );
       }
     );
+  }
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    console.log(file);
+    if (file) {
+      this.roomTypeService
+        .uploadAvatar(this.editingRoomType.id, file)
+        .subscribe(
+          (imageUrl: string) => {
+            this.editingRoomType.image = imageUrl;
+          },
+          (error: any) => {
+            console.error("Errore durante l'upload dell'avatar:", error);
+          }
+        );
+    }
   }
 }

@@ -1,7 +1,37 @@
-<div class="outer-container">
+<div class="outer-container pt-3">
   <div class="container">
+    <div class="d-flex justify-content-between align-item-center">
+      <a [routerLink]="['/room']" class="arrow m-3"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-left-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
+          /></svg
+      ></a>
+      <a [routerLink]="['/accommodation']" class="arrow m-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-right-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"
+          />
+        </svg>
+      </a>
+    </div>
     <div class="row">
-      <div *ngFor="let roomType of roomTypes" class="col-md-3">
+      <div
+        *ngFor="let roomType of roomTypes"
+        class="col-md-3 slide-in-from-left"
+      >
         <div class="card mb-2">
           <img
             [src]="roomType.image"
@@ -47,12 +77,22 @@
           </div>
         </div>
       </div>
+      <div>
+        <button
+          id="addButton"
+          class="btn button-85 my-3"
+          (click)="toggleCardVisibility()"
+        >
+          Aggiungi
+        </button>
+      </div>
     </div>
 
     <!-- NEW ROOMTYPE***************************************************************** -->
+
     <div class="d-flex justify-content-between align-item">
       <div class="col-md-3">
-        <div class="card">
+        <div class="card card-front" *ngIf="showCard">
           <div class="card-body">
             <h5 class="card-title">Nuovo Tipo Stanza</h5>
             <form>
@@ -76,25 +116,28 @@
                   [(ngModel)]="newRoomType.description"
                 ></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group mt-2">
                 <label for="newImage">Immagine</label>
                 <input
                   type="file"
-                  class="form-control-file"
-                  id="newImage"
-                  name="newImage"
+                  #fileInput
+                  (change)="onFileSelected($event)"
                 />
               </div>
-              <button class="btn btn-success" (click)="addNewRoomType()">
-                Aggiungi
-              </button>
+              <div class="d-flex justify-content-between align-item mt-3">
+                <button class="btn btn-secondary" (click)="addNewRoomType()">
+                  Aggiungi
+                </button>
+                <button class="btn btn-dark" (click)="close()">chiudi</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
+
       <!-- EDIT****************************************************************************** -->
       <div class="col-md-3" *ngIf="editingRoomType">
-        <div class="card">
+        <div class="card card-front">
           <div class="card-body">
             <h5 class="card-title">Modifica Tipo Stanza</h5>
             <form>
@@ -118,7 +161,7 @@
                   [(ngModel)]="editingRoomType.description"
                 ></textarea>
               </div>
-              <div class="form-group">
+              <div class="form-group my-2">
                 <label for="editImage">Immagine</label>
                 <input
                   type="file"
@@ -129,12 +172,14 @@
                 />
               </div>
             </form>
-            <button class="btn btn-success" (click)="saveEditedRoomType()">
-              Salva
-            </button>
-            <button class="btn btn-secondary" (click)="cancelEdit()">
-              Annulla
-            </button>
+            <div class="d-flex justify-content-between align-items">
+              <button class="btn btn-secondary" (click)="saveEditedRoomType()">
+                Salva
+              </button>
+              <button class="btn btn-dark" (click)="cancelEdit()">
+                Annulla
+              </button>
+            </div>
           </div>
         </div>
       </div>

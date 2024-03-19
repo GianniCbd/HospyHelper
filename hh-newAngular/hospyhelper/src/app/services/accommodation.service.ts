@@ -22,10 +22,13 @@ export class AccommodationService {
       .pipe(map((list) => list.content));
   }
 
-  // getAccommodations(userId: string): Observable<Accommodation[]> {
-  //   const url = `${this.apiUrl}/accommodation/byUser/${userId}`;
-  //   return this.http.get<Accommodation[]>(url);
-  // }
+  createAccommodation(
+    id: number,
+    newAccommodation: Accommodation
+  ): Observable<Accommodation> {
+    const url = `${this.apiUrl}/accommodation/save/${id}`;
+    return this.http.put<Accommodation>(url, newAccommodation);
+  }
 
   updateAccommodation(
     id: number,

@@ -22,6 +22,10 @@ export class RoomService {
       .pipe(map((list) => list.content));
   }
 
+  getRoomById(id: number): Observable<Room> {
+    return this.http.get<Room>(`${this.apiUrl}/room/${id}`);
+  }
+
   createRoom(newRoom: Room) {
     const url = `${this.apiUrl}/room/save`;
     return this.http.post<Room>(url, newRoom);
@@ -32,8 +36,26 @@ export class RoomService {
     return this.http.put<Room>(url, room);
   }
 
-  deleteRoomType(id: number): Observable<void> {
+  deleteRoom(id: number): Observable<void> {
     const url = `${this.apiUrl}/room/${id}`;
     return this.http.delete<void>(url);
+  }
+  // ********************************************************
+  getRoomsOrderByPriceAsc(): Observable<Room[]> {
+    return this.http.get<Room[]>(`${this.apiUrl}/room/order-by-price-asc`);
+  }
+
+  getRoomsOrderByPriceDesc(): Observable<Room[]> {
+    return this.http.get<Room[]>(`${this.apiUrl}/room/order-by-price-desc`);
+  }
+  getRoomsOrderByRoomNumberAsc(): Observable<Room[]> {
+    return this.http.get<Room[]>(
+      `${this.apiUrl}/room/order-by-room-number-asc`
+    );
+  }
+  getRoomsOrderByRoomNumberDesc(): Observable<Room[]> {
+    return this.http.get<Room[]>(
+      `${this.apiUrl}/room/order-by-room-number-desc`
+    );
   }
 }

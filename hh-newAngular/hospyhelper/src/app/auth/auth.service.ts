@@ -27,7 +27,7 @@ export class AuthService {
         this.authSubj.next(loggato);
         this.utente = loggato;
         localStorage.setItem('user', JSON.stringify(loggato));
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       }),
       catchError(this.errors)
     );
@@ -67,7 +67,7 @@ export class AuthService {
   logout() {
     this.authSubj.next(null);
     localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   private errors(err: any) {

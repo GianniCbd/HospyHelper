@@ -35,26 +35,15 @@
       rgb(107, 153, 100) 100%
     );
   background-blend-mode: overlay, overlay, normal;
-}
-.card {
-  cursor: pointer;
-  box-shadow: none;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgb(0, 0, 0) 0px 15px 12px;
-  transition: transform 0.3s ease;
+  height: 100vh;
 }
 
-.card-front {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-  cursor: pointer;
-}
 .container {
   padding-top: 7%;
+  height: 100%;
 }
 
+//Bottone aggiungi
 .button-85 {
   padding: 0.6em 2em;
   border: none;
@@ -120,22 +109,6 @@
   top: 0;
   border-radius: 10px;
 }
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.slide-in-from-left {
-  animation: slideInFromLeft 0.5s ease-in-out;
-}
-
 .ricerca {
   border: none;
   appearance: none;
@@ -143,4 +116,21 @@
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
+}
+
+// Tabella
+
+table {
+  cursor: pointer;
+}
+.table thead th {
+  background-color: #737673;
+  color: #000000;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.tdLink:hover {
+  background-color: grey;
 }

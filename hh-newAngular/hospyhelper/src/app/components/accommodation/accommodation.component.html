@@ -1,13 +1,43 @@
 <div class="mt-5 pt-5" *ngIf="currentUser">
-  <h2>Welcome, {{ currentUser.name }}!</h2>
+  <h2>
+    {{ currentUser.name }},
+    <span class="introduction"
+      >ora grazie ad HospyHelper sarà molto più semplice gestire le tue
+      strutture, agevolando il tuo compito e quello del tuo staff!</span
+    >
+  </h2>
 
   <div>
-    <h3>Your Accommodations:</h3>
-    <ul>
-      <li *ngFor="let accommodation of accommodation">
-        <div><strong>Name:</strong> {{ accommodation.name }}</div>
-        <div><strong>Location:</strong> {{ accommodation.address }}</div>
-        <div><strong>City:</strong> {{ accommodation.city }}</div>
+    <h3 class="my-5">Gestisci le tue Strutture:</h3>
+    <ul class="list-unstyled">
+      <li
+        *ngFor="let accommodation of accommodation"
+        class="border-bottom border-bottom-dark"
+      >
+        <div class="d-flex align-item-center my-3">
+          <img
+            src="../../../assets/images/socialMediaIcon/hotel-svgrepo-com.svg"
+            alt=""
+            width="30px"
+          />
+          <strong class="ps-2"> {{ accommodation.name }}</strong>
+        </div>
+        <div class="d-flex align-item-center mb-3">
+          <img
+            src="../../../assets/images/socialMediaIcon/location-indicator-red-svgrepo-com.svg"
+            alt=""
+            width="30px"
+          />
+          <strong class="ps-2">{{ accommodation.address }}</strong>
+        </div>
+        <div class="d-flex align-item-center mb-3">
+          <img
+            src="../../../assets/images/socialMediaIcon/city-svgrepo-com.svg"
+            alt=""
+            width="30px"
+          />
+          <strong class="ps-2">{{ accommodation.city }}</strong>
+        </div>
       </li>
     </ul>
   </div>

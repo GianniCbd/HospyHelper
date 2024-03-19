@@ -30,8 +30,7 @@ export class TokenInterceptor implements HttpInterceptor {
             `Bearer ${authData.accessToken}`
           ),
         });
-        console.log(authData);
-        console.log(authData.accessToken);
+
         return next.handle(this.newReq);
       })
     );
