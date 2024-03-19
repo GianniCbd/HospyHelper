@@ -55,32 +55,10 @@ export class RoomTypeComponent implements OnInit {
   cancelEdit() {
     this.editingRoomType = null;
   }
-  onEditImageChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const temporaryImage = reader.result as string;
-
-        this.roomTypeService
-          .uploadAvatar(this.editingRoomType.id, file)
-          .subscribe(
-            (imageUrl: string) => {
-              this.editingRoomType.image = imageUrl;
-            },
-            (error: any) => {
-              console.error("Errore durante l'upload dell'avatar:", error);
-              this.editingRoomType.image = temporaryImage;
-            }
-          );
-      };
-      reader.readAsDataURL(file);
-    }
-  }
 
   addNewRoomType() {
     this.roomTypeService.createRoomType(this.newRoomType).subscribe(
-      (response) => {
+      () => {
         this.newRoomType = {};
       },
       (error) => {
@@ -115,15 +93,20 @@ export class RoomTypeComponent implements OnInit {
       }
     );
   }
-  onFileSelected(event: any) {
+
+  uploadFile(event: any) {
     const file: File = event.target.files[0];
     console.log(file);
-    if (file) {
+    console.log(this.editingRoomType);
+
+    if (file && this.editingRoomType) {
+      console.log('passato');
       this.roomTypeService
         .uploadAvatar(this.editingRoomType.id, file)
         .subscribe(
           (imageUrl: string) => {
             this.editingRoomType.image = imageUrl;
+            console.log(imageUrl);
           },
           (error: any) => {
             console.error("Errore durante l'upload dell'avatar:", error);

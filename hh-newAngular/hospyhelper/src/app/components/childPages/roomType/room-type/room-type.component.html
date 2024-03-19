@@ -118,11 +118,7 @@
               </div>
               <div class="form-group mt-2">
                 <label for="newImage">Immagine</label>
-                <input
-                  type="file"
-                  #fileInput
-                  (change)="onFileSelected($event)"
-                />
+                <input type="file" #fileInput (change)="uploadFile($event)" />
               </div>
               <div class="d-flex justify-content-between align-item mt-3">
                 <button class="btn btn-secondary" (click)="addNewRoomType()">
@@ -168,7 +164,8 @@
                   class="form-control-file"
                   id="editImage"
                   name="editImage"
-                  (change)="onEditImageChange($event)"
+                  #fileInput
+                  (change)="uploadFile($event)"
                 />
               </div>
             </form>

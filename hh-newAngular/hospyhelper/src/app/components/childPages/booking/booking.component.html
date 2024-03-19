@@ -95,6 +95,7 @@
                 <th>Check-In</th>
                 <th>Check-Out</th>
                 <th>Numero Stanza</th>
+                <th>Da Pagare</th>
                 <th>Tipo Stanza</th>
                 <th>Struttura</th>
                 <th>Azioni</th>
@@ -109,6 +110,7 @@
                 <td>{{ booking.checkIn }}</td>
                 <td>{{ booking.checkOut }}</td>
                 <td>{{ booking.room.number }}</td>
+                <td>{{ booking.room.price }}</td>
                 <td class="tdLink">
                   <a [routerLink]="['/roomType']">{{
                     booking.room.roomType.typeName

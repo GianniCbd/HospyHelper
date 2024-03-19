@@ -52,6 +52,6 @@ export class RoomTypeService {
     const formData = new FormData();
     formData.append('image', image);
     const url = `${this.apiUrl}/roomTypes/upload/${id}`;
-    return this.http.patch<string>(url, formData);
+    return this.http.patch(url, formData, { responseType: 'text' });
   }
 }

@@ -1,48 +1,78 @@
-<div class="mt-5 pt-5" *ngIf="currentUser">
-  <h2>
-    {{ currentUser.name }},
-    <span class="introduction"
-      >ora grazie ad HospyHelper sarà molto più semplice gestire le tue
-      strutture, agevolando il tuo compito e quello del tuo staff!</span
-    >
-  </h2>
-
-  <div>
-    <h3 class="my-5">Gestisci le tue Strutture:</h3>
-    <ul class="list-unstyled">
-      <li
-        *ngFor="let accommodation of accommodation"
-        class="border-bottom border-bottom-dark"
+<div class="outer-container">
+  <div class="container" *ngIf="currentUser">
+    <h2>
+      {{ currentUser.name }},
+      <span class="introduction"
+        >Ora, grazie ad HospyHelper sarà molto più semplice gestire le tue
+        strutture, agevolando il tuo compito e quello del tuo staff!</span
       >
-        <div class="d-flex align-item-center my-3">
-          <img
-            src="../../../assets/images/socialMediaIcon/hotel-svgrepo-com.svg"
-            alt=""
-            width="30px"
-          />
-          <strong class="ps-2"> {{ accommodation.name }}</strong>
-        </div>
-        <div class="d-flex align-item-center mb-3">
-          <img
-            src="../../../assets/images/socialMediaIcon/location-indicator-red-svgrepo-com.svg"
-            alt=""
-            width="30px"
-          />
-          <strong class="ps-2">{{ accommodation.address }}</strong>
-        </div>
-        <div class="d-flex align-item-center mb-3">
-          <img
-            src="../../../assets/images/socialMediaIcon/city-svgrepo-com.svg"
-            alt=""
-            width="30px"
-          />
-          <strong class="ps-2">{{ accommodation.city }}</strong>
-        </div>
-      </li>
-    </ul>
-  </div>
+    </h2>
 
-  <button [routerLink]="['/booking']">Prenotazioni</button>
-  <button [routerLink]="['/room']">Stanze</button>
-  <button [routerLink]="['/roomType']">Tipologie di Stanze</button>
+    <div>
+      <h3 class="my-5">Gestisci le tue Strutture:</h3>
+      <ul class="list-unstyled">
+        <li
+          *ngFor="let accommodation of accommodation"
+          class="border-bottom border-bottom-dark"
+        >
+          <div class="d-flex align-items-center my-3">
+            <img
+              src="../../../assets/images/socialMediaIcon/hotel-svgrepo-com.svg"
+              alt=""
+              width="30px"
+            />
+            <strong class="ps-2">{{ accommodation.name }}</strong>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <img
+              src="../../../assets/images/socialMediaIcon/location-indicator-red-svgrepo-com.svg"
+              alt=""
+              width="30px"
+            />
+            <strong class="ps-2">{{ accommodation.address }}</strong>
+          </div>
+          <div class="d-flex align-items-center mb-3">
+            <img
+              src="../../../assets/images/socialMediaIcon/city-svgrepo-com.svg"
+              alt=""
+              width="30px"
+            />
+            <strong class="ps-2">{{ accommodation.city }}</strong>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <button
+        class="button-85 mt-3 mt-md-0 btn btn-sm"
+        [routerLink]="['/booking']"
+      >
+        Prenotazioni
+      </button>
+      <button
+        class="button-85 mt-3 mt-md-0 btn btn-sm"
+        [routerLink]="['/room']"
+      >
+        Stanze
+      </button>
+      <button
+        class="button-85 mt-3 mt-md-0 btn btn-sm"
+        [routerLink]="['/roomType']"
+      >
+        Tipologie di Stanze
+      </button>
+      <button
+        class="button-85 mt-3 mt-md-0 btn btn-sm"
+        [routerLink]="['/employee']"
+      >
+        Personale
+      </button>
+      <button
+        class="button-85 mt-3 mt-md-0 btn btn-sm"
+        [routerLink]="['/opex']"
+      >
+        Spese
+      </button>
+    </div>
+  </div>
 </div>

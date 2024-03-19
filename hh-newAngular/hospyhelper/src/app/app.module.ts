@@ -17,12 +17,12 @@ import { IntroPageComponent } from './components/intro-page/intro-page.component
 import { ProfiloComponent } from './components/profiloUser/profilo/profilo.component';
 import { NostriServiziComponent } from './components/nostri-servizi/nostri-servizi.component';
 import { UserDetailsComponent } from './components/profiloUser/user-details/user-details.component';
-import { AmministraClientiComponent } from './components/childPages/amministra-clienti/amministra-clienti/amministra-clienti.component';
-import { TabellaPrenotazioniComponent } from './components/childPages/tabella-prenotazioni/tabella-prenotazioni/tabella-prenotazioni.component';
 import { RoomComponent } from './components/childPages/room/room.component';
 import { RoomTypeComponent } from './components/childPages/roomType/room-type/room-type.component';
 import { AccommodationComponent } from './components/accommodation/accommodation.component';
 import { BookingComponent } from './components/childPages/booking/booking.component';
+import { EmployeeComponent } from './components/childPages/employee/employee.component';
+import { OpexComponent } from './components/childPages/opex/opex.component';
 
 const routes: Route[] = [
   {
@@ -86,12 +86,12 @@ const routes: Route[] = [
     NostriServiziComponent,
     UserDetailsComponent,
 
-    AmministraClientiComponent,
-    TabellaPrenotazioniComponent,
     RoomComponent,
     RoomTypeComponent,
     AccommodationComponent,
     BookingComponent,
+    EmployeeComponent,
+    OpexComponent,
   ],
   imports: [
     BrowserModule,
