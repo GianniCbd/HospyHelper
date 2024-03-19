@@ -36,21 +36,24 @@ public class RoomTypeSRV {
         return roomTypeDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
     public RoomType updateRoomType(Long id, RoomTypeDTO rt) {
-        RoomType existingRoomType = roomTypeDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
+        RoomType existingRoomType = roomTypeDAO.findById(id)
+                .orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingRoomType.setTypeName(rt.typeName());
         existingRoomType.setDescription(rt.description());
         existingRoomType.setImage(rt.image());
         return roomTypeDAO.save(existingRoomType);
     }
-    public void deleteRoomType(Long id) {
-        RoomType rt = this.getRoomTypeById(id);
-        roomTypeDAO.delete(rt);
-    }
-
     public String UploadImage(Long id, MultipartFile image) throws IOException {
         RoomType found = getRoomTypeById(id);
         String url = (String) cloudinaryUploader.uploader().upload(image.getBytes(), ObjectUtils.emptyMap()).get("url");
         found.setImage(url);
         return url;
     }
+
+    public void deleteRoomType(Long id) {
+        RoomType rt = this.getRoomTypeById(id);
+        roomTypeDAO.delete(rt);
+    }
+
+
 }

@@ -19,6 +19,7 @@ public class RoomType {
     private long id;
     private String typeName;
     private String description;
+
     private String image;
 
 
