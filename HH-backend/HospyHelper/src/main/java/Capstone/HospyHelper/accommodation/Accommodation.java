@@ -6,7 +6,6 @@ import Capstone.HospyHelper.employee.Employee;
 import Capstone.HospyHelper.opex.OperationExpenses;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,7 +33,7 @@ public class Accommodation {
     private String description;
 
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     private Set<Booking> bookings = new HashSet<>();
 
     @JsonIgnoreProperties({"id","email","salary"})

@@ -7,6 +7,5 @@ public record AccommodationDTO(
         String typeAccommodation,
         String description
 
-
 ) {
 }
