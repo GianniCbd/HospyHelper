@@ -30,7 +30,6 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "accommodation_id")
-
     private Accommodation accommodation;
 
 
