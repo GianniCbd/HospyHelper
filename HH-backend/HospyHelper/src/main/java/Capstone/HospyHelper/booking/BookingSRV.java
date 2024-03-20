@@ -29,13 +29,11 @@ public class BookingSRV {
     RoomDAO roomDAO;
 
 
-
     public Page<Booking> getAll(int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return bookingDAO.findAll(pageable);
     }
-
 
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
         Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));

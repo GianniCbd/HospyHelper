@@ -28,8 +28,6 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     RoleEmployee roleEmployee;
 
-
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
     @JsonIgnore
     @JoinColumn(name = "accommodation_id")
