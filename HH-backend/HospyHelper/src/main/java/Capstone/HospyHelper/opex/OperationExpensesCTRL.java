@@ -22,7 +22,7 @@ OperationExpensesSRV operationExpensesSRV;
     @GetMapping
     public Page<OperationExpenses> getAll(@RequestParam(defaultValue = "0") int pageNumber,
                                  @RequestParam(defaultValue = "10") int pageSize,
-                                 @RequestParam(defaultValue = "name") String orderBy) {
+                                 @RequestParam(defaultValue = "waterBill") String orderBy) {
         return operationExpensesSRV.getAll(pageNumber, pageSize, orderBy);
     }
 

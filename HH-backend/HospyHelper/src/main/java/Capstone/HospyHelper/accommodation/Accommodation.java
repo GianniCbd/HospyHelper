@@ -21,7 +21,6 @@ import java.util.Set;
 @Setter
 @ToString
 @NoArgsConstructor
-
 public class Accommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
