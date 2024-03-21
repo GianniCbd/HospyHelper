@@ -67,7 +67,14 @@ const routes: Route[] = [
     path: 'roomType',
     component: RoomTypeComponent,
   },
-  { path: 'roomType/:id/edit', component: RoomTypeComponent },
+  {
+    path: 'employee',
+    component: EmployeeComponent,
+  },
+  {
+    path: 'opex',
+    component: OpexComponent,
+  },
   {
     path: '**',
     redirectTo: '',

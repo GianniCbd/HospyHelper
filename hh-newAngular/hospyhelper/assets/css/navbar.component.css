@@ -5,6 +5,11 @@
   width: 100%;
   z-index: 10;
   transition: background-color 0.3s ease-in-out;
+  background-image: radial-gradient(circle at center left, rgb(112, 105, 114), rgb(16, 13, 13));
+}
+
+.navbar2 {
+  background-image: radial-gradient(circle at center left, rgb(112, 105, 114), rgb(16, 13, 13));
 }
 
 .nav-link {
@@ -26,6 +31,15 @@
   border-radius: 10%;
   color: black;
   padding: 5px;
+}
+
+.logout-button {
+  transition: background-color 0.3s ease;
+  padding-bottom: 8px;
+}
+
+.logout-button:hover {
+  background-color: rgb(150, 32, 32);
 }
 
 @media (max-width: 576.98px) {

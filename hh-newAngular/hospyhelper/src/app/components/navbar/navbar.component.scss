@@ -12,6 +12,14 @@
   );
 }
 
+.navbar2 {
+  background-image: radial-gradient(
+    circle at center left,
+    rgb(112, 105, 114),
+    rgb(16, 13, 13)
+  );
+}
+
 .nav-link {
   transition: transform 0.2s ease-in-out;
   &:hover {

@@ -16,6 +16,6 @@ export class NostriServiziComponent implements OnInit {
   }
 
   goToChildPage2(): void {
-    this.router.navigate(['/amministraClienti']);
+    this.router.navigate(['/employee']);
   }
 }

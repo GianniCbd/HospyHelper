@@ -1,7 +1,4 @@
-<nav
-  class="navbar navbar-expand bg-dark"
-  [style.background-color]="getBackgroundColor()"
->
+<nav class="navbar navbar-expand bg-dark">
   <div class="container-fluid">
     <a [routerLink]="['/intro']" *ngIf="!utente" routerLinkActive="active">
       <img
@@ -94,13 +91,13 @@
     </div>
   </div>
 </nav>
-
+<!-- NAVBAR INFERIORE************************************************ -->
 <div
-  class="bg-primary sticky-bottom d-block d-sm-none p-2 fixed-bottom"
+  class="navbar2 bg-primary sticky-bottom d-block d-sm-none p-2 fixed-bottom"
   style="position: fixed; bottom: 0; left: 0; width: 100%"
 >
   <div class="container-fluid d-flex justify-content-between">
-    <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+    <a class="nav-link active" aria-current="page" [routerLink]="['/home']"
       ><i class="bi bi-house-door-fill"></i
     ></a>
 

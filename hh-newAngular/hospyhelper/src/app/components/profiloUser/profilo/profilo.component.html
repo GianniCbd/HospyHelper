@@ -1,55 +1,70 @@
-<main>
+<div class="outer-container">
   <div class="container">
-    <div class="row justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-item-center">
       <div class="col-lg-6 col-md-8 col-sm-10 text-center">
         <h1 class="mb-4">Benvenuto, {{ currentUser!.name }}!</h1>
         <p class="lead mb-5">Ecco cosa puoi fare:</p>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
+        <div class="row d-flex justify-content-around">
+          <div class="col col-md-5 mb-4">
+            <div class="card text-center">
               <div class="card-body">
                 <h4 class="card-title">Controlla le prenotazioni</h4>
-                <p class="card-text">
+                <p class="card-text mb-4">
                   Visualizza tutte le prenotazioni effettuate.
                 </p>
-                <a href="/booking" class="btn btn-primary">Prenotazioni</a>
+                <a href="/booking" class="btn btn-primary btn-block"
+                  >Prenotazioni</a
+                >
               </div>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
+          <div class="col-md-5 mb-4">
+            <div class="card text-center">
               <div class="card-body">
                 <h4 class="card-title">Gestione Personale</h4>
                 <p class="card-text">Controlla schede dipendenti</p>
                 <a
-                  [routerLink]="['/gestionePrenotazioni']"
-                  class="btn btn-primary"
-                  >Gestisci
-                </a>
+                  [routerLink]="['/employee']"
+                  class="btn btn-primary btn-block"
+                  >Gestisci</a
+                >
               </div>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
+          <div class="col-md-5 mb-4">
+            <div class="card text-center">
               <div class="card-body">
                 <h4 class="card-title">Modifica Dati Utente</h4>
                 <p class="card-text">
                   Modifica le informazioni del tuo profilo.
                 </p>
-                <a [routerLink]="'profilo'" class="btn btn-primary"
+                <a [routerLink]="'profilo'" class="btn btn-primary btn-block"
                   >Modifica Dati</a
                 >
               </div>
             </div>
           </div>
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
+          <div class="col-md-5 mb-4">
+            <div class="card text-center">
               <div class="card-body">
                 <h4 class="card-title">Le stanze</h4>
                 <p class="card-text">
                   Gestisci le tue stanze e aggiorna i tuoi dati.
                 </p>
-                <a [routerLink]="['/room']" class="btn btn-primary"
+                <a [routerLink]="['/room']" class="btn btn-primary btn-block"
+                  >Modifica Dati</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 mb-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h4 class="card-title">Le spese annuali</h4>
+                <p class="card-text">
+                  Tieni sotto controllo le spese per le forniture.
+                </p>
+                <a [routerLink]="['/opex']" class="btn btn-primary btn-block"
                   >Modifica Dati</a
                 >
               </div>
@@ -59,4 +74,4 @@
       </div>
     </div>
   </div>
-</main>
+</div>

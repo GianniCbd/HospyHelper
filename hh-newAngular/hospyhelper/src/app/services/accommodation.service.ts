@@ -22,6 +22,11 @@ export class AccommodationService {
       .pipe(map((list) => list.content));
   }
 
+  findById(id: number): Observable<Accommodation> {
+    const url = `${this.apiUrl}/accommodation/${id}`;
+    return this.http.get<Accommodation>(url);
+  }
+
   createAccommodation(
     id: number,
     newAccommodation: Accommodation

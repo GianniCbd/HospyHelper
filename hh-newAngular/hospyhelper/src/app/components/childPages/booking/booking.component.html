@@ -84,46 +84,59 @@
             (input)="fetchData()"
           />
         </div>
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr class="text-center">
-                <th>Cliente</th>
-                <th>Email</th>
-                <th>Cellulare</th>
-                <th>Pax</th>
-                <th>Check-In</th>
-                <th>Check-Out</th>
-                <th>Numero Stanza</th>
-                <th>Da Pagare</th>
-                <th>Tipo Stanza</th>
-                <th>Struttura</th>
-                <th>Azioni</th>
-              </tr>
-            </thead>
-            <tbody class="text-center">
-              <tr *ngFor="let booking of bookings">
-                <td>{{ booking.fullName }}</td>
-                <td>{{ booking.email }}</td>
-                <td>{{ booking.phone }}</td>
-                <td>{{ booking.numberOfGuests }}</td>
-                <td>{{ booking.checkIn }}</td>
-                <td>{{ booking.checkOut }}</td>
-                <td>{{ booking.room.number }}</td>
-                <td>{{ booking.room.price }}</td>
-                <td class="tdLink">
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6" *ngFor="let booking of bookings">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+                  <p class="card-title">Cliente</p>
+                  <p class="card-title">{{ booking.fullName }}</p>
+                </div>
+                <div class="d-flex justify-content-between mt-1">
+                  <p class="card-text">Email:</p>
+                  <p class="card-text">{{ booking.email }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Cellulare:</p>
+                  <p class="card-text">{{ booking.phone }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Numero Ospiti:</p>
+                  <p class="card-text">{{ booking.numberOfGuests }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Check-In:</p>
+                  <p class="card-text">{{ booking.checkIn }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Check-Out:</p>
+                  <p class="card-text">{{ booking.checkOut }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Numero Stanza:</p>
+                  <p class="card-text">{{ booking.room.number }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Da Pagare:</p>
+                  <p class="card-text">{{ booking.room.price }}</p>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Tipo Stanza:</p>
                   <a [routerLink]="['/roomType']">{{
                     booking.room.roomType.typeName
                   }}</a>
-                </td>
-                <td class="tdLink">
-                  <a [routerLink]="['/accommodation']">
-                    {{ booking.accommodation.name }}</a
-                  >
-                </td>
-                <td class="d-flex align-items-center">
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="card-text">Struttura:</p>
+                  <a [routerLink]="['/accommodation']">{{
+                    booking.accommodation.name
+                  }}</a>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
                   <button
-                    class="btn btn-secondary m-1"
+                    class="btn btn-secondary"
                     (click)="editBooking(booking)"
                   >
                     <svg
@@ -139,10 +152,7 @@
                       />
                     </svg>
                   </button>
-                  <button
-                    class="btn btn-dark m-1"
-                    (click)="deleteBooking(booking)"
-                  >
+                  <button class="btn btn-dark" (click)="deleteBooking(booking)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -156,178 +166,183 @@
                       />
                     </svg>
                   </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="addButton">
-          <button
-            id="addButton"
-            class="btn button-85 mb-3"
-            (click)="toggleCardVisibility()"
-          >
-            Aggiungi
-          </button>
-        </div>
+      </div>
+      <div class="addButton">
+        <button
+          id="addButton"
+          class="btn button-85 my-3"
+          (click)="toggleCardVisibility()"
+        >
+          Aggiungi
+        </button>
       </div>
     </div>
   </div>
-</div>
-<!-- Add new************************************************************************** -->
-<div class="card card-front" *ngIf="showCard">
-  <div class="card-body">
-    <h5 class="card-title">FullName</h5>
-    <form>
-      <div class="form-group">
-        <label for="newFullName">FullName</label>
-        <input
-          type="text"
-          class="form-control"
-          id="newFullName"
-          name="newFullName"
-          [(ngModel)]="newBooking.fullName"
-        />
-      </div>
-      <div class="form-group">
-        <label for="newEmail">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="newEmail"
-          name="newEmail"
-          [(ngModel)]="newBooking.email"
-        />
-      </div>
-      <div class="form-group">
-        <label for="newPhone">Phone</label>
-        <input
-          type="text"
-          class="form-control"
-          id="newPhone"
-          name="newPhone"
-          [(ngModel)]="newBooking.phone"
-        />
-      </div>
-      <div class="form-group">
-        <label for="newCheckIn">CheckIn</label>
-        <input
-          type="date"
-          class="form-control"
-          id="newCheckIn"
-          name="newCheckIn"
-          [(ngModel)]="newBooking.checkIn"
-        />
-      </div>
-      <div class="form-group">
-        <label for="newCheckOut">CheckOut</label>
-        <input
-          type="date"
-          class="form-control"
-          id="newCheckOut"
-          name="newCheckOut"
-          [(ngModel)]="newBooking.checkOut"
-        />
-      </div>
-      <div class="form-group">
-        <label for="room">Stanza</label>
-        <select
-          class="form-control"
-          id="room"
-          name="room"
-          [(ngModel)]="newBooking.room"
-        >
-          <option *ngFor="let room of rooms" [ngValue]="room">
-            {{ room.roomType.typeName }}
-          </option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="room">Struttura</label>
-        <select
-          class="form-control"
-          id="room"
-          name="room"
-          [(ngModel)]="newBooking.accommodation"
-        >
-          <option
-            *ngFor="let accommodation of accommodations"
-            [ngValue]="accommodation"
-          >
-            {{ accommodation.name }}
-          </option>
-        </select>
-      </div>
-      <div class="d-flex justify-content-between align-item mt-3">
-        <button class="btn btn-secondary" (click)="addNewBooking()">
-          Aggiungi
-        </button>
-        <button class="btn btn-dark" (click)="close()">chiudi</button>
-      </div>
-    </form>
-  </div>
-</div>
-<!-- UPDATE******************************************************************************** -->
-<div class="col-md-3" *ngIf="editingBooking">
-  <div class="card">
+
+  <!-- Add new************************************************************************** -->
+  <div class="card card-front" *ngIf="showCard">
     <div class="card-body">
-      <h5 class="card-title">Modifica Prenotazione</h5>
+      <h5 class="card-title">FullName</h5>
       <form>
         <div class="form-group">
-          <label for="editFullName">Nominativi</label>
+          <label for="newFullName">FullName</label>
           <input
             type="text"
             class="form-control"
-            id="editFullName"
-            name="editFullName"
-            [(ngModel)]="editingBooking.fullName"
+            id="newFullName"
+            name="newFullName"
+            [(ngModel)]="newBooking.fullName"
           />
         </div>
         <div class="form-group">
-          <label for="editEmail">Email</label>
+          <label for="newEmail">Email</label>
           <input
             type="email"
             class="form-control"
-            id="editEmail"
-            name="editEmail"
-            [(ngModel)]="editingBooking.email"
+            id="newEmail"
+            name="newEmail"
+            [(ngModel)]="newBooking.email"
           />
         </div>
         <div class="form-group">
-          <label for="editPhone">Cellulare</label>
+          <label for="newPhone">Phone</label>
           <input
             type="text"
             class="form-control"
-            id="editPhone"
-            name="editPhone"
-            [(ngModel)]="editingBooking.phone"
+            id="newPhone"
+            name="newPhone"
+            [(ngModel)]="newBooking.phone"
           />
         </div>
         <div class="form-group">
-          <label for="editChechIn">CheckIn</label>
+          <label for="newCheckIn">CheckIn</label>
           <input
             type="date"
             class="form-control"
-            id="editChechIn"
-            name="editChechIn"
-            [(ngModel)]="editingBooking.checkIn"
+            id="newCheckIn"
+            name="newCheckIn"
+            [(ngModel)]="newBooking.checkIn"
           />
         </div>
         <div class="form-group">
-          <label for="editCheckOut">CheckOut</label>
+          <label for="newCheckOut">CheckOut</label>
           <input
             type="date"
             class="form-control"
-            id="editCheckOut"
-            name="editCheckOut"
-            [(ngModel)]="editingBooking.checkOut"
+            id="newCheckOut"
+            name="newCheckOut"
+            [(ngModel)]="newBooking.checkOut"
           />
+        </div>
+        <div class="form-group">
+          <label for="room">Stanza</label>
+          <select
+            class="form-control"
+            id="room"
+            name="room"
+            [(ngModel)]="newBooking.room"
+          >
+            <option *ngFor="let room of rooms" [ngValue]="room">
+              {{ room.roomType.typeName }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="room">Struttura</label>
+          <select
+            class="form-control"
+            id="room"
+            name="room"
+            [(ngModel)]="newBooking.accommodation"
+          >
+            <option
+              *ngFor="let accommodation of accommodations"
+              [ngValue]="accommodation"
+            >
+              {{ accommodation.name }}
+            </option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-between align-item mt-3">
+          <button class="btn btn-secondary" (click)="addNewBooking()">
+            Aggiungi
+          </button>
+          <button class="btn btn-dark" (click)="close()">chiudi</button>
         </div>
       </form>
-      <button class="btn btn-success" (click)="saveEditedBooking()">
-        Salva
-      </button>
-      <button class="btn btn-secondary" (click)="cancelEdit()">Annulla</button>
+    </div>
+  </div>
+  <!-- UPDATE******************************************************************************** -->
+  <div class="col-md-3" *ngIf="editingBooking">
+    <div class="card card-front">
+      <div class="card-body">
+        <h5 class="card-title">Modifica Prenotazione</h5>
+        <form>
+          <div class="form-group">
+            <label for="editFullName">Nominativi</label>
+            <input
+              type="text"
+              class="form-control"
+              id="editFullName"
+              name="editFullName"
+              [(ngModel)]="editingBooking.fullName"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmail">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="editEmail"
+              name="editEmail"
+              [(ngModel)]="editingBooking.email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editPhone">Cellulare</label>
+            <input
+              type="text"
+              class="form-control"
+              id="editPhone"
+              name="editPhone"
+              [(ngModel)]="editingBooking.phone"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editChechIn">CheckIn</label>
+            <input
+              type="date"
+              class="form-control"
+              id="editChechIn"
+              name="editChechIn"
+              [(ngModel)]="editingBooking.checkIn"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editCheckOut">CheckOut</label>
+            <input
+              type="date"
+              class="form-control"
+              id="editCheckOut"
+              name="editCheckOut"
+              [(ngModel)]="editingBooking.checkOut"
+            />
+          </div>
+        </form>
+        <div class="d-flex justify-content-between align-item-center mt-2">
+          <button class="btn btn-success" (click)="saveEditedBooking()">
+            Salva
+          </button>
+          <button class="btn btn-secondary" (click)="cancelEdit()">
+            Annulla
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

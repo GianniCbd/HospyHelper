@@ -1,12 +1,45 @@
 #carouselExampleIndicators {
-  background-image: linear-gradient(
-    to left,
-    rgba(228, 159, 140, 0.823),
-    #328b9adf
-  );
   color: white;
   padding-top: 100px;
   color: black;
+  height: 100vh;
+}
+.outer-container {
+  height: 100%;
+  background-image: repeating-radial-gradient(
+      circle at center center,
+      transparent 0px,
+      transparent 13px,
+      rgba(255, 255, 255, 0.05) 13px,
+      rgba(255, 255, 255, 0.05) 26px,
+      transparent 26px,
+      transparent 27px,
+      rgba(255, 255, 255, 0.05) 27px,
+      rgba(255, 255, 255, 0.05) 32px,
+      transparent 32px,
+      transparent 34px,
+      rgba(255, 255, 255, 0.05) 34px,
+      rgba(255, 255, 255, 0.05) 36px
+    ),
+    repeating-radial-gradient(
+      circle at center center,
+      rgb(97, 121, 180) 0px,
+      rgb(97, 121, 180) 1px,
+      rgb(97, 121, 180) 1px,
+      rgb(97, 121, 180) 13px,
+      rgb(97, 121, 180) 13px,
+      rgb(97, 121, 180) 24px,
+      rgb(97, 121, 180) 24px,
+      rgb(97, 121, 180) 37px,
+      rgb(97, 121, 180) 37px,
+      rgb(97, 121, 180) 44px,
+      rgb(97, 121, 180) 44px,
+      rgb(97, 121, 180) 48px
+    );
+  background-size: 88px 88px;
+}
+.carousel-inner {
+  height: 100%;
 }
 
 .paragraphs {
@@ -57,5 +90,17 @@
 @media screen and (max-width: 576px) {
   #carouselExampleIndicators {
     padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .img {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .carousel-inner {
+    font-size: 15px;
   }
 }

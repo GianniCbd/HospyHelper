@@ -77,7 +77,6 @@ export class RoomComponent implements OnInit {
 
     this.editingRoom = { ...room, id: selectedRoomId };
   }
-
   saveEditedRoom() {
     this.roomSrv.updateRoom(this.editingRoom.id, this.editingRoom).subscribe(
       (updatedRoomType) => {

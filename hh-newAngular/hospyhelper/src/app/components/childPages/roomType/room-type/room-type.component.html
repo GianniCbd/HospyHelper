@@ -1,4 +1,4 @@
-<div class="outer-container pt-3">
+<div class="outer-container pt-3 pb-5">
   <div class="container">
     <div class="d-flex justify-content-between align-item-center">
       <a [routerLink]="['/room']" class="arrow m-3"
@@ -30,9 +30,9 @@
     <div class="row">
       <div
         *ngFor="let roomType of roomTypes"
-        class="col-md-3 slide-in-from-left"
+        class="col-md-3 slide-in-from-left mb-3"
       >
-        <div class="card mb-2">
+        <div class="card">
           <img
             [src]="roomType.image"
             class="card-img-top"
@@ -116,10 +116,7 @@
                   [(ngModel)]="newRoomType.description"
                 ></textarea>
               </div>
-              <div class="form-group mt-2">
-                <label for="newImage">Immagine</label>
-                <input type="file" #fileInput (change)="uploadFile($event)" />
-              </div>
+
               <div class="d-flex justify-content-between align-item mt-3">
                 <button class="btn btn-secondary" (click)="addNewRoomType()">
                   Aggiungi

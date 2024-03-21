@@ -1,1 +1,201 @@
-<p>opex works!</p>
+<div class="outer-container">
+  <div class="container" *ngIf="opex">
+    <div class="d-flex justify-content-between align-item-center">
+      <a [routerLink]="['/profilo']" class="arrow m-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-left-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
+          ></path>
+        </svg>
+      </a>
+      <a [routerLink]="['/accommodation']" class="arrow m-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-right-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="container-fluid">
+      <h2 class="elenco">Spesa forniture annuali</h2>
+      <ul class="list-unstyled">
+        <li class="opex" *ngFor="let op of opex">
+          <div class="opex-details row">
+            <div class="col-md-6">
+              <p class="paragIndex">
+                <strong>Acqua:</strong> {{ op.waterBill }}
+              </p>
+              <p class="paragIndex"><strong>Gas:</strong> {{ op.gasBill }}</p>
+              <p class="paragIndex">
+                <strong>Elettricità:</strong> {{ op.powerBill }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-secondary" (click)="editOp(op)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                />
+              </svg>
+            </button>
+            <button class="btn btn-dark ms-2" (click)="deleteOpex(op)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-trash2-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+                />
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div *ngFor="let acc of accommodation" class="mt-5">
+      <h4 class="pulse-animation">
+        Prima di aggiungere un nuovo Opex seleziona la struttura
+      </h4>
+
+      <div
+        class="bottoni d-flex justify-content-between align-items-center pb-5 mt-3"
+      >
+        <button
+          class="btn button-85"
+          role="button"
+          (click)="selectAccommodation(acc)"
+        >
+          {{ acc.name }}
+        </button>
+
+        <button
+          id="addButton"
+          class="btn button-85 my-2"
+          role="button"
+          (click)="toggleCardVisibility()"
+        >
+          Aggiungi Opex
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- New Opex*************************************************************** -->
+  <div class="d-flex justify-content-between align-items">
+    <div class="col-md-3">
+      <div class="card card-front" *ngIf="showCard">
+        <div class="card-body">
+          <h5 class="card-title">Aggiungi Opex</h5>
+          <form>
+            <div class="form-group">
+              <label for="newWaterBill">Acqua</label>
+              <input
+                type="number"
+                class="form-control"
+                id="newWaterBill"
+                name="newWaterBill"
+                [(ngModel)]="newOpex.waterBill"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newGasBill">Gas</label>
+              <input
+                type="number"
+                class="form-control"
+                id="newGasBill"
+                name="newGasBill"
+                [(ngModel)]="newOpex.gasBill"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newPowerBill">Elettricità</label>
+              <input
+                type="number"
+                class="form-control"
+                id="newPowerBill"
+                name="newPowerBill"
+                [(ngModel)]="newOpex.powerBill"
+              />
+            </div>
+            <div class="d-flex justify-content-between align-items mt-3">
+              <button class="btn btn-secondary" (click)="addNewOpex()">
+                Aggiungi
+              </button>
+              <button class="btn btn-dark" (click)="close()">Chiudi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UPDATE***************** -->
+<div class="col-md-3" *ngIf="editingOpex">
+  <div class="card card-front">
+    <div class="card-body">
+      <h5 class="card-title">Modifica Spese Operative</h5>
+      <form>
+        <div class="form-group">
+          <label for="editWaterBill">Bolletta dell'Acqua</label>
+          <input
+            type="number"
+            class="form-control"
+            id="editWaterBill"
+            name="editWaterBill"
+            [(ngModel)]="editingOpex.waterBill"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editGasBill">Bolletta del Gas</label>
+          <input
+            type="number"
+            class="form-control"
+            id="editGasBill"
+            name="editGasBill"
+            [(ngModel)]="editingOpex.gasBill"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editPowerBill">Bolletta della Luce</label>
+          <input
+            type="number"
+            class="form-control"
+            id="editPowerBill"
+            name="editPowerBill"
+            [(ngModel)]="editingOpex.powerBill"
+          />
+        </div>
+      </form>
+      <div class="d-flex justify-content-between align-item-center mt-2">
+        <button class="btn btn-secondary" (click)="saveEditedOp()">
+          Salva
+        </button>
+        <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
+      </div>
+    </div>
+  </div>
+</div>
