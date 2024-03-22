@@ -1,6 +1,7 @@
 package Capstone.HospyHelper.room;
 
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.booking.Booking;
 import Capstone.HospyHelper.roomType.RoomType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "room")
@@ -27,6 +29,8 @@ public class Room {
     private int number;
     private double price;
     private int capacity;
+    @Column(name = "owner_id")
+    private UUID ownerId;
 
     @ManyToOne
     @JoinColumn(name = "room_type_id")
@@ -36,11 +40,13 @@ public class Room {
     @JsonIgnore
     private Set<Booking> bookings;
 
-    public Room(int number, double price, int capacity, RoomType roomType) {
+    @ManyToOne
+    private User user;
+    public Room(int number, double price, int capacity, RoomType roomType,User user) {
         this.number = number;
         this.price = price;
         this.capacity = capacity;
         this.roomType = roomType;
+        this.ownerId = user.getId();
     }
-
 }

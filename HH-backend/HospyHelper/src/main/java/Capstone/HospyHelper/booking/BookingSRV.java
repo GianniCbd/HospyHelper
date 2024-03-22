@@ -52,10 +52,8 @@ public Page<Booking> getAllBookings(int pageNumber, int pageSize, String orderBy
         userBookings.addAll(bookingDAO.findByAccommodation(accommodation));
     }
     int start = (int) pageable.getOffset();
-    int end = (start + pageable.getPageSize()) > userBookings.size() ? userBookings.size() : (start + pageable.getPageSize());
-    Page<Booking> userBookingPage = new PageImpl<>(userBookings.subList(start, end), pageable, userBookings.size());
-
-    return userBookingPage;
+    int end = Math.min((start + pageable.getPageSize()), userBookings.size());
+    return new PageImpl<>(userBookings.subList(start, end), pageable, userBookings.size());
 }
 
 

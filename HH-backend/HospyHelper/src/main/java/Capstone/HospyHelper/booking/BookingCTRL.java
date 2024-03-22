@@ -24,7 +24,6 @@ public class BookingCTRL {
     @Autowired
     BookingSRV bookingSRV;
 
-
     @GetMapping("/all")
     public Page<Booking> getAllBookings(
             @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,

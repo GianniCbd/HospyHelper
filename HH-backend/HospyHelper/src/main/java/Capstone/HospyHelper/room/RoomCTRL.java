@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,31 +25,27 @@ public class RoomCTRL {
         this.roomSRV = roomSrv;
     }
 
-
     @GetMapping
-    public Page<Room> getAll(
-            @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "10") int pageSize,
-            @RequestParam(defaultValue = "id") String orderBy) {
-
-        return roomSRV.getAll( pageNumber, pageSize, orderBy);
+    public ResponseEntity<Page<Room>> getUserRooms(@AuthenticationPrincipal User currentAuthenticatedUser,
+                                                   @RequestParam(defaultValue = "0") int pageNumber,
+                                                   @RequestParam(defaultValue = "10") int pageSize,
+                                                   @RequestParam(defaultValue = "id") String orderBy) {
+        Page<Room> userRoomsPage = roomSRV.getAllRoomsByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize, orderBy);
+        System.out.println(userRoomsPage);
+        return new ResponseEntity<>(userRoomsPage, HttpStatus.OK);
     }
 
-    private User getUser() {
-        return new User();
-    }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Room> saveRoom(@RequestBody @Validated RoomDTO roomDTO, BindingResult validation) throws IOException {
+    public ResponseEntity<Room> saveRoom(@AuthenticationPrincipal User currentAuthenticatedUser, @RequestBody @Validated RoomDTO roomDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-
-        Room savedRoom = roomSRV.saveRoom(roomDTO);
-
+        Room savedRoom = roomSRV.saveRoom(currentAuthenticatedUser.getId(), roomDTO, currentAuthenticatedUser);
         return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
     }
+
 
     @GetMapping("/{id}")
     public Room findById(@PathVariable Long id) {

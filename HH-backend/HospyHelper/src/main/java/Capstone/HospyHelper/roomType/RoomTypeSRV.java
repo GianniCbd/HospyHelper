@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.roomType;
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class RoomTypeSRV {
@@ -21,15 +23,16 @@ public class RoomTypeSRV {
     @Autowired
     private Cloudinary cloudinaryUploader;
 
-    public Page<RoomType> getAll(int pageNumber, int pageSize, String orderBy) {
+
+    public Page<RoomType> getAllRoomsTypesByOwnerId(UUID userId, int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return roomTypeDAO.findAll(pageable);
+        return roomTypeDAO.findByOwnerId(userId,pageable);
     }
 
-    public RoomType saveRoomType(RoomTypeDTO newRt) {
+    public RoomType saveRoomType(UUID id ,RoomTypeDTO newRt, User user) {
         return roomTypeDAO.save(
-                new RoomType(newRt.typeName(), newRt.description(), newRt.image())
+                new RoomType(newRt.typeName(), newRt.description(), newRt.image(),user)
         );
     }
     public RoomType getRoomTypeById(Long id) {
@@ -54,6 +57,5 @@ public class RoomTypeSRV {
         RoomType rt = this.getRoomTypeById(id);
         roomTypeDAO.delete(rt);
     }
-
 
 }

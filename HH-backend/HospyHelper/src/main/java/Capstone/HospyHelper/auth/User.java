@@ -4,6 +4,8 @@ import Capstone.HospyHelper.Enums.Role;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.post.Post;
 import Capstone.HospyHelper.review.Review;
+import Capstone.HospyHelper.room.Room;
+import Capstone.HospyHelper.roomType.RoomType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -52,6 +54,14 @@ public class User implements UserDetails {
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private Set<Accommodation> accommodations = new HashSet<>();
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
+    private Set<Room> rooms;
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
+    private Set<RoomType> roomTypes;
 
     public User(String name, String surname, String email, String password, String confirmPassword) {
         this.name = name;

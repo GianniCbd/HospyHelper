@@ -1,6 +1,8 @@
 package Capstone.HospyHelper.room;
 
 import Capstone.HospyHelper.accommodation.AccommodationDAO;
+import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.auth.UserDAO;
 import Capstone.HospyHelper.booking.BookingDAO;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.exceptions.NotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -30,31 +33,31 @@ public class RoomSRV {
     private AccommodationDAO accommodationDAO;
     @Autowired
     private BookingDAO bookingDAO;
+    @Autowired
+    private UserDAO userDAO;
 
 
-    public Page<Room> getAll(int pageNumber, int pageSize, String orderBy) {
+    public Page<Room> getAllRoomsByOwnerId(UUID userId, int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return roomDAO.findAll(pageable);
+        return roomDAO.findByOwnerId(userId,pageable);
     }
 
 
-
-
-    public Room saveRoom(RoomDTO roomDTO) {
+    public Room saveRoom(UUID id, RoomDTO roomDTO, User user) {
         RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
                 .orElseThrow(() -> new BadRequestException("Invalid RoomType Id"));
+
         int capacity = roomDTO.capacity();
         if (capacity < 1 || capacity > 6) {
             throw new BadRequestException("Capacity must be between 1 to 6.");
         }
-        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.capacity(), roomType);
+        Room room = new Room(roomDTO.number(), roomDTO.price(), roomDTO.capacity(), roomType, user);
         double calculatedPrice = statisticOperation.calculateRoomPrice(room);
         room.setPrice(calculatedPrice);
-
-
         return roomDAO.save(room);
     }
+
 
     public Room getRoomById(Long id) {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -88,5 +91,6 @@ public class RoomSRV {
     public List<Room> getRoomsOrderByRoomNumberAsc() {
         return roomDAO.getRoomsOrderByRoomNumberAsc();
     }
+
 
 }

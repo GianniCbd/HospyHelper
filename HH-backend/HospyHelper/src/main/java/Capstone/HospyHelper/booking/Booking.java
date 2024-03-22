@@ -33,7 +33,7 @@ public class Booking {
     private Accommodation accommodation;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_room")
     private Room room;
 

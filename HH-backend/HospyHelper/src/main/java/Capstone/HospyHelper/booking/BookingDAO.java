@@ -26,7 +26,6 @@ public interface BookingDAO extends JpaRepository<Booking, Long> {
     @Query("SELECT SUM(b.numberOfGuests) FROM Booking b WHERE b.checkIn = :targetDate OR b.checkOut = :targetDate")
     Integer getTotalGuestsByDate(@Param("targetDate") LocalDate targetDate);
 
-
     Collection<? extends Booking> findByAccommodation(Accommodation accommodation);
 
 

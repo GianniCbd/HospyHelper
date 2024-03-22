@@ -1,10 +1,13 @@
 package Capstone.HospyHelper.roomType;
 
+import Capstone.HospyHelper.auth.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "roomType")
@@ -19,14 +22,19 @@ public class RoomType {
     private long id;
     private String typeName;
     private String description;
-
     private String image;
 
+    @Column(name = "owner_id")
+    private UUID ownerId;
 
-    public RoomType(String typeName, String description,String image) {
+    @ManyToOne
+    private User user;
+
+    public RoomType(String typeName, String description,String image, User user) {
         this.typeName = typeName;
         this.description = description;
         this.image = image;
+        this.ownerId = user.getId();
     }
     public RoomType(String typeName) {
         this.typeName = typeName;
