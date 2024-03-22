@@ -2,18 +2,20 @@ package Capstone.HospyHelper.booking;
 
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.accommodation.AccommodationDAO;
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.room.Room;
 import Capstone.HospyHelper.room.RoomDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,11 +31,33 @@ public class BookingSRV {
     RoomDAO roomDAO;
 
 
-    public Page<Booking> getAll(int pageNumber, int pageSize, String orderBy) {
-        if (pageNumber > 20) pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return bookingDAO.findAll(pageable);
+//    public Page<Booking> getAll(int pageNumber, int pageSize, String orderBy) {
+//        if (pageNumber > 20) pageSize = 20;
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
+//        return bookingDAO.findAll(pageable);
+//    }
+public Page<Booking> getAllBookings(int pageNumber, int pageSize, String orderBy) throws AccessDeniedException {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User currentUser = null;
+    if (authentication != null && authentication.getPrincipal() instanceof User) {
+        currentUser = (User) authentication.getPrincipal();
+    } else {
+        throw new IllegalStateException("User not authenticated");
     }
+    if (pageNumber > 20) pageSize = 20;
+    Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
+    Page<Accommodation> userAccommodations = accommodationDAO.findByUser(currentUser, pageable);
+    List<Booking> userBookings = new ArrayList<>();
+    for (Accommodation accommodation : userAccommodations) {
+        userBookings.addAll(bookingDAO.findByAccommodation(accommodation));
+    }
+    int start = (int) pageable.getOffset();
+    int end = (start + pageable.getPageSize()) > userBookings.size() ? userBookings.size() : (start + pageable.getPageSize());
+    Page<Booking> userBookingPage = new PageImpl<>(userBookings.subList(start, end), pageable, userBookings.size());
+
+    return userBookingPage;
+}
+
 
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO) {
         Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));

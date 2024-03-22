@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,11 +21,20 @@ public class AccommodationCTRL {
     AccommodationSRV accommodationSRV;
 
     @GetMapping
-    public Page<Accommodation> getAll(@RequestParam(defaultValue = "0") int pageNumber,
-                             @RequestParam(defaultValue = "10") int pageSize,
-                             @RequestParam(defaultValue = "name") String orderBy) {
-        return accommodationSRV.getAll(pageNumber, pageSize, orderBy);
+    public ResponseEntity<Page<Accommodation>> getAllAccommodations(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String orderBy) {
+        try {
+            Page<Accommodation> userAccommodations = accommodationSRV.getAll(pageNumber, pageSize, orderBy);
+            return ResponseEntity.ok(userAccommodations);
+        } catch (AccessDeniedException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
+
 
     @GetMapping("/byUser/{userId}")
     public ResponseEntity<List<Accommodation>> getAccommodationByUserId(@PathVariable UUID userId) {

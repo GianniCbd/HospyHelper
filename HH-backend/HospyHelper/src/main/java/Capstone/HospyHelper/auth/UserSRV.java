@@ -28,6 +28,7 @@ public class UserSRV {
         return userDAO.findAll(pageable);
     }
 
+
     public User findById(UUID id) {
         return userDAO.findById(UUID.fromString(String.valueOf(id))).orElseThrow(() -> new NotFoundException(String.valueOf(id)));
     }
@@ -36,7 +37,6 @@ public class UserSRV {
         if (userDAO.existsByEmail(userDTO.email())) {
             throw new BadRequestException("email already exist");
         }
-
         User user = new User(
                 userDTO.name(),
                 userDTO.surname(),
@@ -44,8 +44,6 @@ public class UserSRV {
                 passwordEncoder.encode(userDTO.password()),
                 passwordEncoder.encode(userDTO.confirmPassword())
         );
-
-        // emailSender.sendRegistrationEmail(userDTO);
 
         User savedUser = userDAO.save(user);
         return new UserResponseDTO(

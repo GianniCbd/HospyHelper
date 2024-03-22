@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.List;
 @Slf4j
@@ -24,10 +26,16 @@ public class BookingCTRL {
 
 
     @GetMapping("/all")
-    public Page<Booking> getAll(@RequestParam(defaultValue = "0") int pageNumber,
-                                @RequestParam(defaultValue = "2") int pageSize,
-                                @RequestParam(defaultValue = "phone") String orderBy) {
-        return bookingSRV.getAll(pageNumber, pageSize, orderBy);
+    public Page<Booking> getAllBookings(
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam(name = "orderBy", defaultValue = "id") String orderBy
+    ) {
+        try {
+            return bookingSRV.getAllBookings(pageNumber, pageSize, orderBy);
+        } catch (AccessDeniedException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated", e);
+        }
     }
 
     @PostMapping("/save")

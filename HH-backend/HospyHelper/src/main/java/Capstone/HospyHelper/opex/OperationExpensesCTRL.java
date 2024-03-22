@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequestMapping("/operation-expenses")
@@ -20,10 +22,16 @@ public class OperationExpensesCTRL {
 OperationExpensesSRV operationExpensesSRV;
 
     @GetMapping
-    public Page<OperationExpenses> getAll(@RequestParam(defaultValue = "0") int pageNumber,
-                                 @RequestParam(defaultValue = "10") int pageSize,
-                                 @RequestParam(defaultValue = "waterBill") String orderBy) {
-        return operationExpensesSRV.getAll(pageNumber, pageSize, orderBy);
+    public Page<OperationExpenses> getAllAccommodations(
+            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam(name = "orderBy", defaultValue = "id") String orderBy
+    ) {
+        try {
+            return operationExpensesSRV.getAll(pageNumber, pageSize, orderBy);
+        } catch (AccessDeniedException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated", e);
+        }
     }
 
     @PostMapping("/save/{accommodation_id}")

@@ -32,12 +32,8 @@ public class AuthConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
-
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
         httpSecurity.authorizeHttpRequests(request -> request.requestMatchers("/**").permitAll());
-
         return httpSecurity.build();
     }
 

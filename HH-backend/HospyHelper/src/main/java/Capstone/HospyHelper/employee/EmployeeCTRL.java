@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,20 @@ public class EmployeeCTRL {
     EmployeeSRV employeeSRV;
 
     @GetMapping
-    public Page<Employee> getAll(@RequestParam(defaultValue = "0") int pageNumber,
-                                 @RequestParam(defaultValue = "10") int pageSize,
-                                 @RequestParam(defaultValue = "name") String orderBy) {
-        return employeeSRV.getAll(pageNumber, pageSize, orderBy);
+    public ResponseEntity<Page<Employee>> getAllEmployees(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String orderBy) {
+        try {
+            Page<Employee> employees = employeeSRV.getAll(pageNumber, pageSize, orderBy);
+            return new ResponseEntity<>(employees, HttpStatus.OK);
+        } catch (AccessDeniedException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (IllegalStateException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/save/{accommodation_id}")

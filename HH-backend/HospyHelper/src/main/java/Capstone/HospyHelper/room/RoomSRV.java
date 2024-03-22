@@ -1,8 +1,10 @@
 package Capstone.HospyHelper.room;
 
+import Capstone.HospyHelper.accommodation.AccommodationDAO;
+import Capstone.HospyHelper.booking.BookingDAO;
 import Capstone.HospyHelper.exceptions.BadRequestException;
-import Capstone.HospyHelper.roomType.RoomType;
 import Capstone.HospyHelper.exceptions.NotFoundException;
+import Capstone.HospyHelper.roomType.RoomType;
 import Capstone.HospyHelper.roomType.RoomTypeDAO;
 import Capstone.HospyHelper.services.StatisticOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,10 @@ public class RoomSRV {
     RoomDAO roomDAO;
     @Autowired
     RoomTypeDAO roomTypeDAO;
+    @Autowired
+    private AccommodationDAO accommodationDAO;
+    @Autowired
+    private BookingDAO bookingDAO;
 
 
     public Page<Room> getAll(int pageNumber, int pageSize, String orderBy) {
@@ -31,6 +37,9 @@ public class RoomSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return roomDAO.findAll(pageable);
     }
+
+
+
 
     public Room saveRoom(RoomDTO roomDTO) {
         RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
@@ -46,8 +55,6 @@ public class RoomSRV {
 
         return roomDAO.save(room);
     }
-
-
 
     public Room getRoomById(Long id) {
         return roomDAO.findById(id).orElseThrow(() -> new NotFoundException(id));

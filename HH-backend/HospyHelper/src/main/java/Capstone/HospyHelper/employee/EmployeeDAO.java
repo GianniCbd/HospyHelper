@@ -1,10 +1,11 @@
 package Capstone.HospyHelper.employee;
 
 import Capstone.HospyHelper.Enums.RoleEmployee;
-import Capstone.HospyHelper.employee.Employee;
+import Capstone.HospyHelper.accommodation.Accommodation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -18,4 +19,5 @@ public interface EmployeeDAO extends JpaRepository<Employee,Long> {
     List<Employee> findBySalaryBetween(double minSalary, double maxSalary);
 
 
+    Collection<? extends Employee> findByAccommodation(Accommodation accommodation);
 }

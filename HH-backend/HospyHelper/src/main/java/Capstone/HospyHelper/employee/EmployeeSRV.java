@@ -3,16 +3,18 @@ package Capstone.HospyHelper.employee;
 import Capstone.HospyHelper.Enums.RoleEmployee;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.accommodation.AccommodationDAO;
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.services.StatisticOperation;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,10 +28,25 @@ public class EmployeeSRV {
     @Autowired
     private AccommodationDAO accommodationDAO;
 
-    public Page<Employee> getAll(int pageNumber, int pageSize, String orderBy) {
+    public Page<Employee> getAll(int pageNumber, int pageSize, String orderBy) throws AccessDeniedException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = null;
+        if (authentication != null && authentication.getPrincipal() instanceof User) {
+            currentUser = (User) authentication.getPrincipal();
+        } else {
+            throw new IllegalStateException("User not authenticated");
+        }
         if (pageNumber > 20) pageSize = 20;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return employeeDAO.findAll(pageable);
+        Page<Accommodation> userAccommodations = accommodationDAO.findByUser(currentUser, pageable);
+        List<Employee> userEmployee = new ArrayList<>();
+        for (Accommodation accommodation : userAccommodations) {
+            userEmployee.addAll(employeeDAO.findByAccommodation(accommodation));
+        }
+        int start = (int) pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > userEmployee.size() ? userEmployee.size() : (start + pageable.getPageSize());
+        Page<Employee> userEmployeePage = new PageImpl<>(userEmployee.subList(start, end), pageable, userEmployee.size());
+        return userEmployeePage;
     }
 
     public Employee saveEmployee(EmployeeDTO employeeDTO, Long accommodation_id) {

@@ -60,7 +60,7 @@ public class User implements UserDetails {
         this.password = password;
         this.confirmPassword = confirmPassword;
 
-        this.roles.add(Role.ADMIN);
+        this.roles.add(Role.USER);
     }
 
     @Override
@@ -92,4 +92,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
 }

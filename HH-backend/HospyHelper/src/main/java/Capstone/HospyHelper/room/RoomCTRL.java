@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.room;
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,10 +26,16 @@ public class RoomCTRL {
 
 
     @GetMapping
-    public Page<Room> getAll(@RequestParam(defaultValue = "0") int pageNumber,
-                             @RequestParam(defaultValue = "10") int pageSize,
-                             @RequestParam(defaultValue = "number") String orderBy) {
-        return roomSRV.getAll(pageNumber, pageSize, orderBy);
+    public Page<Room> getAll(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize,
+            @RequestParam(defaultValue = "id") String orderBy) {
+
+        return roomSRV.getAll( pageNumber, pageSize, orderBy);
+    }
+
+    private User getUser() {
+        return new User();
     }
 
     @PostMapping("/save")
