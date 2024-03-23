@@ -28,7 +28,7 @@ public class BookingCTRL {
     public ResponseEntity<Page<Booking>> getAllRoomTypesByOwnerId(
             @AuthenticationPrincipal User currentAuthenticatedUser,
             @RequestParam(defaultValue = "0") int pageNumber,
-            @RequestParam(defaultValue = "4") int pageSize,
+            @RequestParam(defaultValue = "3") int pageSize,
             @RequestParam(defaultValue = "fullName") String orderBy) {
 
         Page<Booking> bookingsPage = bookingSRV.getAll(currentAuthenticatedUser.getId(), pageNumber, pageSize, orderBy);
