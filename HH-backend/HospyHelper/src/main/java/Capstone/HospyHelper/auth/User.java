@@ -2,6 +2,7 @@ package Capstone.HospyHelper.auth;
 
 import Capstone.HospyHelper.Enums.Role;
 import Capstone.HospyHelper.accommodation.Accommodation;
+import Capstone.HospyHelper.employee.Employee;
 import Capstone.HospyHelper.post.Post;
 import Capstone.HospyHelper.review.Review;
 import Capstone.HospyHelper.room.Room;
@@ -62,6 +63,10 @@ public class User implements UserDetails {
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user")
     private Set<RoomType> roomTypes;
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
+    private Set<Employee> employee;
 
     public User(String name, String surname, String email, String password, String confirmPassword) {
         this.name = name;

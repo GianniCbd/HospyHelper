@@ -28,9 +28,9 @@ public class RoomCTRL {
     @GetMapping
     public ResponseEntity<Page<Room>> getUserRooms(@AuthenticationPrincipal User currentAuthenticatedUser,
                                                    @RequestParam(defaultValue = "0") int pageNumber,
-                                                   @RequestParam(defaultValue = "10") int pageSize,
-                                                   @RequestParam(defaultValue = "id") String orderBy) {
-        Page<Room> userRoomsPage = roomSRV.getAllRoomsByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize, orderBy);
+                                                   @RequestParam(defaultValue = "4") int pageSize
+                                                  ) {
+        Page<Room> userRoomsPage = roomSRV.getAllRoomsByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize);
         System.out.println(userRoomsPage);
         return new ResponseEntity<>(userRoomsPage, HttpStatus.OK);
     }
@@ -42,7 +42,7 @@ public class RoomCTRL {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Room savedRoom = roomSRV.saveRoom(currentAuthenticatedUser.getId(), roomDTO, currentAuthenticatedUser);
+        Room savedRoom = roomSRV.saveRoom(roomDTO, currentAuthenticatedUser);
         return new ResponseEntity<>(savedRoom, HttpStatus.CREATED);
     }
 

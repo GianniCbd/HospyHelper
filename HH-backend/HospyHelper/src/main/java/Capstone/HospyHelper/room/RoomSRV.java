@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,14 +36,14 @@ public class RoomSRV {
     private UserDAO userDAO;
 
 
-    public Page<Room> getAllRoomsByOwnerId(UUID userId, int pageNumber, int pageSize, String orderBy) {
+    public Page<Room> getAllRoomsByOwnerId(UUID ownerId, int pageNumber, int pageSize) {
         if (pageNumber > 20) pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
-        return roomDAO.findByOwnerId(userId,pageable);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return roomDAO.findByOwnerId(ownerId, pageable);
     }
 
 
-    public Room saveRoom(UUID id, RoomDTO roomDTO, User user) {
+    public Room saveRoom(RoomDTO roomDTO, User user) {
         RoomType roomType = roomTypeDAO.findById(roomDTO.roomType().getId())
                 .orElseThrow(() -> new BadRequestException("Invalid RoomType Id"));
 

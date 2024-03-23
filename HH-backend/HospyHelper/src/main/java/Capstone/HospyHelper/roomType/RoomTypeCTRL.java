@@ -26,7 +26,7 @@ public class RoomTypeCTRL {
 public ResponseEntity<Page<RoomType>> getAllRoomTypesByOwnerId(
         @AuthenticationPrincipal User currentAuthenticatedUser,
         @RequestParam(defaultValue = "0") int pageNumber,
-        @RequestParam(defaultValue = "10") int pageSize,
+        @RequestParam(defaultValue = "4") int pageSize,
         @RequestParam(defaultValue = "typeName") String orderBy) {
 
     Page<RoomType> roomTypesPage = roomTypeService.getAllRoomsTypesByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize, orderBy);

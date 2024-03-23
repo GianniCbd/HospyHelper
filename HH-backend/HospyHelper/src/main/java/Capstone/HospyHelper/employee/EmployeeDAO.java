@@ -1,12 +1,13 @@
 package Capstone.HospyHelper.employee;
 
 import Capstone.HospyHelper.Enums.RoleEmployee;
-import Capstone.HospyHelper.accommodation.Accommodation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface EmployeeDAO extends JpaRepository<Employee,Long> {
@@ -18,6 +19,7 @@ public interface EmployeeDAO extends JpaRepository<Employee,Long> {
     List<Employee> findByNameContaining(String partialName);
     List<Employee> findBySalaryBetween(double minSalary, double maxSalary);
 
+    Page<Employee> findByOwnerId(UUID ownerId, Pageable pageable);
 
-    Collection<? extends Employee> findByAccommodation(Accommodation accommodation);
+
 }
