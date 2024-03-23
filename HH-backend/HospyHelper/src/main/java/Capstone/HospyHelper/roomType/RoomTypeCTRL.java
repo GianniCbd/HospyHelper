@@ -43,7 +43,7 @@ public ResponseEntity<Page<RoomType>> getAllRoomTypesByOwnerId(
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        RoomType savedRoomType = roomTypeService.saveRoomType(currentAuthenticatedUser.getId(),newRoomType,currentAuthenticatedUser);
+        RoomType savedRoomType = roomTypeService.saveRoomType(newRoomType,currentAuthenticatedUser);
         return new ResponseEntity<>(savedRoomType, HttpStatus.CREATED);
     }
 

@@ -30,7 +30,7 @@ public class RoomTypeSRV {
         return roomTypeDAO.findByOwnerId(userId,pageable);
     }
 
-    public RoomType saveRoomType(UUID id ,RoomTypeDTO newRt, User user) {
+    public RoomType saveRoomType(RoomTypeDTO newRt, User user) {
         return roomTypeDAO.save(
                 new RoomType(newRt.typeName(), newRt.description(), newRt.image(),user)
         );

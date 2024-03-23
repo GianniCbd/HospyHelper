@@ -1,5 +1,6 @@
 package Capstone.HospyHelper.booking;
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.time.LocalDate;
 import java.util.List;
 @Slf4j
@@ -25,26 +25,25 @@ public class BookingCTRL {
     BookingSRV bookingSRV;
 
     @GetMapping("/all")
-    public Page<Booking> getAllBookings(
-            @RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize,
-            @RequestParam(name = "orderBy", defaultValue = "id") String orderBy
-    ) {
-        try {
-            return bookingSRV.getAllBookings(pageNumber, pageSize, orderBy);
-        } catch (AccessDeniedException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not authenticated", e);
-        }
+    public ResponseEntity<Page<Booking>> getAllRoomTypesByOwnerId(
+            @AuthenticationPrincipal User currentAuthenticatedUser,
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "4") int pageSize,
+            @RequestParam(defaultValue = "fullName") String orderBy) {
+
+        Page<Booking> bookingsPage = bookingSRV.getAll(currentAuthenticatedUser.getId(), pageNumber, pageSize, orderBy);
+
+        return new ResponseEntity<>(bookingsPage, HttpStatus.OK);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public BookingResponseDTO saveBooking(@RequestBody @Validated BookingDTO bookingDTO, BindingResult validation) throws IOException {
+    public BookingResponseDTO saveBooking(@AuthenticationPrincipal User currentAuthenticatedUser,@RequestBody @Validated BookingDTO bookingDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
 
-        return this.bookingSRV.saveBooking(bookingDTO);
+        return this.bookingSRV.saveBooking(bookingDTO,currentAuthenticatedUser);
     }
 
     @GetMapping("/{id}")
