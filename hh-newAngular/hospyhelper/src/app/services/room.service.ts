@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Room } from '../models/room';
 import { Page } from '../models/page';
+import { RoomType } from '../models/room-type';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,15 @@ export class RoomService {
 
   constructor(private http: HttpClient) {}
 
-  getRoom(page: number = 1): Observable<Room[]> {
-    const params = new HttpParams().set('page', page.toString());
-    this.currentPage = page;
-    return this.http
-      .get<Page<Room>>(`${this.apiUrl}/room`, { params })
-      .pipe(map((list) => list.content));
+  getRoom(
+    pageNumber: number = 0,
+    pageSize: number = 4
+  ): Observable<Page<Room>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Page<Room>>(`${this.apiUrl}/room`, { params });
   }
 
   getRoomById(id: number): Observable<Room> {

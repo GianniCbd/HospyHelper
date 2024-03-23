@@ -10,15 +10,21 @@ import { Page } from '../models/page';
 })
 export class BookingService {
   apiUrl: string = environment.apiUrl;
-  currentPage: number = 1;
+
   constructor(private http: HttpClient) {}
 
-  getBooking(page: number = 1): Observable<Booking[]> {
-    const params = new HttpParams().set('page', page.toString());
-    this.currentPage = page;
-    return this.http
-      .get<Page<Booking>>(`${this.apiUrl}/booking/all`, { params })
-      .pipe(map((list) => list.content));
+  getBooking(
+    page: number = 0,
+    pageSize: number = 3,
+    orderBy: string = 'fullName'
+  ): Observable<Page<Booking>> {
+    const params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('orderBy', orderBy);
+    return this.http.get<Page<Booking>>(`${this.apiUrl}/booking/all`, {
+      params,
+    });
   }
 
   createBooking(newBooking: Booking) {

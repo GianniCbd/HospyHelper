@@ -37,7 +37,7 @@
   background-blend-mode: overlay, overlay, normal;
 }
 .card {
-  background: linear-gradient(45deg, #c0c0c0, #808080, #c0c0c0, #808080);
+  background: linear-gradient(45deg, #ffffff, #615f51, #f7e9b2, #d6b66c);
   background-size: 400% 400%;
   animation: gradientBackground 10s ease infinite;
   cursor: pointer;
@@ -69,7 +69,7 @@ a {
 }
 
 .container {
-  padding-top: 7%;
+  padding-top: 5%;
   height: 100%;
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 import { Accommodation } from 'src/app/models/accommodation';
 import { User } from 'src/app/models/user';
@@ -14,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AccommodationComponent implements OnInit {
   accommodation: Accommodation[] = [];
   currentUser: User | undefined;
+  newAccommodation: any = {};
 
   private unsubscribe$: Subject<void> = new Subject<void>();
 

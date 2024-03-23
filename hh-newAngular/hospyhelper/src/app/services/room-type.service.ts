@@ -11,21 +11,33 @@ import { Page } from '../models/page';
 export class RoomTypeService {
   apiUrl: string = environment.apiUrl;
 
-  currentPage: number = 1;
+  currentPage: number = 0;
 
   constructor(private http: HttpClient) {}
 
-  // getRoomType() {
-  //   const url = `${this.apiUrl}/roomTypes`;
-  //   return this.http.get<RoomType[]>(url);
+  // getRoomType(page: number = 0, size: number = 10): Observable<RoomType[]> {
+  //   const params = new HttpParams()
+  //     .set('page', page.toString())
+  //     .set('size', size.toString());
+  //   this.currentPage = page;
+  //   return this.http
+  //     .get<Page<RoomType>>(`${this.apiUrl}/roomTypes/all`, { params })
+  //     .pipe(map((list) => list.content));
   // }
 
-  getRoomType(page: number = 1): Observable<RoomType[]> {
-    const params = new HttpParams().set('page', page.toString());
-    this.currentPage = page;
-    return this.http
-      .get<Page<RoomType>>(`${this.apiUrl}/roomTypes/all`, { params })
-      .pipe(map((list) => list.content));
+  getRoomType(
+    pageNumber: number = 0,
+    pageSize: number = 4,
+    orderBy: string = 'typeName'
+  ): Observable<Page<RoomType>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('orderBy', orderBy);
+
+    return this.http.get<Page<RoomType>>(`${this.apiUrl}/roomTypes/all`, {
+      params,
+    });
   }
 
   getRoomTypeById(id: number) {

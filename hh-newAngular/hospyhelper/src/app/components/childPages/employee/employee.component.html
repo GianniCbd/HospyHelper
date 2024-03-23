@@ -33,20 +33,14 @@
       <ul class="list-unstyled">
         <li class="employee" *ngFor="let emp of employee">
           <div class="employee-details row">
-            <div>
-              <button class="btn button-85 my-3" (click)="toggleDetails(emp)">
-                Mostra/Nascondi dettagli
-              </button>
-            </div>
-
-            <div class="col-md-6" *ngIf="emp.showDetails">
+            <div class="col-md-6">
               <p class="paragIndex"><strong>Nome Impiegato:</strong></p>
               <p class="paragIndex"><strong>Età:</strong></p>
               <p class="paragIndex"><strong>Email:</strong></p>
               <p class="paragIndex"><strong>Stipendio:</strong></p>
               <p class="paragIndex"><strong>Ruolo:</strong></p>
             </div>
-            <div class="col-md-6" *ngIf="emp.showDetails">
+            <div class="col-md-6">
               <p>
                 <span class="employeeP">{{ emp.name }} {{ emp.surname }}</span>
               </p>
@@ -96,21 +90,49 @@
           </div>
         </li>
       </ul>
-      <div *ngFor="let acc of accommodation" class="mt-5">
-        <h4 class="pulse-animation">
+      <div class="d-flex justify-content-center mt-5">
+        <button
+          class="me-3"
+          (click)="prevPage()"
+          [disabled]="currentPage === 0"
+        >
+          Previous
+        </button>
+        <button
+          class="ms-3"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1"
+        >
+          Next
+        </button>
+      </div>
+      <div class="mt-5">
+        <p class="pulse-animation">
           Prima di aggiungere un nuovo dipendente seleziona la struttura
-        </h4>
-
+        </p>
         <div
           class="bottoni d-flex justify-content-between align-items-center pb-5 mt-3"
         >
-          <button
-            class="btn button-85"
-            role="button"
-            (click)="selectAccommodation(acc)"
-          >
-            {{ acc.name }}
-          </button>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="accommodationDropdown"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Seleziona un alloggio
+            </button>
+            <div class="dropdown-menu" aria-labelledby="accommodationDropdown">
+              <a
+                class="dropdown-item"
+                *ngFor="let acc of accommodation"
+                (click)="selectAccommodation(acc)"
+                >{{ acc.name }}</a
+              >
+            </div>
+          </div>
 
           <button
             id="addButton"
@@ -130,188 +152,177 @@
             >Somma degli stipendi: {{ totalSalary }}</span
           >
         </div>
-
-        <!-- NewEmployee******************************************************************************************** -->
-        <div class="d-flex justify-content-between align-item">
-          <div class="col-md-3">
-            <div class="card card-front" *ngIf="showCard">
-              <div class="card-body">
-                <h5 class="card-title">Aggiungi Dipendente</h5>
-                <form>
-                  <div class="form-group">
-                    <label for="newDipendente">Nome Dipendente</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="newDipendente"
-                      name="newDipendente"
-                      [(ngModel)]="newEmployee.name"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="newSurname">Cognome Dipendente</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="newSurname"
-                      name="newSurname"
-                      [(ngModel)]="newEmployee.surname"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="newAge">Età</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="newAge"
-                      name="newAge"
-                      [(ngModel)]="newEmployee.age"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="newEmail">Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="newEmail"
-                      name="newEmail"
-                      [(ngModel)]="newEmployee.email"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="newSalary">Stipendio</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="newSalary"
-                      name="newSalary"
-                      [(ngModel)]="newEmployee.salary"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="newRole">Ruolo</label>
-                    <select
-                      class="form-control"
-                      id="newRole"
-                      name="newRole"
-                      [(ngModel)]="newEmployee.roleEmployee"
-                    >
-                      <option value="RECEPTIONIST">Receptionist</option>
-                      <option value="CONCIERGE">Concierge</option>
-                      <option value="CLEANER">Cleaner</option>
-                      <option value="HR">HR</option>
-                      <option value="WAITER">Waiter</option>
-                      <option value="WAITRESS">Waitress</option>
-                      <option value="MANAGER">Manager</option>
-                      <option value="CHEF">Chef</option>
-                      <option value="KITCHEN_PORTER">Kitchen Porter</option>
-                    </select>
-                  </div>
-                  <div class="d-flex justify-content-between align-item mt-3">
-                    <button
-                      class="btn btn-secondary"
-                      (click)="addNewEmployee()"
-                    >
-                      Aggiungi
-                    </button>
-                    <button class="btn btn-dark" (click)="close()">
-                      chiudi
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- UPDATE******************************************************************************** -->
-
-        <div class="col-md-3" *ngIf="editingEmployee">
-          <div class="card card-front">
+      </div>
+      <!-- NewEmployee******************************************************************************************** -->
+      <div class="d-flex justify-content-between align-item">
+        <div class="col-md-3">
+          <div class="card card-front" *ngIf="showCard">
             <div class="card-body">
-              <h5 class="card-title">Modifica Prenotazione</h5>
+              <h5 class="card-title">Aggiungi Dipendente</h5>
               <form>
                 <div class="form-group">
-                  <label for="editName">Nome</label>
+                  <label for="newDipendente">Nome Dipendente</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="editName"
-                    name="editName"
-                    [(ngModel)]="editingEmployee.name"
+                    id="newDipendente"
+                    name="newDipendente"
+                    [(ngModel)]="newEmployee.name"
                   />
                 </div>
                 <div class="form-group">
-                  <label for="editSurname">Cognome</label>
+                  <label for="newSurname">Cognome Dipendente</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="editSurname"
-                    name="editSurname"
-                    [(ngModel)]="editingEmployee.surname"
+                    id="newSurname"
+                    name="newSurname"
+                    [(ngModel)]="newEmployee.surname"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label for="editAge">Età</label>
+                  <label for="newAge">Età</label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
-                    id="editAge"
-                    name="editAge"
-                    [(ngModel)]="editingEmployee.age"
+                    id="newAge"
+                    name="newAge"
+                    [(ngModel)]="newEmployee.age"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label for="editEmail">Email</label>
+                  <label for="newEmail">Email</label>
                   <input
                     type="email"
                     class="form-control"
-                    id="editEmail"
-                    name="editEmail"
-                    [(ngModel)]="editingEmployee.email"
+                    id="newEmail"
+                    name="newEmail"
+                    [(ngModel)]="newEmployee.email"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label for="editSalary">Stipendio</label>
+                  <label for="newSalary">Stipendio</label>
                   <input
                     type="number"
                     class="form-control"
-                    id="editSalary"
-                    name="editSalary"
-                    [(ngModel)]="editingEmployee.salary"
+                    id="newSalary"
+                    name="newSalary"
+                    [(ngModel)]="newEmployee.salary"
                   />
                 </div>
-
                 <div class="form-group">
-                  <label for="editRole">Ruolo</label>
+                  <label for="newRole">Ruolo</label>
                   <select
                     class="form-control"
-                    id="editRole"
-                    name="editRole"
-                    [(ngModel)]="editingEmployee.roleEmployee"
+                    id="newRole"
+                    name="newRole"
+                    [(ngModel)]="newEmployee.roleEmployee"
                   >
-                    <option *ngFor="let role of roles" [value]="role">
-                      {{ role }}
-                    </option>
+                    <option value="RECEPTIONIST">Receptionist</option>
+                    <option value="CONCIERGE">Concierge</option>
+                    <option value="CLEANER">Cleaner</option>
+                    <option value="HR">HR</option>
+                    <option value="WAITER">Waiter</option>
+                    <option value="WAITRESS">Waitress</option>
+                    <option value="MANAGER">Manager</option>
+                    <option value="CHEF">Chef</option>
+                    <option value="KITCHEN_PORTER">Kitchen Porter</option>
                   </select>
                 </div>
+                <div class="d-flex justify-content-between align-item mt-3">
+                  <button class="btn btn-secondary" (click)="addNewEmployee()">
+                    Aggiungi
+                  </button>
+                  <button class="btn btn-dark" (click)="close()">chiudi</button>
+                </div>
               </form>
-              <div
-                class="d-flex justify-content-between align-item-center mt-2"
-              >
-                <button
-                  class="btn btn-secondary"
-                  (click)="saveEditedEmployee()"
-                >
-                  Salva
-                </button>
-                <button class="btn btn-dark" (click)="cancelEdit()">
-                  Annulla
-                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATE******************************************************************************** -->
+
+      <div class="col-md-3" *ngIf="editingEmployee">
+        <div class="card card-front">
+          <div class="card-body">
+            <h5 class="card-title">Modifica Prenotazione</h5>
+            <form>
+              <div class="form-group">
+                <label for="editName">Nome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editName"
+                  name="editName"
+                  [(ngModel)]="editingEmployee.name"
+                />
               </div>
+              <div class="form-group">
+                <label for="editSurname">Cognome</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editSurname"
+                  name="editSurname"
+                  [(ngModel)]="editingEmployee.surname"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editAge">Età</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editAge"
+                  name="editAge"
+                  [(ngModel)]="editingEmployee.age"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editEmail">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  name="editEmail"
+                  [(ngModel)]="editingEmployee.email"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editSalary">Stipendio</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="editSalary"
+                  name="editSalary"
+                  [(ngModel)]="editingEmployee.salary"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="editRole">Ruolo</label>
+                <select
+                  class="form-control"
+                  id="editRole"
+                  name="editRole"
+                  [(ngModel)]="editingEmployee.roleEmployee"
+                >
+                  <option *ngFor="let role of roles" [value]="role">
+                    {{ role }}
+                  </option>
+                </select>
+              </div>
+            </form>
+            <div class="d-flex justify-content-between align-item-center mt-2">
+              <button class="btn btn-secondary" (click)="saveEditedEmployee()">
+                Salva
+              </button>
+              <button class="btn btn-dark" (click)="cancelEdit()">
+                Annulla
+              </button>
             </div>
           </div>
         </div>

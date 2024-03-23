@@ -60,18 +60,15 @@
         </li>
       </ul>
 
-      <div class="d-flex ms-auto">
-        <div
-          class="d-flex justify-content-center align-items-center"
-          *ngIf="utente"
-        >
-          <h6 class="d-none d-md-block d-sm-none"></h6>
-        </div>
+      <div class="dropdown d-flex ms-auto">
         <button
+          class="btn btn-primary ms-2"
           type="button"
-          class="btn btn-primary ms-2 logout-button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
           *ngIf="utente"
-          (click)="logout()"
+          style="position: relative"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +84,17 @@
             />
           </svg>
         </button>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <li>
+            <a class="dropdown-item" [routerLink]="['/profilo']">Profilo</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" (click)="logout()">Logout</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

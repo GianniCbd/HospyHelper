@@ -45,8 +45,9 @@
 }
 
 .card {
+  background: linear-gradient(45deg, #ffffff, #615f51, #f7e9b2, #d6b66c);
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: rgb(2, 2, 2) 0px 20px 30px -10px;
   transition: transform 0.3s ease;
   margin-bottom: 30px;
 }

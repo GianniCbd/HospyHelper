@@ -18,15 +18,11 @@ main {
   cursor: pointer;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  background-image: radial-gradient(circle at 53.35% 51.56%, #d7f3ff 0, #9fcbe7 50%, #65a4ca 100%);
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(45deg, #ffffff, #615f51, #f7e9b2, #d6b66c);
 }
 
 .card:hover {
   transform: scale(1.05);
-  box-shadow: 0px 0px 59px 29px rgba(94, 74, 32, 0.65);
-  -webkit-box-shadow: 0px 0px 59px 29px rgba(94, 74, 32, 0.65);
 }
 
 .card-body {

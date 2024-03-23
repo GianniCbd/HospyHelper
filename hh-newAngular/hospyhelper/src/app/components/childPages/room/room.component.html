@@ -1,4 +1,4 @@
-<div class="outer-container pt-3">
+<div class="outer-container">
   <div class="container">
     <div class="d-flex justify-content-between align-item-center">
       <a [routerLink]="['/booking']" class="arrow m-3"
@@ -127,6 +127,22 @@
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-center mt-5">
+        <button
+          class="me-3"
+          (click)="prevPage()"
+          [disabled]="currentPage === 0"
+        >
+          Previous
+        </button>
+        <button
+          class="ms-3"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1"
+        >
+          Next
+        </button>
+      </div>
       <div>
         <button
           id="addButton"
@@ -191,7 +207,7 @@
             />
           </div>
           <div class="d-flex justify-content-between align-item mt-3">
-            <button class="btn btn-success" (click)="addNewRoom()">
+            <button class="btn btn-secondary" (click)="addNewRoom()">
               Aggiungi
             </button>
             <button class="btn btn-dark" (click)="close()">chiudi</button>
@@ -239,12 +255,10 @@
           </div>
         </form>
         <div class="d-flex justify-content-between align-item-center mt-2">
-          <button class="btn btn-success" (click)="saveEditedRoom()">
+          <button class="btn btn-secondary" (click)="saveEditedRoom()">
             Salva
           </button>
-          <button class="btn btn-secondary" (click)="cancelEdit()">
-            Annulla
-          </button>
+          <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
         </div>
       </div>
     </div>

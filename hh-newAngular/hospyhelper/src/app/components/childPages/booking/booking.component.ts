@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { Accommodation } from 'src/app/models/accommodation';
 import { Booking } from 'src/app/models/booking';
+import { Page } from 'src/app/models/page';
 
 import { Room } from 'src/app/models/room';
 import { AccommodationService } from 'src/app/services/accommodation.service';
@@ -26,6 +27,10 @@ export class BookingComponent implements OnInit {
   phone: string = '';
   partialName: string = '';
 
+  page!: Page<Booking>;
+  currentPage: number = 0;
+  totalPages!: number;
+
   constructor(
     private bookingSrv: BookingService,
     private roomSrv: RoomService,
@@ -35,7 +40,7 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
   }
-  fetchData() {
+  fetchData(page: number = 0, size: number = 3) {
     if (this.selectedOrder === 'findByEmail') {
       this.bookingSrv.findByEmail(this.searchTerm).subscribe(
         (bookings) => {
@@ -70,17 +75,18 @@ export class BookingComponent implements OnInit {
       );
     } else {
       forkJoin([
-        this.bookingSrv.getBooking(),
+        this.bookingSrv.getBooking(page, size),
         this.roomSrv.getRoom(),
         this.AccSrv.getAccommodation(),
       ]).subscribe(
-        ([bookings, rooms, accommodations]) => {
-          this.bookings = bookings;
-          this.rooms = rooms;
+        (data: any) => {
+          const [bookings, rooms, accommodations] = data;
+          this.bookings = bookings.content;
+          this.page = data;
+          this.currentPage = data.number;
+          this.totalPages = data.totalPages;
+          this.rooms = rooms.content;
           this.accommodations = accommodations;
-          console.log(bookings);
-
-          console.log(accommodations);
         },
         (error) => {
           console.error(
@@ -89,6 +95,20 @@ export class BookingComponent implements OnInit {
           );
         }
       );
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.fetchData(this.currentPage);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.fetchData(this.currentPage);
     }
   }
 
@@ -151,5 +171,13 @@ export class BookingComponent implements OnInit {
         this.bookings.splice(index, 1);
       }
     });
+  }
+
+  calculateTotalCost(booking: Booking): number {
+    const checkInDate = new Date(booking.checkIn);
+    const checkOutDate = new Date(booking.checkOut);
+    const daysBooked =
+      (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24);
+    return booking.room.price * daysBooked;
   }
 }

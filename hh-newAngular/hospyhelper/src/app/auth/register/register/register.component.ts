@@ -46,13 +46,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   registra() {
-    // Controllo se il form è valido
     if (this.registrationForm && this.passwordsMatch()) {
-      console.log(this.registrationForm.value);
       try {
         this.authSrv.register(this.registrationForm.value).subscribe(
           (response) => {
-            console.log(response);
             this.router.navigate(['/login']);
           },
           (error) => {
@@ -61,7 +58,6 @@ export class RegisterComponent implements OnInit {
           }
         );
       } catch (error: any) {
-        console.log(error);
         alert(error);
         this.router.navigate(['/register']);
       }

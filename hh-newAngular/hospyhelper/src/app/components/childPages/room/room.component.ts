@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Page } from 'src/app/models/page';
 import { Room } from 'src/app/models/room';
 import { RoomType } from 'src/app/models/room-type';
 import { RoomTypeService } from 'src/app/services/room-type.service';
@@ -17,6 +18,9 @@ export class RoomComponent implements OnInit {
   showCard: boolean = false;
   sortedRooms!: Room[];
   selectedOrder: string = 'ricerca';
+  page!: Page<Room>;
+  currentPage: number = 0;
+  totalPages!: number;
 
   constructor(
     private roomSrv: RoomService,
@@ -24,46 +28,58 @@ export class RoomComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchRoom();
     this.fetchRoomTypes();
+    this.fetchRoom();
   }
 
-  fetchRoomTypes() {
-    this.roomTypeService.getRoomType().subscribe(
-      (data) => {
-        this.roomTypes = data;
+  fetchRoomTypes(page: number = 0, size: number = 4) {
+    this.roomTypeService.getRoomType(page, size).subscribe(
+      (data: any) => {
+        this.page = data;
+        this.roomTypes = data.content;
+        this.currentPage = data.number;
+        this.totalPages = data.totalPages;
       },
       (error) => {
         console.error('Errore durante il recupero dei tipi di stanza:', error);
       }
     );
   }
-  fetchRoom(): void {
+  fetchRoom(page: number = 0, size: number = 4) {
     if (this.selectedOrder === 'ricerca') {
-      this.roomSrv.getRoom().subscribe((data) => {
-        this.room = data;
-        console.log('Rooms fetched (no order):', this.room);
+      this.roomSrv.getRoom(page, size).subscribe((data: Page<Room>) => {
+        this.room = data.content;
+        this.currentPage = data.pageNumber;
+        this.totalPages = data.totalPages;
       });
     } else if (this.selectedOrder === 'asc') {
       this.roomSrv.getRoomsOrderByPriceAsc().subscribe((data) => {
         this.room = data;
-        console.log('Rooms fetched (asc):', this.room);
       });
     } else if (this.selectedOrder === 'desc') {
       this.roomSrv.getRoomsOrderByPriceDesc().subscribe((data) => {
         this.room = data;
-        console.log('Rooms fetched (desc):', this.room);
       });
     } else if (this.selectedOrder === 'ascRoomNumber') {
       this.roomSrv.getRoomsOrderByRoomNumberAsc().subscribe((data) => {
         this.room = data;
-        console.log('Rooms fetched (asc room number):', this.room);
       });
     } else if (this.selectedOrder === 'descRoomNumber') {
       this.roomSrv.getRoomsOrderByRoomNumberDesc().subscribe((data) => {
         this.room = data;
-        console.log('Rooms fetched (desc room number):', this.room);
       });
+    }
+  }
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.fetchRoom(this.currentPage);
+    }
+  }
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.fetchRoom(this.currentPage);
     }
   }
 
@@ -74,13 +90,12 @@ export class RoomComponent implements OnInit {
 
   editRoom(room: any) {
     const selectedRoomId = room.id;
-
     this.editingRoom = { ...room, id: selectedRoomId };
   }
+
   saveEditedRoom() {
     this.roomSrv.updateRoom(this.editingRoom.id, this.editingRoom).subscribe(
       (updatedRoomType) => {
-        console.log('Stanza aggiornata con successo:', updatedRoomType);
         this.cancelEdit();
         this.fetchRoomTypes();
       },

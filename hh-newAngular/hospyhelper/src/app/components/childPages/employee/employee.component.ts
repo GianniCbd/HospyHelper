@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Accommodation } from 'src/app/models/accommodation';
 import { Employee, RoleEmployee } from 'src/app/models/employee';
+import { Page } from 'src/app/models/page';
 import { AccommodationService } from 'src/app/services/accommodation.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -18,6 +19,10 @@ export class EmployeeComponent implements OnInit {
   editingEmployee: any = null;
   totalSalary: number = 0;
   showTotalSalary: boolean = false;
+
+  page!: Page<Employee>;
+  currentPage: number = 0;
+  totalPages!: number;
 
   roles = Object.values(RoleEmployee);
 
@@ -53,17 +58,34 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
-  fetchEmployee() {
-    this.employeeSrv.getEmployee().subscribe(
-      (data) => {
-        this.employee = data;
-        this.calculateTotalSalary();
+  fetchEmployee(page: number = 0, size: number = 2) {
+    this.employeeSrv.getEmployee(page, size).subscribe(
+      (data: Page<Employee>) => {
+        this.page = data;
+        this.employee = data.content;
+        this.currentPage = data.number;
+        this.totalPages = data.totalPages;
       },
       (error) => {
-        console.error('Errore durante il recupero dei tipi di stanza:', error);
+        console.error('Errore durante il recupero dei dipendenti:', error);
       }
     );
   }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.fetchEmployee(this.currentPage, this.page.size);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.fetchEmployee(this.currentPage, this.page.size);
+    }
+  }
+
   selectAccommodation(accommodation: Accommodation): void {
     this.accommodationId = accommodation.id;
   }

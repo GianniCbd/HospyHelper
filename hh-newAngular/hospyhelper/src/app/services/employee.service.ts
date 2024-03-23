@@ -10,16 +10,19 @@ import { Page } from '../models/page';
 })
 export class EmployeeService {
   apiUrl: string = environment.apiUrl;
-  currentPage: number = 1;
 
   constructor(private http: HttpClient) {}
 
-  getEmployee(page: number = 1): Observable<Employee[]> {
-    const params = new HttpParams().set('page', page.toString());
-    this.currentPage = page;
-    return this.http
-      .get<Page<Employee>>(`${this.apiUrl}/employee`, { params })
-      .pipe(map((list) => list.content));
+  getEmployee(
+    page: number = 0,
+    size: number = 2,
+    orderBy: string = 'name'
+  ): Observable<Page<Employee>> {
+    const params = new HttpParams()
+      .set('pageNumber', page.toString())
+      .set('pageSize', size.toString())
+      .set('orderBy', orderBy);
+    return this.http.get<Page<Employee>>(`${this.apiUrl}/employee`, { params });
   }
 
   saveEmployee(

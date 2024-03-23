@@ -1,4 +1,4 @@
-<div class="outer-container pt-3 pb-5">
+<div class="outer-container">
   <div class="container">
     <div class="d-flex justify-content-between align-item-center">
       <a [routerLink]="['/room']" class="arrow m-3"
@@ -77,103 +77,116 @@
           </div>
         </div>
       </div>
+      <div class="d-flex justify-content-center mt-5">
+        <button
+          class="me-3"
+          (click)="prevPage()"
+          [disabled]="currentPage === 0"
+        >
+          Previous
+        </button>
+        <button
+          class="ms-3"
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages - 1"
+        >
+          Next
+        </button>
+      </div>
       <div>
         <button
           id="addButton"
-          class="btn button-85 my-3"
+          class="btn button-85 my-5"
           (click)="toggleCardVisibility()"
         >
           Aggiungi
         </button>
       </div>
     </div>
+  </div>
+  <!-- NEW ROOMTYPE***************************************************************** -->
 
-    <!-- NEW ROOMTYPE***************************************************************** -->
+  <div class="d-flex justify-content-between align-item">
+    <div class="col-md-3">
+      <div class="card card-front" *ngIf="showCard">
+        <div class="card-body">
+          <h5 class="card-title">Nuovo Tipo Stanza</h5>
+          <form>
+            <div class="form-group">
+              <label for="newTypeName">Nome Tipo Stanza</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newTypeName"
+                name="newTypeName"
+                [(ngModel)]="newRoomType.typeName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newDescription">Descrizione</label>
+              <textarea
+                class="form-control"
+                id="newDescription"
+                name="newDescription"
+                rows="3"
+                [(ngModel)]="newRoomType.description"
+              ></textarea>
+            </div>
 
-    <div class="d-flex justify-content-between align-item">
-      <div class="col-md-3">
-        <div class="card card-front" *ngIf="showCard">
-          <div class="card-body">
-            <h5 class="card-title">Nuovo Tipo Stanza</h5>
-            <form>
-              <div class="form-group">
-                <label for="newTypeName">Nome Tipo Stanza</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="newTypeName"
-                  name="newTypeName"
-                  [(ngModel)]="newRoomType.typeName"
-                />
-              </div>
-              <div class="form-group">
-                <label for="newDescription">Descrizione</label>
-                <textarea
-                  class="form-control"
-                  id="newDescription"
-                  name="newDescription"
-                  rows="3"
-                  [(ngModel)]="newRoomType.description"
-                ></textarea>
-              </div>
-
-              <div class="d-flex justify-content-between align-item mt-3">
-                <button class="btn btn-secondary" (click)="addNewRoomType()">
-                  Aggiungi
-                </button>
-                <button class="btn btn-dark" (click)="close()">chiudi</button>
-              </div>
-            </form>
-          </div>
+            <div class="d-flex justify-content-between align-item mt-3">
+              <button class="btn btn-secondary" (click)="addNewRoomType()">
+                Aggiungi
+              </button>
+              <button class="btn btn-dark" (click)="close()">chiudi</button>
+            </div>
+          </form>
         </div>
       </div>
+    </div>
 
-      <!-- EDIT****************************************************************************** -->
-      <div class="col-md-3" *ngIf="editingRoomType">
-        <div class="card card-front">
-          <div class="card-body">
-            <h5 class="card-title">Modifica Tipo Stanza</h5>
-            <form>
-              <div class="form-group">
-                <label for="editTypeName">Nome Tipo Stanza</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="editTypeName"
-                  name="editTypeName"
-                  [(ngModel)]="editingRoomType.typeName"
-                />
-              </div>
-              <div class="form-group">
-                <label for="editDescription">Descrizione</label>
-                <textarea
-                  class="form-control"
-                  id="editDescription"
-                  name="editDescription"
-                  rows="3"
-                  [(ngModel)]="editingRoomType.description"
-                ></textarea>
-              </div>
-              <div class="form-group my-2">
-                <label for="editImage">Immagine</label>
-                <input
-                  type="file"
-                  class="form-control-file"
-                  id="editImage"
-                  name="editImage"
-                  #fileInput
-                  (change)="uploadFile($event)"
-                />
-              </div>
-            </form>
-            <div class="d-flex justify-content-between align-items">
-              <button class="btn btn-secondary" (click)="saveEditedRoomType()">
-                Salva
-              </button>
-              <button class="btn btn-dark" (click)="cancelEdit()">
-                Annulla
-              </button>
+    <!-- EDIT****************************************************************************** -->
+    <div class="col-md-3" *ngIf="editingRoomType">
+      <div class="card card-front">
+        <div class="card-body">
+          <h5 class="card-title">Modifica Tipo Stanza</h5>
+          <form>
+            <div class="form-group">
+              <label for="editTypeName">Nome Tipo Stanza</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editTypeName"
+                name="editTypeName"
+                [(ngModel)]="editingRoomType.typeName"
+              />
             </div>
+            <div class="form-group">
+              <label for="editDescription">Descrizione</label>
+              <textarea
+                class="form-control"
+                id="editDescription"
+                name="editDescription"
+                rows="3"
+                [(ngModel)]="editingRoomType.description"
+              ></textarea>
+            </div>
+            <div class="form-group my-2">
+              <label for="editImage">Immagine</label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="editImage"
+                name="editImage"
+                #fileInput
+                (change)="uploadFile($event)"
+              />
+            </div>
+          </form>
+          <div class="d-flex justify-content-between align-items">
+            <button class="btn btn-secondary" (click)="saveEditedRoomType()">
+              Salva
+            </button>
+            <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
           </div>
         </div>
       </div>

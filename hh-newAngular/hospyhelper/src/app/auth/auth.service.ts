@@ -5,9 +5,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserDto } from './user-dto';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { LoginData } from './login-data';
+
 import { catchError } from 'rxjs';
-import { LoginRegisterDto } from './login-register-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -58,10 +57,6 @@ export class AuthService {
         this.router.navigate(['/login']), catchError(this.errors);
       })
     );
-  }
-
-  getAllUsers() {
-    return this.http.get<UserDto[]>(`${this.apiURL}/users`);
   }
 
   logout() {

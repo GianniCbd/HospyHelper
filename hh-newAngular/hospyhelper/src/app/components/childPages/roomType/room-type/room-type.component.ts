@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Page } from 'src/app/models/page';
 
 import { RoomType } from 'src/app/models/room-type';
 import { RoomTypeService } from 'src/app/services/room-type.service';
@@ -13,24 +16,47 @@ export class RoomTypeComponent implements OnInit {
   editingRoomType: any = null;
   newRoomType: any = {};
   showCard: boolean = false;
+  page!: Page<RoomType>;
+  currentPage: number = 0;
+  totalPages!: number;
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private roomTypeService: RoomTypeService) {}
+  constructor(
+    private roomTypeService: RoomTypeService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.fetchRoomTypes();
   }
 
-  fetchRoomTypes() {
-    this.roomTypeService.getRoomType().subscribe(
-      (data) => {
-        this.roomTypes = data;
+  fetchRoomTypes(page: number = 0, size: number = 4) {
+    this.roomTypeService.getRoomType(page, size).subscribe(
+      (data: any) => {
+        this.page = data;
+        this.roomTypes = data.content;
+        this.currentPage = data.number;
+        this.totalPages = data.totalPages;
       },
       (error) => {
         console.error('Errore durante il recupero dei tipi di stanza:', error);
       }
     );
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.fetchRoomTypes(this.currentPage);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.fetchRoomTypes(this.currentPage);
+    }
   }
 
   editRoomType(roomType: any) {
