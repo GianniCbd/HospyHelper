@@ -37,11 +37,9 @@
   background-blend-mode: overlay, overlay, normal;
 }
 .card {
-  background: linear-gradient(45deg, #958d8d, #ededf1, #f3f9f9, #3d4342);
   background-size: 400% 400%;
   animation: gradientBackground 10s ease infinite;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgb(0, 0, 0) 0px 15px 12px;
 }
 
 @keyframes gradientBackground {

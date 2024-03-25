@@ -10,13 +10,14 @@ import { Page } from '../models/page';
 })
 export class BookingService {
   apiUrl: string = environment.apiUrl;
+  currentPage: number = 0;
 
   constructor(private http: HttpClient) {}
 
   getBooking(
     page: number = 0,
     pageSize: number = 3,
-    orderBy: string = 'fullName'
+    orderBy: string = 'id'
   ): Observable<Page<Booking>> {
     const params = new HttpParams()
       .set('pageNumber', page.toString())

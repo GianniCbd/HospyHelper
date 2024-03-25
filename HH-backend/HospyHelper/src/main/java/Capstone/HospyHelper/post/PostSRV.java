@@ -3,7 +3,6 @@ package Capstone.HospyHelper.post;
 import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.auth.UserDAO;
 import Capstone.HospyHelper.exceptions.NotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PostSRV {
@@ -29,9 +27,7 @@ public class PostSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return postDAO.findAll(pageable);
     }
-    public Post savePost(PostDTO postDTO, UUID userId, User currentAuthenticatedUser) {
-        User user = userDAO.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+    public Post savePost(PostDTO postDTO, User user) {
         Post post = new Post(
                 postDTO.title(),
                 postDTO.content(),
@@ -50,10 +46,7 @@ public class PostSRV {
         Post existingPost = postDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingPost.setTitle(postDTO.title());
         existingPost.setContent(postDTO.content());
-        existingPost.setCreationDate(postDTO.creationDate());
-        existingPost.setLikes(postDTO.likes());
-        existingPost.setViews(postDTO.views());
-        existingPost.setShares(postDTO.shares());
+
         return postDAO.save(existingPost);
     }
     public void deletePost(Long id) {
@@ -79,6 +72,10 @@ public class PostSRV {
     public void incrementViews(long postId) {
         postDAO.incrementViews(postId);
     }
+
+
+
+
     private PostDTO convertToDTO(Post post) {
         return new PostDTO(
                 post.getTitle(),

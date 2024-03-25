@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Page } from '../models/page';
 
 @Injectable({
   providedIn: 'root',
@@ -12,35 +13,53 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
-  savePost(postDTO: Post, userId: string): Observable<Post> {
-    return this.http.post<Post>(`${this.apiUrl}/save/${userId}`, postDTO);
+  getPost(
+    pageNumber: number = 0,
+    pageSize: number = 4,
+    orderBy: string = 'title'
+  ): Observable<Page<Post>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString())
+      .set('orderBy', orderBy);
+
+    return this.http.get<Page<Post>>(`${this.apiUrl}/post`, {
+      params,
+    });
+  }
+
+  savePost(postDTO: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.apiUrl}/post/save`, postDTO);
   }
 
   getPostById(id: number): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}/${id}`);
+    return this.http.get<Post>(`${this.apiUrl}/post/${id}`);
   }
 
   updatePost(id: number, postDTO: Post): Observable<Post> {
-    return this.http.put<Post>(`${this.apiUrl}/${id}`, postDTO);
+    return this.http.put<Post>(`${this.apiUrl}/post/${id}`, postDTO);
   }
 
   deletePost(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/post/${id}`);
   }
 
   searchPostsByTitle(title: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/search?title=${title}`);
+    return this.http.get<Post[]>(`${this.apiUrl}/post/search?title=${title}`);
   }
 
   getAllPostsOrderByLikesDesc(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/likes-desc`);
+    return this.http.get<Post[]>(`${this.apiUrl}/post/likes-desc`);
   }
 
   getRecentPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/recent`);
+    return this.http.get<Post[]>(`${this.apiUrl}/post/recent`);
   }
 
   incrementViews(postId: number): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${postId}/increment-views`, {});
+    return this.http.put<void>(
+      `${this.apiUrl}/post/${postId}/increment-views`,
+      {}
+    );
   }
 }

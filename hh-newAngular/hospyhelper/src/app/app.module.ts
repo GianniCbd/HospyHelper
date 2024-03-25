@@ -23,6 +23,7 @@ import { AccommodationComponent } from './components/accommodation/accommodation
 import { BookingComponent } from './components/childPages/booking/booking.component';
 import { EmployeeComponent } from './components/childPages/employee/employee.component';
 import { OpexComponent } from './components/childPages/opex/opex.component';
+import { PostComponent } from './components/post/post.component';
 
 const routes: Route[] = [
   {
@@ -76,6 +77,10 @@ const routes: Route[] = [
     component: OpexComponent,
   },
   {
+    path: 'post',
+    component: PostComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
   },
@@ -99,6 +104,7 @@ const routes: Route[] = [
     BookingComponent,
     EmployeeComponent,
     OpexComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,

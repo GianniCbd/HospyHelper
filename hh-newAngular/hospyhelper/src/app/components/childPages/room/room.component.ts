@@ -54,8 +54,6 @@ export class RoomComponent implements OnInit {
         this.page = data;
         this.currentPage = data.number;
         this.totalPages = data.totalPages;
-        console.log(this.currentPage);
-        console.log(this.totalPages);
       });
     } else if (this.selectedOrder === 'asc') {
       this.roomSrv
@@ -114,7 +112,9 @@ export class RoomComponent implements OnInit {
   }
 
   editRoom(room: any) {
+    console.log(room);
     const selectedRoomId = room.id;
+    console.log(selectedRoomId);
     this.editingRoom = { ...room, id: selectedRoomId };
   }
 
@@ -122,7 +122,7 @@ export class RoomComponent implements OnInit {
     this.roomSrv.updateRoom(this.editingRoom.id, this.editingRoom).subscribe(
       (updatedRoomType) => {
         this.cancelEdit();
-        this.fetchRoomTypes();
+        this.fetchRoom();
       },
       (error) => {
         console.error("Errore durante l'aggiornamento della stanza:", error);

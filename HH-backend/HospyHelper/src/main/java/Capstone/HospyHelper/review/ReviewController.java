@@ -1,17 +1,18 @@
 package Capstone.HospyHelper.review;
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/reviews")
@@ -27,13 +28,13 @@ public class ReviewController {
         return reviewSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-    @PostMapping("/save/{userId}")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Review> saveReview(@RequestBody @Validated ReviewDTO reviewDTO, @PathVariable UUID userId, BindingResult validation) throws IOException {
+    public ResponseEntity<Review> saveReview(@AuthenticationPrincipal User currentAuthenticatedUser, @RequestBody @Validated ReviewDTO reviewDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Review savedReview = reviewSRV.saveReview(reviewDTO, userId);
+        Review savedReview = reviewSRV.saveReview(reviewDTO, currentAuthenticatedUser);
         return ResponseEntity.ok(savedReview);
     }
 

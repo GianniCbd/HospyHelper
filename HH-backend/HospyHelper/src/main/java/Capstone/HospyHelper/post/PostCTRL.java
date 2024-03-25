@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/post")
@@ -32,14 +30,13 @@ public class PostCTRL {
         return postSRV.getAll(pageNumber, pageSize, orderBy);
     }
 
-    @PostMapping("/save/{userId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Post> savePost(@RequestBody @Validated PostDTO postDTO, @PathVariable UUID userId, @AuthenticationPrincipal User currentAuthenticatedUser, BindingResult validation) throws IOException {
+    public ResponseEntity<Post> savePost(@RequestBody @Validated PostDTO postDTO,  @AuthenticationPrincipal User currentAuthenticatedUser, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Post savedPost = postSRV.savePost(postDTO, userId, currentAuthenticatedUser);
+        Post savedPost = postSRV.savePost(postDTO, currentAuthenticatedUser);
         return ResponseEntity.ok(savedPost);
     }
 

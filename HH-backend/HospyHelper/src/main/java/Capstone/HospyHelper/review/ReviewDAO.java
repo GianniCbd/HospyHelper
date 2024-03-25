@@ -9,4 +9,7 @@ public interface ReviewDAO extends JpaRepository<Review,Long> {
 
     @Query("SELECT r FROM Review r WHERE r.rating > :rating")
     List<Review> findReviewsWithRatingGreaterThan(int rating);
+
+
+
 }

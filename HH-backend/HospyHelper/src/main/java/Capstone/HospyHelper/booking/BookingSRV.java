@@ -37,8 +37,6 @@ public class BookingSRV {
         return bookingDAO.findByOwnerId(ownerId,pageable);
     }
 
-
-
     public BookingResponseDTO saveBooking(BookingDTO bookingDTO, User user) {
         Room room = roomDAO.findById(bookingDTO.room().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Room id"));
         Accommodation accommodation = accommodationDAO.findById(bookingDTO.accommodation().getId()).orElseThrow(() -> new IllegalArgumentException("Invalid Accommodation id"));

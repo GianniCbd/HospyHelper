@@ -80,14 +80,17 @@ export class BookingComponent implements OnInit {
         this.roomSrv.getRoom(),
         this.AccSrv.getAccommodation(),
       ]).subscribe(
-        (data: any) => {
-          const [bookings, rooms, accommodations] = data;
-          this.bookings = bookings.content;
-          this.page = data;
-          this.currentPage = data.number;
-          this.totalPages = data.totalPages;
+        ([bookingsPage, rooms, accommodations]: [Page<any>, any, any]) => {
+          this.bookings = bookingsPage.content;
+          this.page = bookingsPage;
+          this.currentPage = bookingsPage.number;
+          this.totalPages = bookingsPage.totalPages;
+
           this.rooms = rooms.content;
           this.accommodations = accommodations;
+
+          console.log(this.currentPage);
+          console.log(this.totalPages);
         },
         (error) => {
           console.error(
@@ -105,7 +108,6 @@ export class BookingComponent implements OnInit {
       this.fetchData(this.currentPage);
     }
   }
-
   prevPage() {
     if (this.currentPage > 0) {
       this.currentPage--;
