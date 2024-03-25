@@ -72,8 +72,7 @@ public class AccommodationSRV {
         existingAccommodation.setName(ac.name());
         existingAccommodation.setAddress(ac.address());
         existingAccommodation.setCity(ac.city());
-        existingAccommodation.setTypeAccommodation(ac.typeAccommodation());
-        existingAccommodation.setDescription(ac.description());
+
 
         return accommodationDAO.save(existingAccommodation);
     }

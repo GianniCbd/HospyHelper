@@ -3,7 +3,7 @@ package Capstone.HospyHelper.employee;
 import Capstone.HospyHelper.Enums.RoleEmployee;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.auth.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,7 @@ public class Employee {
     private User user;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JsonIgnore
+    @JsonIgnoreProperties({"opex"})
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 

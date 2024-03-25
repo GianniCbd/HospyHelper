@@ -3,8 +3,8 @@ package Capstone.HospyHelper.opex;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.accommodation.AccommodationDAO;
 import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.exceptions.NotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.security.core.Authentication;
@@ -46,9 +46,9 @@ public class OperationExpensesSRV {
         return userOperationExpensesPage;
     }
 
-    public OperationExpenses saveOperationExpenses(OperationExpensesDTO operationExpensesDTO, Long accommodation_id) {
-        Accommodation accommodation = accommodationDAO.findById(accommodation_id)
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + accommodation_id + " not found"));
+    public OperationExpenses saveOperationExpenses(OperationExpensesDTO operationExpensesDTO) {
+        Accommodation accommodation = accommodationDAO.findById(operationExpensesDTO.accommodation().getId())
+                .orElseThrow(() -> new BadRequestException("Invalid Accommodation Id"));
 
         OperationExpenses operationExpenses = new OperationExpenses(
                 operationExpensesDTO.waterBill(),

@@ -1,7 +1,7 @@
 package Capstone.HospyHelper.opex;
 
 import Capstone.HospyHelper.accommodation.Accommodation;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class OperationExpenses {
     private int powerBill;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JsonIgnore
+@JsonIgnoreProperties({"employees"})
     @JoinColumn(name = "accommodation_id")
     private Accommodation accommodation;
 

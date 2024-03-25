@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/room")
@@ -28,9 +27,10 @@ public class RoomCTRL {
     @GetMapping
     public ResponseEntity<Page<Room>> getUserRooms(@AuthenticationPrincipal User currentAuthenticatedUser,
                                                    @RequestParam(defaultValue = "0") int pageNumber,
-                                                   @RequestParam(defaultValue = "4") int pageSize
-                                                  ) {
-        Page<Room> userRoomsPage = roomSRV.getAllRoomsByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize);
+                                                   @RequestParam(defaultValue = "4") int pageSize,
+                                                   @RequestParam(defaultValue = "id") String orderBy)
+                                                   {
+        Page<Room> userRoomsPage = roomSRV.getAllRoomsByOwnerId(currentAuthenticatedUser.getId(), pageNumber, pageSize,orderBy);
         System.out.println(userRoomsPage);
         return new ResponseEntity<>(userRoomsPage, HttpStatus.OK);
     }
@@ -69,26 +69,36 @@ public class RoomCTRL {
         return ResponseEntity.ok(totalPrice);
     }
 
-    @GetMapping("/order-by-price-desc")
-    public ResponseEntity<List<Room>> getRoomsOrderByPriceDesc() {
-        List<Room> rooms = roomSRV.getRoomsOrderByPriceDesc();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
-    }
-    @GetMapping("/order-by-price-asc")
-    public ResponseEntity<List<Room>> getRoomsOrderByPriceAsc() {
-        List<Room> rooms = roomSRV.getRoomsOrderByPriceAsc();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    @GetMapping("/orderByPriceDesc")
+    public Page<Room> getRoomsOrderByPriceDesc(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        return roomSRV.getRoomsOrderByPriceDesc(pageNumber, pageSize);
     }
 
-    @GetMapping("/order-by-room-number-desc")
-    public ResponseEntity<List<Room>> getRoomsOrderByRoomNumberDesc() {
-        List<Room> rooms = roomSRV.getRoomsOrderByRoomNumberDesc();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    @GetMapping("/orderByPriceAsc")
+    public Page<Room> getRoomsOrderByPriceAsc(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        return roomSRV.getRoomsOrderByPriceAsc(pageNumber, pageSize);
     }
-    @GetMapping("/order-by-room-number-asc")
-    public ResponseEntity<List<Room>> getRoomsOrderByRoomNumberAsc() {
-        List<Room> rooms = roomSRV.getRoomsOrderByRoomNumberAsc();
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
+
+    @GetMapping("/orderByRoomNumberDesc")
+    public Page<Room> getRoomsOrderByRoomNumberDesc(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        return roomSRV.getRoomsOrderByRoomNumberDesc(pageNumber, pageSize);
+    }
+
+    @GetMapping("/orderByRoomNumberAsc")
+    public Page<Room> getRoomsOrderByRoomNumberAsc(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        return roomSRV.getRoomsOrderByRoomNumberAsc(pageNumber, pageSize);
     }
 
 }

@@ -4,9 +4,9 @@ import Capstone.HospyHelper.Enums.RoleEmployee;
 import Capstone.HospyHelper.accommodation.Accommodation;
 import Capstone.HospyHelper.accommodation.AccommodationDAO;
 import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.exceptions.BadRequestException;
 import Capstone.HospyHelper.exceptions.NotFoundException;
 import Capstone.HospyHelper.services.StatisticOperation;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,9 +33,9 @@ public class EmployeeSRV {
         return employeeDAO.findByOwnerId(ownerId, pageable);
     }
 
-    public Employee saveEmployee(EmployeeDTO employeeDTO, Long accommodation_id, User user) {
-        Accommodation accommodation = accommodationDAO.findById(accommodation_id)
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation with id " + accommodation_id + " not found"));
+    public Employee saveEmployee(EmployeeDTO employeeDTO, User user) {
+        Accommodation accommodation = accommodationDAO.findById(employeeDTO.accommodation().getId())
+                .orElseThrow(() -> new BadRequestException("Invalid Accommodation Id"));
 
         Employee employee = new Employee(
                 employeeDTO.name(),
@@ -109,7 +109,8 @@ public class EmployeeSRV {
                         employee.getAge(),
                         employee.getEmail(),
                         employee.getSalary(),
-                        employee.getRoleEmployee()
+                        employee.getRoleEmployee(),
+                        employee.getAccommodation()
                 ))
                 .collect(Collectors.toList());
     }

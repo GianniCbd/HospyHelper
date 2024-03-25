@@ -34,15 +34,16 @@ OperationExpensesSRV operationExpensesSRV;
         }
     }
 
-    @PostMapping("/save/{accommodation_id}")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<OperationExpenses> saveOpex(@RequestBody @Validated OperationExpensesDTO operationExpensesDTO, @PathVariable Long accommodation_id, BindingResult validation) throws IOException {
+    public ResponseEntity<OperationExpenses> saveOpex(@RequestBody @Validated OperationExpensesDTO operationExpensesDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        OperationExpenses savedOpex = operationExpensesSRV.saveOperationExpenses(operationExpensesDTO, accommodation_id);
+        OperationExpenses savedOpex = operationExpensesSRV.saveOperationExpenses(operationExpensesDTO);
         return ResponseEntity.ok(savedOpex);
     }
+
 
     @GetMapping("/{id}")
     public OperationExpenses findById(@PathVariable Long id) {

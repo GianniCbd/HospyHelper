@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 
@@ -36,9 +36,9 @@ public class RoomSRV {
     private UserDAO userDAO;
 
 
-    public Page<Room> getAllRoomsByOwnerId(UUID ownerId, int pageNumber, int pageSize) {
+    public Page<Room> getAllRoomsByOwnerId(UUID ownerId, int pageNumber, int pageSize, String orderBy) {
         if (pageNumber > 20) pageSize = 20;
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return roomDAO.findByOwnerId(ownerId, pageable);
     }
 
@@ -78,17 +78,28 @@ public class RoomSRV {
     public Double getTotalPriceOfAllRooms() {
         return roomDAO.getTotalPriceOfAllRooms();
     }
-    public List<Room> getRoomsOrderByPriceDesc() {
-        return roomDAO.getRoomsOrderByPriceDesc();
+    public Page<Room> getRoomsOrderByPriceDesc(int pageNumber, int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").descending());
+        return roomDAO.findAll(pageable);
     }
-    public List<Room> getRoomsOrderByPriceAsc() {
-        return roomDAO.getRoomsOrderByPriceAsc();
+
+    public Page<Room> getRoomsOrderByPriceAsc(int pageNumber, int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending());
+        return roomDAO.findAll(pageable);
     }
-    public List<Room> getRoomsOrderByRoomNumberDesc() {
-        return roomDAO.getRoomsOrderByRoomNumberDesc();
+
+    public Page<Room> getRoomsOrderByRoomNumberDesc(int pageNumber, int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("number").descending());
+        return roomDAO.findAll(pageable);
     }
-    public List<Room> getRoomsOrderByRoomNumberAsc() {
-        return roomDAO.getRoomsOrderByRoomNumberAsc();
+
+    public Page<Room> getRoomsOrderByRoomNumberAsc(int pageNumber, int pageSize) {
+        if (pageNumber > 20) pageSize = 20;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by("number").ascending());
+        return roomDAO.findAll(pageable);
     }
 
 

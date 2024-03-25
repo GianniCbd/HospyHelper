@@ -5,7 +5,6 @@ import Capstone.HospyHelper.booking.Booking;
 import Capstone.HospyHelper.employee.Employee;
 import Capstone.HospyHelper.opex.OperationExpenses;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +34,13 @@ public class Accommodation {
     @JsonIgnore
     private Set<Booking> bookings = new HashSet<>();
 
-    @JsonIgnoreProperties({"id","email","salary"})
+
     @OneToMany(mappedBy = "accommodation",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Employee> employees = new HashSet<>();
 
     @OneToMany(mappedBy = "accommodation",cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<OperationExpenses> operationExpenses = new HashSet<>();
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})

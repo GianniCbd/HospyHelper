@@ -1,6 +1,7 @@
 package Capstone.HospyHelper.employee;
 
 import Capstone.HospyHelper.Enums.RoleEmployee;
+import Capstone.HospyHelper.accommodation.Accommodation;
 
 public record EmployeeDTO(
         String name,
@@ -8,6 +9,7 @@ public record EmployeeDTO(
         int age,
         String email,
         double salary,
-        RoleEmployee roleEmployee
+        RoleEmployee roleEmployee,
+        Accommodation accommodation
 ) {
 }

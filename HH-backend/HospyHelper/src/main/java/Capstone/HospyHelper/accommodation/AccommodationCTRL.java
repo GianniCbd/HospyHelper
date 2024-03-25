@@ -1,14 +1,16 @@
 package Capstone.HospyHelper.accommodation;
 
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
@@ -42,14 +44,13 @@ public class AccommodationCTRL {
         return new ResponseEntity<>(accommodations, HttpStatus.OK);
     }
 
-    @PostMapping("/save/{userId}")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Accommodation> saveAccommodation(@RequestBody AccommodationDTO accommodationDTO, @PathVariable UUID userId,  BindingResult validation) throws IOException {
-        if (validation.hasErrors()) {
+    public Accommodation save(@AuthenticationPrincipal User currentAuthenticatedUser, @RequestBody @Validated AccommodationDTO accommodationDTO, BindingResult validation) {
+        if (validation.hasErrors()){
             throw new BadRequestException(validation.getAllErrors());
         }
-        Accommodation savedAccommodation = accommodationSRV.saveAccommodation(accommodationDTO,userId);
-        return new ResponseEntity<>(savedAccommodation, HttpStatus.CREATED);
+        return this.accommodationSRV.saveAccommodation( accommodationDTO,currentAuthenticatedUser.getId());
     }
 
     @GetMapping("/{id}")

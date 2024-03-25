@@ -40,7 +40,7 @@ public class UserCTRL {
     }
 
     @PutMapping("me/{id}")
-    @PreAuthorize("hasAuthority('USER')")
+
     public User findByIdAndUpdate(@PathVariable UUID id, @RequestBody UserDTO userDTO, @AuthenticationPrincipal User currentAuthenticatedUser) {
         return userSRV.findByIdAndUpdate(id, userDTO, currentAuthenticatedUser);
     }

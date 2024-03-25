@@ -31,13 +31,13 @@ public class EmployeeCTRL {
         return new ResponseEntity<>(userEmployeePage, HttpStatus.OK);
     }
 
-    @PostMapping("/save/{accommodation_id}")
+    @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Employee> saveEmployee(@AuthenticationPrincipal User currentAuthenticatedUser,@RequestBody @Validated EmployeeDTO employeeDTO, @PathVariable Long accommodation_id, BindingResult validation) throws IOException {
+    public ResponseEntity<Employee> saveEmployee(@AuthenticationPrincipal User currentAuthenticatedUser,@RequestBody @Validated EmployeeDTO employeeDTO, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Employee savedEmployee = employeeSRV.saveEmployee(employeeDTO, accommodation_id,currentAuthenticatedUser);
+        Employee savedEmployee = employeeSRV.saveEmployee(employeeDTO,currentAuthenticatedUser);
         return ResponseEntity.ok(savedEmployee);
     }
 
