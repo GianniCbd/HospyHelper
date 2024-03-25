@@ -29,7 +29,7 @@ export class OpexComponent implements OnInit {
 
   fetchAccommodation() {
     this.accommodationService.getAccommodation().subscribe(
-      (data: Accommodation[]) => {
+      (data: any) => {
         this.accommodation = data;
       },
       (error) => {
@@ -52,8 +52,7 @@ export class OpexComponent implements OnInit {
     this.accommodationId = accommodation.id;
   }
   addNewOpex() {
-    console.log('accommodationId:', this.accommodationId);
-    this.opexSrv.saveOpex(this.newOpex, this.accommodationId).subscribe(
+    this.opexSrv.saveOpex(this.newOpex).subscribe(
       (response) => {
         this.opex.push(response);
         this.newOpex = {};
@@ -64,7 +63,6 @@ export class OpexComponent implements OnInit {
       }
     );
   }
-
   toggleCardVisibility() {
     this.showCard = !this.showCard;
   }

@@ -39,6 +39,7 @@
               <p class="paragIndex"><strong>Email:</strong></p>
               <p class="paragIndex"><strong>Stipendio:</strong></p>
               <p class="paragIndex"><strong>Ruolo:</strong></p>
+              <p class="paragIndex"><strong>Struttura:</strong></p>
             </div>
             <div class="col-md-6">
               <p>
@@ -56,9 +57,12 @@
               <p>
                 <span class="employeeP">{{ emp.roleEmployee }}</span>
               </p>
+              <p>
+                <span class="employeeP">{{ emp.accommodation.name }}</span>
+              </p>
             </div>
           </div>
-          <div *ngIf="emp.showDetails">
+          <div>
             <button class="btn btn-secondary" (click)="editEmp(emp)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,14 +96,14 @@
       </ul>
       <div class="d-flex justify-content-center mt-5">
         <button
-          class="me-3"
+          class="btn btn-secondary me-3"
           (click)="prevPage()"
           [disabled]="currentPage === 0"
         >
           Previous
         </button>
         <button
-          class="ms-3"
+          class="btn btn-secondary ms-3"
           (click)="nextPage()"
           [disabled]="currentPage === totalPages - 1"
         >
@@ -107,33 +111,9 @@
         </button>
       </div>
       <div class="mt-5">
-        <p class="pulse-animation">
-          Prima di aggiungere un nuovo dipendente seleziona la struttura
-        </p>
         <div
           class="bottoni d-flex justify-content-between align-items-center pb-5 mt-3"
         >
-          <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="accommodationDropdown"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Seleziona un alloggio
-            </button>
-            <div class="dropdown-menu" aria-labelledby="accommodationDropdown">
-              <a
-                class="dropdown-item"
-                *ngFor="let acc of accommodation"
-                (click)="selectAccommodation(acc)"
-                >{{ acc.name }}</a
-              >
-            </div>
-          </div>
-
           <button
             id="addButton"
             class="btn button-85 my-2"
@@ -227,6 +207,22 @@
                     <option value="MANAGER">Manager</option>
                     <option value="CHEF">Chef</option>
                     <option value="KITCHEN_PORTER">Kitchen Porter</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="accommodation">Struttura</label>
+                  <select
+                    class="form-control"
+                    id="accommodation"
+                    name="accommodation"
+                    [(ngModel)]="newEmployee.accommodation"
+                  >
+                    <option
+                      *ngFor="let accommodation of accommodation"
+                      [ngValue]="accommodation"
+                    >
+                      {{ accommodation.name }}
+                    </option>
                   </select>
                 </div>
                 <div class="d-flex justify-content-between align-item mt-3">

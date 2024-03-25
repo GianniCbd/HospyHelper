@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export interface Accommodation {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export interface Accommodation {
   city: string;
   typeAccommodation: string;
   description: string;
+  user: User;
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Accommodation } from '../models/accommodation';
-import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Page } from '../models/page';
 
 @Injectable({
@@ -27,12 +27,26 @@ export class AccommodationService {
     return this.http.get<Accommodation>(url);
   }
 
+  // createAccommodation(
+  //   newAccommodation: Accommodation
+  // ): Observable<Accommodation> {
+  //   const url = `${this.apiUrl}/accommodation/save`;
+  //   return this.http.put<Accommodation>(url, newAccommodation);
+  // }
+
   createAccommodation(
-    id: number,
-    newAccommodation: Accommodation
+    data: Partial<Accommodation>,
+    userId: string
   ): Observable<Accommodation> {
-    const url = `${this.apiUrl}/accommodation/save/${id}`;
-    return this.http.put<Accommodation>(url, newAccommodation);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + this.getAccessToken,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Accommodation>(
+      `${this.apiUrl}/accommodation/save?userId=${userId}`,
+      data,
+      { headers }
+    );
   }
 
   updateAccommodation(
@@ -41,5 +55,14 @@ export class AccommodationService {
   ): Observable<Accommodation> {
     const url = `${this.apiUrl}/accommodation/${id}`;
     return this.http.put<Accommodation>(url, accommodation);
+  }
+
+  private getAccessToken(): string {
+    return localStorage.getItem('access_token') || '';
+  }
+
+  deleteAccommodation(id: number): Observable<void> {
+    const url = `${this.apiUrl}/accommodation/${id}`;
+    return this.http.delete<void>(url);
   }
 }

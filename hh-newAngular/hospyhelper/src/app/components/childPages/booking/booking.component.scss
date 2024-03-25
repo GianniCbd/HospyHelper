@@ -37,7 +37,7 @@
   background-blend-mode: overlay, overlay, normal;
 }
 .card {
-  background: linear-gradient(45deg, #ffffff, #615f51, #f7e9b2, #d6b66c);
+  background: linear-gradient(45deg, #958d8d, #ededf1, #f3f9f9, #3d4342);
   background-size: 400% 400%;
   animation: gradientBackground 10s ease infinite;
   cursor: pointer;
@@ -66,11 +66,6 @@
 a {
   color: inherit;
   text-decoration: none;
-}
-
-.container {
-  padding-top: 5%;
-  height: 100%;
 }
 
 //Bottone aggiungi
@@ -148,4 +143,19 @@ a {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-left {
+  animation: slideInFromLeft 0.5s ease-in-out;
 }

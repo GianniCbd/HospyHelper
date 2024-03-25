@@ -35,11 +35,10 @@
       rgb(107, 153, 100) 100%
     );
   background-blend-mode: overlay, overlay, normal;
-  height: 100vh;
 }
 .container {
+  padding-top: 5%;
   height: 100%;
-  padding-top: 7%;
 }
 .card-front {
   position: fixed;

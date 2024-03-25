@@ -21,8 +21,8 @@ export class OpexService {
       .pipe(map((list) => list.content));
   }
 
-  saveOpex(opex: Opex, accommodationId: number): Observable<Opex> {
-    const url = `${this.apiUrl}/operation-expenses/save/${accommodationId}`;
+  saveOpex(opex: Opex): Observable<Opex> {
+    const url = `${this.apiUrl}/operation-expenses/save`;
     return this.http.post<Opex>(url, opex);
   }
 

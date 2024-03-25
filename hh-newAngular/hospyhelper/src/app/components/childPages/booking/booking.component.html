@@ -1,4 +1,4 @@
-<div class="outer-container">
+<div class="outer-container py-5">
   <div class="container">
     <div class="row">
       <div class="d-flex justify-content-between align-item-center">
@@ -15,6 +15,13 @@
               d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
             /></svg
         ></a>
+        <button
+          id="addButton"
+          class="btn button-85 my-5"
+          (click)="toggleCardVisibility()"
+        >
+          Aggiungi
+        </button>
         <a [routerLink]="['/room']" class="arrow m-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +37,7 @@
           </svg>
         </a>
       </div>
-      <div class="col-md-12">
+      <div class="col-md-12 slide-in-from-left">
         <select
           [(ngModel)]="selectedOrder"
           class="ricerca mb-2"
@@ -174,27 +181,18 @@
       </div>
       <div class="d-flex justify-content-center mt-5">
         <button
-          class="me-3"
+          class="btn btn-secondary me-3"
           (click)="prevPage()"
           [disabled]="currentPage === 0"
         >
           Previous
         </button>
         <button
-          class="ms-3"
+          class="btn btn-secondary ms-3"
           (click)="nextPage()"
           [disabled]="currentPage === totalPages - 1"
         >
           Next
-        </button>
-      </div>
-      <div class="addButton">
-        <button
-          id="addButton"
-          class="btn button-85 my-5"
-          (click)="toggleCardVisibility()"
-        >
-          Aggiungi
         </button>
       </div>
     </div>
@@ -351,12 +349,10 @@
           </div>
         </form>
         <div class="d-flex justify-content-between align-item-center mt-2">
-          <button class="btn btn-success" (click)="saveEditedBooking()">
+          <button class="btn btn-secondary" (click)="saveEditedBooking()">
             Salva
           </button>
-          <button class="btn btn-secondary" (click)="cancelEdit()">
-            Annulla
-          </button>
+          <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
         </div>
       </div>
     </div>

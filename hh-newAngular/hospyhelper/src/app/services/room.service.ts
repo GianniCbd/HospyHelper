@@ -4,26 +4,26 @@ import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Room } from '../models/room';
 import { Page } from '../models/page';
-import { RoomType } from '../models/room-type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
   apiUrl: string = environment.apiUrl;
-  currentPage: number = 1;
+  currentPage: number = 0;
 
   constructor(private http: HttpClient) {}
 
   getRoom(
     pageNumber: number = 0,
-    pageSize: number = 4
+    pageSize: number = 4,
+    orderBy: string = 'id'
   ): Observable<Page<Room>> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber.toString())
-      .set('pageSize', pageSize.toString());
-
-    return this.http.get<Page<Room>>(`${this.apiUrl}/room`, { params });
+      .set('pageSize', pageSize.toString())
+      .set('orderBy', orderBy);
+    return this.http.get<Page<Room>>(`${this.apiUrl}/room/all`, { params });
   }
 
   getRoomById(id: number): Observable<Room> {
@@ -45,21 +45,53 @@ export class RoomService {
     return this.http.delete<void>(url);
   }
   // ********************************************************
-  getRoomsOrderByPriceAsc(): Observable<Room[]> {
-    return this.http.get<Room[]>(`${this.apiUrl}/room/order-by-price-asc`);
+  getRoomsOrderByPriceAsc(
+    pageNumber: number = 0,
+    pageSize: number = 4
+  ): Observable<Page<Room>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Page<Room>>(`${this.apiUrl}/room/orderByPriceAsc`, {
+      params,
+    });
   }
 
-  getRoomsOrderByPriceDesc(): Observable<Room[]> {
-    return this.http.get<Room[]>(`${this.apiUrl}/room/order-by-price-desc`);
+  getRoomsOrderByPriceDesc(
+    pageNumber: number = 0,
+    pageSize: number = 4
+  ): Observable<Page<Room>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<Page<Room>>(`${this.apiUrl}/room/orderByPriceDesc`, {
+      params,
+    });
   }
-  getRoomsOrderByRoomNumberAsc(): Observable<Room[]> {
-    return this.http.get<Room[]>(
-      `${this.apiUrl}/room/order-by-room-number-asc`
+  getRoomsOrderByRoomNumberAsc(
+    pageNumber: number = 0,
+    pageSize: number = 4
+  ): Observable<Page<Room>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<Page<Room>>(
+      `${this.apiUrl}/room/orderByRoomNumberAsc`,
+      { params }
     );
   }
-  getRoomsOrderByRoomNumberDesc(): Observable<Room[]> {
-    return this.http.get<Room[]>(
-      `${this.apiUrl}/room/order-by-room-number-desc`
+  getRoomsOrderByRoomNumberDesc(
+    pageNumber: number = 0,
+    pageSize: number = 4
+  ): Observable<Page<Room>> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+    return this.http.get<Page<Room>>(
+      `${this.apiUrl}/room/orderByRoomNumberDesc`,
+      { params }
     );
   }
 }

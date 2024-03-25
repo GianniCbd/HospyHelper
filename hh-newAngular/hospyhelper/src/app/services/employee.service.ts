@@ -25,11 +25,8 @@ export class EmployeeService {
     return this.http.get<Page<Employee>>(`${this.apiUrl}/employee`, { params });
   }
 
-  saveEmployee(
-    employee: Employee,
-    accommodationId: number
-  ): Observable<Employee> {
-    const url = `${this.apiUrl}/employee/save/${accommodationId}`;
+  saveEmployee(employee: Employee): Observable<Employee> {
+    const url = `${this.apiUrl}/employee/save`;
     return this.http.post<Employee>(url, employee);
   }
 
@@ -37,6 +34,6 @@ export class EmployeeService {
     return this.http.put<Employee>(`${this.apiUrl}/employee/${id}`, employee);
   }
   deleteEmployee(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/employee/${id}`);
   }
 }

@@ -36,6 +36,7 @@
     );
   background-blend-mode: overlay, overlay, normal;
 }
+
 .card {
   cursor: pointer;
   box-shadow: none;
@@ -51,12 +52,9 @@
   z-index: 1000;
   cursor: pointer;
 }
-.container {
-  padding-top: 5%;
-}
 
 .button-85 {
-  padding: 0.6em 2em;
+  padding: 0.8em 2em;
   border: none;
   outline: none;
   color: rgb(255, 255, 255);

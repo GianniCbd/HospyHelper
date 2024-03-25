@@ -32,12 +32,12 @@ export class EmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchEmployee();
     this.fetchAccommodation();
+    this.fetchEmployee();
   }
   fetchAccommodation() {
     this.accommodationService.getAccommodation().subscribe(
-      (data: Accommodation[]) => {
+      (data: any) => {
         this.accommodation = data;
       },
       (error) => {
@@ -61,8 +61,9 @@ export class EmployeeComponent implements OnInit {
   fetchEmployee(page: number = 0, size: number = 2) {
     this.employeeSrv.getEmployee(page, size).subscribe(
       (data: Page<Employee>) => {
-        this.page = data;
         this.employee = data.content;
+        console.log(data.content);
+        this.page = data;
         this.currentPage = data.number;
         this.totalPages = data.totalPages;
       },
@@ -91,19 +92,16 @@ export class EmployeeComponent implements OnInit {
   }
 
   addNewEmployee() {
-    console.log('accommodationId:', this.accommodationId);
-    this.employeeSrv
-      .saveEmployee(this.newEmployee, this.accommodationId)
-      .subscribe(
-        (response) => {
-          this.employee.push(response);
-          this.newEmployee = {};
-          this.showCard = false;
-        },
-        (error) => {
-          console.error("Errore durante l'aggiunta del dipendente:", error);
-        }
-      );
+    this.employeeSrv.saveEmployee(this.newEmployee).subscribe(
+      (response) => {
+        this.employee.push(response);
+        this.newEmployee = {};
+        this.showCard = false;
+      },
+      (error) => {
+        console.error("Errore durante l'aggiunta del dipendente:", error);
+      }
+    );
   }
 
   toggleCardVisibility() {

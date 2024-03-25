@@ -22,10 +22,7 @@ export class RoomTypeComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(
-    private roomTypeService: RoomTypeService,
-    private authService: AuthService
-  ) {}
+  constructor(private roomTypeService: RoomTypeService) {}
 
   ngOnInit(): void {
     this.fetchRoomTypes();

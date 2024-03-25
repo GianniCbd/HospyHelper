@@ -10,12 +10,4 @@ export class NostriServiziComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {}
-
-  goToChildPage(): void {
-    this.router.navigate(['/booking']);
-  }
-
-  goToChildPage2(): void {
-    this.router.navigate(['/employee']);
-  }
 }

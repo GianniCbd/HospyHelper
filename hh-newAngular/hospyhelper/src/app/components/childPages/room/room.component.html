@@ -1,4 +1,4 @@
-<div class="outer-container">
+<div class="outer-container py-5">
   <div class="container">
     <div class="d-flex justify-content-between align-item-center">
       <a [routerLink]="['/booking']" class="arrow m-3"
@@ -13,6 +13,14 @@
             d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
           /></svg
       ></a>
+      <button
+        id="addButton"
+        class="btn button-85 mt-5"
+        role="button"
+        (click)="toggleCardVisibility()"
+      >
+        Aggiungi
+      </button>
       <a [routerLink]="['/roomType']" class="arrow m-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -27,18 +35,19 @@
         </svg>
       </a>
     </div>
-    <select
-      [(ngModel)]="selectedOrder"
-      (change)="changeOrder(selectedOrder)"
-      class="ricerca mb-2"
-    >
-      <option value="ricerca">Ricerca</option>
-      <option value="asc">Prezzo Crescente</option>
-      <option value="desc">Prezzo Decrescente</option>
-      <option value="ascRoomNumber">NumeroStanza Crescente</option>
-      <option value="descRoomNumber">NumeroStanza Decrescente</option>
-    </select>
-
+    <div class="pt-2">
+      <select
+        [(ngModel)]="selectedOrder"
+        (change)="changeOrder(selectedOrder)"
+        class="ricerca mb-2"
+      >
+        <option value="ricerca">Ricerca</option>
+        <option value="asc">Prezzo Crescente</option>
+        <option value="desc">Prezzo Decrescente</option>
+        <option value="ascRoomNumber">NumeroStanza Crescente</option>
+        <option value="descRoomNumber">NumeroStanza Decrescente</option>
+      </select>
+    </div>
     <div class="row">
       <div *ngFor="let roomItem of room" class="col-md-3 slide-in-from-left">
         <div class="card mb-2">
@@ -129,136 +138,127 @@
       </div>
       <div class="d-flex justify-content-center mt-5">
         <button
-          class="me-3"
+          class="btn btn-secondary me-3"
           (click)="prevPage()"
           [disabled]="currentPage === 0"
         >
           Previous
         </button>
         <button
-          class="ms-3"
+          class="btn btn-secondary ms-3"
           (click)="nextPage()"
           [disabled]="currentPage === totalPages - 1"
         >
           Next
         </button>
       </div>
-      <div>
-        <button
-          id="addButton"
-          class="btn button-85 my-5"
-          role="button"
-          (click)="toggleCardVisibility()"
-        >
-          Aggiungi
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- NEWROOM************************************************************************************************************* -->
-<div class="d-flex justify-content-between align-item">
-  <div class="col-md-3">
-    <div class="card card-front" *ngIf="showCard">
-      <div class="card-body">
-        <h5 class="card-title">Nuovo Stanza</h5>
-        <form>
-          <div class="form-group">
-            <label for="roomType">Tipo di Stanza</label>
-            <select
-              class="form-control"
-              id="roomType"
-              name="roomType"
-              [(ngModel)]="newRoom.roomType"
-            >
-              <option *ngFor="let roomType of roomTypes" [ngValue]="roomType">
-                {{ roomType.typeName }}
-              </option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="newNumber">Numero Stanza</label>
-            <input
-              type="text"
-              class="form-control"
-              id="newNumber"
-              name="newNumber"
-              [(ngModel)]="newRoom.number"
-            />
-          </div>
-          <div class="form-group">
-            <label for="newCapacity">CapacitàMax</label>
-            <input
-              type="text"
-              class="form-control"
-              id="newCapacity"
-              name="newCapacity"
-              [(ngModel)]="newRoom.capacity"
-            />
-          </div>
-          <div class="form-group">
-            <label for="newPrice">Prezzo</label>
-            <input
-              type="text"
-              class="form-control"
-              id="newPrice"
-              name="newPrice"
-              [(ngModel)]="newRoom.price"
-            />
-          </div>
-          <div class="d-flex justify-content-between align-item mt-3">
-            <button class="btn btn-secondary" (click)="addNewRoom()">
-              Aggiungi
-            </button>
-            <button class="btn btn-dark" (click)="close()">chiudi</button>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 
-  <!-- EDIT**************************************************************** -->
-  <div class="col-md-3" *ngIf="editingRoom">
-    <div class="card card-front">
-      <div class="card-body">
-        <h5 class="card-title">Modifica Tipo Stanza</h5>
-        <form>
-          <div class="form-group">
-            <label for="editNumber">Numero Stanza</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editNumber"
-              name="editNumber"
-              [(ngModel)]="editingRoom.number"
-            />
+  <!-- NEWROOM************************************************************************************************************* -->
+  <div class="d-flex justify-content-between align-item">
+    <div class="col-md-3">
+      <div class="card card-front" *ngIf="showCard">
+        <div class="card-body">
+          <h5 class="card-title">Nuovo Stanza</h5>
+          <form>
+            <div class="form-group">
+              <label for="roomType">Tipo di Stanza</label>
+              <select
+                class="form-control"
+                id="roomType"
+                name="roomType"
+                [(ngModel)]="newRoom.roomType"
+              >
+                <option *ngFor="let roomType of roomTypes" [ngValue]="roomType">
+                  {{ roomType.typeName }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="newNumber">Numero Stanza</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newNumber"
+                name="newNumber"
+                [(ngModel)]="newRoom.number"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newCapacity">CapacitàMax</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newCapacity"
+                name="newCapacity"
+                [(ngModel)]="newRoom.capacity"
+              />
+            </div>
+            <div class="form-group">
+              <label for="newPrice">Prezzo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="newPrice"
+                name="newPrice"
+                [(ngModel)]="newRoom.price"
+              />
+            </div>
+            <div class="d-flex justify-content-between align-item mt-3">
+              <button class="btn btn-secondary" (click)="addNewRoom()">
+                Aggiungi
+              </button>
+              <button class="btn btn-dark" (click)="close()">chiudi</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT**************************************************************** -->
+    <div class="col-md-3" *ngIf="editingRoom">
+      <div class="card card-front">
+        <div class="card-body">
+          <h5 class="card-title">Modifica Tipo Stanza</h5>
+          <form>
+            <div class="form-group">
+              <label for="editNumber">Numero Stanza</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editNumber"
+                name="editNumber"
+                [(ngModel)]="editingRoom.number"
+              />
+            </div>
+            <div class="form-group">
+              <label for="editCapacity">TotalePersone</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editCapacity"
+                name="editCapacity"
+                [(ngModel)]="editingRoom.capacity"
+              />
+            </div>
+            <div class="form-group">
+              <label for="editPrice">Prezzo</label>
+              <textarea
+                class="form-control"
+                id="editPrice"
+                name="editPrice"
+                rows="3"
+                [(ngModel)]="editingRoom.price"
+              ></textarea>
+            </div>
+          </form>
+          <div class="d-flex justify-content-between align-item-center mt-2">
+            <button class="btn btn-secondary" (click)="saveEditedRoom()">
+              Salva
+            </button>
+            <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
           </div>
-          <div class="form-group">
-            <label for="editCapacity">TotalePersone</label>
-            <input
-              type="text"
-              class="form-control"
-              id="editCapacity"
-              name="editCapacity"
-              [(ngModel)]="editingRoom.capacity"
-            />
-          </div>
-          <div class="form-group">
-            <label for="editPrice">Prezzo</label>
-            <textarea
-              class="form-control"
-              id="editPrice"
-              name="editPrice"
-              rows="3"
-              [(ngModel)]="editingRoom.price"
-            ></textarea>
-          </div>
-        </form>
-        <div class="d-flex justify-content-between align-item-center mt-2">
-          <button class="btn btn-secondary" (click)="saveEditedRoom()">
-            Salva
-          </button>
-          <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
         </div>
       </div>
     </div>

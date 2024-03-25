@@ -24,7 +24,7 @@ public class RoomCTRL {
         this.roomSRV = roomSrv;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Page<Room>> getUserRooms(@AuthenticationPrincipal User currentAuthenticatedUser,
                                                    @RequestParam(defaultValue = "0") int pageNumber,
                                                    @RequestParam(defaultValue = "4") int pageSize,

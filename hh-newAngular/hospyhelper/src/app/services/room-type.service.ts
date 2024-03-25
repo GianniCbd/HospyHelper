@@ -11,19 +11,7 @@ import { Page } from '../models/page';
 export class RoomTypeService {
   apiUrl: string = environment.apiUrl;
 
-  currentPage: number = 0;
-
   constructor(private http: HttpClient) {}
-
-  // getRoomType(page: number = 0, size: number = 10): Observable<RoomType[]> {
-  //   const params = new HttpParams()
-  //     .set('page', page.toString())
-  //     .set('size', size.toString());
-  //   this.currentPage = page;
-  //   return this.http
-  //     .get<Page<RoomType>>(`${this.apiUrl}/roomTypes/all`, { params })
-  //     .pipe(map((list) => list.content));
-  // }
 
   getRoomType(
     pageNumber: number = 0,

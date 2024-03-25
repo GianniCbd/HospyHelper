@@ -52,7 +52,11 @@
                   cancellazione.
                 </li>
               </ul>
-              <button type="button" class="btn ms-5" (click)="goToChildPage()">
+              <button
+                type="button"
+                class="btn ms-5"
+                [routerLink]="['/booking']"
+              >
                 Accedi
               </button>
             </div>
@@ -94,7 +98,7 @@
                 <button
                   type="button"
                   class="btn ms-5"
-                  (click)="goToChildPage2()"
+                  [routerLink]="['/employee']"
                 >
                   Accedi
                 </button>
@@ -117,33 +121,29 @@
           <div class="container">
             <div class="row">
               <div class="col-md-6">
-                <h2 class="mb-4">
-                  Gestisci le prenotazioni della tua azienda con facilità
-                </h2>
+                <h2 class="mb-4">Tieni sotto controllo le tue spese</h2>
                 <p>
                   Dimentica le agende cartacee e i fogli volanti. Con la nostra
-                  app, avrai il controllo completo delle prenotazioni della tua
-                  azienda in un unico posto.
+                  app, avrai il controllo completo delle tue spese in un unico
+                  posto.
                 </p>
                 <ul class="list-unstyled">
                   <li>
-                    <i class="fa fa-check"></i> Prenotazioni online 24/7:
-                    Permetti ai tuoi clienti di prenotare un tavolo, una stanza
-                    o un altro tuo servizio in qualsiasi momento, da qualsiasi
+                    <i class="fa fa-check"></i> Monitoraggio 24/7: Tieni traccia
+                    delle tue spese in qualsiasi momento e da qualsiasi
                     dispositivo.
                   </li>
                   <li>
                     <i class="fa fa-check"></i> Interfaccia intuitiva: Gestisci
-                    le prenotazioni in modo facile e veloce, con una comoda
-                    visualizzazione del calendario e delle disponibilità.
+                    le tue spese in modo facile e veloce, con una comoda
+                    visualizzazione dei dati.
                   </li>
                   <li>
                     <i class="fa fa-check"></i> Notifiche in tempo reale: Ricevi
-                    notifiche immediate per ogni nuova prenotazione, modifica o
-                    cancellazione.
+                    notifiche immediate per ogni nuovo movimento finanziario.
                   </li>
                 </ul>
-                <button type="button" class="btn" (click)="goToChildPage()">
+                <button type="button" class="btn" [routerLink]="['/opex']">
                   Accedi
                 </button>
               </div>

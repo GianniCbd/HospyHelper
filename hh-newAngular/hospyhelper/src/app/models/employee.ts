@@ -1,3 +1,5 @@
+import { Accommodation } from './accommodation';
+
 export interface Employee {
   id: number;
   name: string;
@@ -6,6 +8,7 @@ export interface Employee {
   email: string;
   salary: number;
   roleEmployee?: RoleEmployee;
+  accommodation: Accommodation;
   showDetails?: boolean;
 }
 export enum RoleEmployee {

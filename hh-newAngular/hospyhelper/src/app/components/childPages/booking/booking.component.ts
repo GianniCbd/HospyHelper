@@ -40,6 +40,7 @@ export class BookingComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
   }
+
   fetchData(page: number = 0, size: number = 3) {
     if (this.selectedOrder === 'findByEmail') {
       this.bookingSrv.findByEmail(this.searchTerm).subscribe(
@@ -115,7 +116,7 @@ export class BookingComponent implements OnInit {
   addNewBooking() {
     this.bookingSrv.createBooking(this.newBooking).subscribe(
       (response) => {
-        console.log('Nuova prenotazione aggiunta:', response);
+        this.bookings.push(response);
         this.newBooking = {};
         this.showCard = false;
       },

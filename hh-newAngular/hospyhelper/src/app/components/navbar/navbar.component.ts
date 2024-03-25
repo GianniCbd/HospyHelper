@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   utente!: UserDto | null;
-  // private scrollY = 0;
+  searchTerm: string = '';
 
   constructor(private authSrv: AuthService, private router: Router) {}
 
@@ -19,19 +19,10 @@ export class NavbarComponent implements OnInit {
     this.authSrv.user$.subscribe((user) => {
       this.utente = user;
     });
-
-    // window.addEventListener('scroll', () => {
-    //   this.scrollY = window.scrollY;
-    // });
   }
 
   logout() {
     this.authSrv.logout();
     this.router.navigate(['/login']);
   }
-
-  // getBackgroundColor(): string {
-  //   const opacity = Math.min(1, this.scrollY / 100);
-  //   return `rgba(169,230,233, ${opacity})`;
-  // }
 }

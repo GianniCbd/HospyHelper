@@ -18,6 +18,7 @@ export class RoomComponent implements OnInit {
   showCard: boolean = false;
   sortedRooms!: Room[];
   selectedOrder: string = 'ricerca';
+
   page!: Page<Room>;
   currentPage: number = 0;
   totalPages!: number;
@@ -35,8 +36,8 @@ export class RoomComponent implements OnInit {
   fetchRoomTypes(page: number = 0, size: number = 4) {
     this.roomTypeService.getRoomType(page, size).subscribe(
       (data: any) => {
-        this.page = data;
         this.roomTypes = data.content;
+        this.page = data;
         this.currentPage = data.number;
         this.totalPages = data.totalPages;
       },
@@ -45,29 +46,53 @@ export class RoomComponent implements OnInit {
       }
     );
   }
+
   fetchRoom(page: number = 0, size: number = 4) {
     if (this.selectedOrder === 'ricerca') {
       this.roomSrv.getRoom(page, size).subscribe((data: Page<Room>) => {
         this.room = data.content;
-        this.currentPage = data.pageNumber;
+        this.page = data;
+        this.currentPage = data.number;
         this.totalPages = data.totalPages;
+        console.log(this.currentPage);
+        console.log(this.totalPages);
       });
     } else if (this.selectedOrder === 'asc') {
-      this.roomSrv.getRoomsOrderByPriceAsc().subscribe((data) => {
-        this.room = data;
-      });
+      this.roomSrv
+        .getRoomsOrderByPriceAsc(page, size)
+        .subscribe((data: Page<Room>) => {
+          this.room = data.content;
+          this.page = data;
+          this.currentPage = data.pageNumber;
+          this.totalPages = data.totalPages;
+        });
     } else if (this.selectedOrder === 'desc') {
-      this.roomSrv.getRoomsOrderByPriceDesc().subscribe((data) => {
-        this.room = data;
-      });
+      this.roomSrv
+        .getRoomsOrderByPriceDesc(page, size)
+        .subscribe((data: Page<Room>) => {
+          this.room = data.content;
+          this.page = data;
+          this.currentPage = data.pageNumber;
+          this.totalPages = data.totalPages;
+        });
     } else if (this.selectedOrder === 'ascRoomNumber') {
-      this.roomSrv.getRoomsOrderByRoomNumberAsc().subscribe((data) => {
-        this.room = data;
-      });
+      this.roomSrv
+        .getRoomsOrderByRoomNumberAsc(page, size)
+        .subscribe((data: Page<Room>) => {
+          this.room = data.content;
+          this.page = data;
+          this.currentPage = data.pageNumber;
+          this.totalPages = data.totalPages;
+        });
     } else if (this.selectedOrder === 'descRoomNumber') {
-      this.roomSrv.getRoomsOrderByRoomNumberDesc().subscribe((data) => {
-        this.room = data;
-      });
+      this.roomSrv
+        .getRoomsOrderByRoomNumberDesc(page, size)
+        .subscribe((data: Page<Room>) => {
+          this.room = data.content;
+          this.page = data;
+          this.currentPage = data.pageNumber;
+          this.totalPages = data.totalPages;
+        });
     }
   }
   nextPage() {
