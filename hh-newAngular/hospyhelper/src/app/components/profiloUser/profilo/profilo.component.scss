@@ -64,6 +64,10 @@
   transform: translateY(-5px);
 }
 
+.btn {
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
   .col-5,
   .col-7 {

@@ -87,6 +87,10 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
+.btn {
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 576px) {
   #carouselExampleIndicators {
     padding-top: 20px;

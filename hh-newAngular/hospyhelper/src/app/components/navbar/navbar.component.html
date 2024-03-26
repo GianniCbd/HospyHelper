@@ -38,12 +38,44 @@
               >Profilo</a
             >
           </li>
+          <li class="nav-item dropdown" *ngIf="utente">
+            <a
+              class="nav-link text-white dropdown-toggle"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              La tua struttura
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item text-white" href="/accommodation"
+                  >La mia azienda</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-white" href="/employee"
+                  >Il personale</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-white" href="/booking"
+                  >Le prenotazioni</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-white" href="/room">Le stanze</a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item" *ngIf="utente">
             <a
               class="nav-link text-white"
-              [routerLink]="['/accommodation']"
+              [routerLink]="['/post']"
               routerLinkActive="active"
-              >La tua struttura</a
+              >Community</a
             >
           </li>
           <li class="nav-item" *ngIf="!utente">
@@ -64,7 +96,6 @@
           </li>
         </ul>
       </div>
-
       <div>
         <div class="dropdown d-flex ms-auto">
           <button

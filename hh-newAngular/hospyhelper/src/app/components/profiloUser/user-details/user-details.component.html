@@ -1,132 +1,78 @@
-<main>
+<div class="outer-container">
+  <img
+    src="../../../../assets/all/19417-removebg-preview.png"
+    class="bottom-right-image"
+  />
   <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-sm-8 col-md-10 col-lg-8 mt-5">
-        <div class="cardDetails">
-          <div class="card-body p-5">
-            <form (ngSubmit)="updateUserDetails()" #userForm="ngForm">
-              <div class="row mb-5">
-                <div
-                  class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center"
-                >
-                  <div class="icon pe-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      class="bi bi-person-circle"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                      <path
-                        fill-rule="evenodd"
-                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-                      />
-                    </svg>
-                  </div>
-                  <div><label for="name">Nome Utente:</label></div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    [(ngModel)]="currentUser!.name"
-                    required
-                  />
-                </div>
+        <div class="user-details-container">
+          <h2 class="text-center mb-4">Modifica Dati Utente</h2>
+          <form (ngSubmit)="updateUserDetails()" #userForm="ngForm">
+            <div class="form-group row">
+              <label for="name" class="col-sm-4 col-form-label"
+                ><strong>Nome Utente:</strong></label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  [(ngModel)]="currentUser!.name"
+                  class="form-control"
+                  required
+                />
               </div>
-              <div class="row mb-5">
-                <!-- Cognome -->
-                <div
-                  class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center"
-                >
-                  <div class="icon pe-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      class="bi bi-person-circle"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                      <path
-                        fill-rule="evenodd"
-                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-                      />
-                    </svg>
-                  </div>
-                  <div><label for="surname">Cognome:</label></div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                  <input
-                    type="text"
-                    id="surname"
-                    name="surname"
-                    [(ngModel)]="currentUser!.surname"
-                    required
-                  />
-                </div>
+            </div>
+            <div class="form-group row">
+              <label for="surname" class="col-sm-4 col-form-label"
+                ><strong>Cognome:</strong></label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="text"
+                  id="surname"
+                  name="surname"
+                  [(ngModel)]="currentUser!.surname"
+                  class="form-control"
+                  required
+                />
               </div>
-              <div class="row mb-5">
-                <!-- Email -->
-                <div
-                  class="col-sm-12 col-md-6 col-lg-6 d-flex align-items-center"
-                >
-                  <div class="icon pe-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="currentColor"
-                      class="bi bi-envelope-check-fill"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"
-                      />
-                      <path
-                        d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"
-                      />
-                    </svg>
-                  </div>
-                  <div><label for="email">Email:</label></div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6">
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    [(ngModel)]="currentUser!.email"
-                    required
-                  />
-                </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-4 col-form-label"
+                ><strong>Email:</strong></label
+              >
+              <div class="col-sm-8">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="currentUser!.email"
+                  class="form-control"
+                  required
+                />
               </div>
-              <div class="d-flex justify-content-between">
-                <button type="submit" class="btn btn-dark">
-                  Salva modifiche
-                </button>
-                <a [routerLink]="['/profilo']" class="">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="26"
-                    height="26"
-                    fill="black"
-                    class="bi bi-arrow-down-left-square-fil"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zm8.096-10.803L6 9.293V6.525a.5.5 0 0 0-1 0V10.5a.5.5 0 0 0 .5.5h3.975a.5.5 0 0 0 0-1H6.707l4.096-4.096a.5.5 0 1 0-.707-.707"
-                    />
-                  </svg>
+            </div>
+          </form>
+
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="col-sm-8">
+              <button type="submit" class="btn btn-dark btn-block">
+                Salva modifiche
+              </button>
+            </div>
+
+            <div>
+              <div class="col-sm-8 text-center">
+                <a [routerLink]="['/profilo']">
+                  <button type="button" class="btn btn-dark">Esci</button>
                 </a>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</main>
+</div>
