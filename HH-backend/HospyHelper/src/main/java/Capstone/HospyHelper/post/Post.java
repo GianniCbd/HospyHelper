@@ -47,4 +47,14 @@ public class Post {
         this.shares = shares;
         this.user = user;
     }
+
+    public Post(String title, String content, User user) {
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.creationDate = LocalDateTime.now();
+        this.likes = 0;
+        this.views = 0;
+        this.shares = 0;
+    }
 }

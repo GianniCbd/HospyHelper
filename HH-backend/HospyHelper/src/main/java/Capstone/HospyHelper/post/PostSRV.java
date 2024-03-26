@@ -31,10 +31,6 @@ public class PostSRV {
         Post post = new Post(
                 postDTO.title(),
                 postDTO.content(),
-                postDTO.creationDate(),
-                postDTO.likes(),
-                postDTO.views(),
-                postDTO.shares(),
                 user
         );
         return postDAO.save(post);
@@ -46,6 +42,7 @@ public class PostSRV {
         Post existingPost = postDAO.findById(id).orElseThrow(() -> new NotFoundException("Room not found with ID: " + id));
         existingPost.setTitle(postDTO.title());
         existingPost.setContent(postDTO.content());
+
 
         return postDAO.save(existingPost);
     }
@@ -73,17 +70,22 @@ public class PostSRV {
         postDAO.incrementViews(postId);
     }
 
+    @Transactional
+    public void incrementLikes(long postId) {
+        postDAO.incrementLikes(postId);
+    }
 
+    @Transactional
+    public void incrementShares(long postId) {
+        postDAO.incrementShares(postId);
+    }
 
 
     private PostDTO convertToDTO(Post post) {
         return new PostDTO(
                 post.getTitle(),
-                post.getContent(),
-                post.getCreationDate(),
-                post.getLikes(),
-                post.getViews(),
-                post.getShares()
+                post.getContent()
+
         );
     }
     private List<PostDTO> convertToDTOList(List<Post> posts) {

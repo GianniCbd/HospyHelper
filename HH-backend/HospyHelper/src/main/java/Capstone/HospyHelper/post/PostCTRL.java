@@ -83,4 +83,15 @@ public class PostCTRL {
         postSRV.incrementViews(postId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/{postId}/increment-likes")
+    public ResponseEntity<Void> incrementLikes(@PathVariable long postId) {
+        postSRV.incrementLikes(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("/{postId}/increment-shares")
+    public ResponseEntity<Void> incrementShares(@PathVariable long postId) {
+        postSRV.incrementShares(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
