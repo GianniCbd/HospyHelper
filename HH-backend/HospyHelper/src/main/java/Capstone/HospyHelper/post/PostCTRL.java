@@ -2,6 +2,7 @@ package Capstone.HospyHelper.post;
 
 
 import Capstone.HospyHelper.auth.User;
+import Capstone.HospyHelper.auth.UserSRV;
 import Capstone.HospyHelper.exceptions.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +23,9 @@ public class PostCTRL {
 
     @Autowired
     PostSRV postSRV;
+
+    @Autowired
+    UserSRV userSRV;
 
     @GetMapping
     public Page<Post> getAll(@RequestParam(defaultValue = "0") int pageNumber,
@@ -80,13 +84,19 @@ public class PostCTRL {
 
     @PutMapping("/{postId}/increment-views")
     public ResponseEntity<Void> incrementViews(@PathVariable long postId) {
+
         postSRV.incrementViews(postId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/{postId}/increment-likes")
-    public ResponseEntity<Void> incrementLikes(@PathVariable long postId) {
+    public ResponseEntity<Void> incrementLikes( @PathVariable long postId) {
         postSRV.incrementLikes(postId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PutMapping("/{postId}/decrement-likes")
+    public ResponseEntity<Void> decrementLikes(@PathVariable long postId) {
+        postSRV.decrementLikes(postId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping("/{postId}/increment-shares")

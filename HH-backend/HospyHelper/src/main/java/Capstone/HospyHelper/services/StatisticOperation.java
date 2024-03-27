@@ -22,7 +22,7 @@ public class StatisticOperation {
     }
     private boolean isHighSeason() {
         int currentMonth = LocalDate.now().getMonthValue();
-        return currentMonth >= 1 && currentMonth <= 8;
+        return currentMonth >= 6 && currentMonth <= 8;
     }
 
     public double calculateEmployeeSalary(Employee employee) {

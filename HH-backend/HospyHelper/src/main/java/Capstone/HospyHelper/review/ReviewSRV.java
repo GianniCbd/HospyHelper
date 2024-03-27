@@ -26,12 +26,20 @@ public class ReviewSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return reviewDAO.findAll(pageable);
     }
-    public Review saveReview(ReviewDTO reviewDTO, User user) {
+    public ReviewResponseDTO saveReview(ReviewDTO reviewDTO, User user) {
+        User loadedUser = userDAO.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+
         Review review = new Review(
                 reviewDTO.rating(),
                 reviewDTO.comment(),
-                user);
-        return reviewDAO.save(review);
+                loadedUser);
+        reviewDAO.save(review);
+        ReviewResponseDTO responseDTO = new ReviewResponseDTO(
+                review.getRating(),
+                review.getComment(),
+                loadedUser
+        );
+        return responseDTO;
     }
     public Review getReviewById(Long id) {
         return reviewDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -52,7 +60,7 @@ public class ReviewSRV {
     public List<ReviewDTO> findReviewsWithRatingGreaterThan(int rating) {
         List<Review> reviews = reviewDAO.findReviewsWithRatingGreaterThan(rating);
         return reviews.stream()
-                .map(review -> new ReviewDTO(review.getRating(), review.getComment()))
+                .map(review -> new ReviewDTO(review.getRating(), review.getComment(),review.getUser()))
                 .collect(Collectors.toList());
     }
 

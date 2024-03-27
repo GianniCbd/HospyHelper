@@ -24,6 +24,10 @@ public interface PostDAO extends JpaRepository<Post, Long> {
     void incrementLikes(@Param("postId") long postId);
 
     @Modifying
+    @Query("UPDATE Post p SET p.likes = p.likes - 1 WHERE p.id = :postId")
+    void decrementLikes(@Param("postId") long postId);
+
+    @Modifying
     @Query("UPDATE Post p SET p.shares = p.shares + 1 WHERE p.id = :postId")
     void incrementShares(@Param("postId") long postId);
 

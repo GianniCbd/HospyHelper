@@ -1,7 +1,6 @@
 package Capstone.HospyHelper.review;
 
 import Capstone.HospyHelper.auth.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,10 +21,9 @@ public class Review {
         private String comment;
 
 
-        @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-        @JsonIgnore
-        @JoinColumn(name = "user_id")
-        private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Review(int rating, String comment,User user) {
         this.rating = rating;

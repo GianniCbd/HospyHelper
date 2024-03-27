@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostSRV {
@@ -65,6 +66,11 @@ public class PostSRV {
         List<Post> posts = postDAO.findRecentPosts(startDate);
         return convertToDTOList(posts);
     }
+
+    public User findUserById(UUID userId) {
+        return userDAO.findById(userId).orElse(null);
+    }
+
     @Transactional
     public void incrementViews(long postId) {
         postDAO.incrementViews(postId);
@@ -73,6 +79,10 @@ public class PostSRV {
     @Transactional
     public void incrementLikes(long postId) {
         postDAO.incrementLikes(postId);
+    }
+    @Transactional
+    public void decrementLikes(long postId) {
+        postDAO.decrementLikes(postId);
     }
 
     @Transactional

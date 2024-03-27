@@ -89,4 +89,13 @@ public class EmployeeCTRL {
                                                              @RequestParam("maxSalary") double maxSalary) {
         return employeeSRV.findEmployeeDTOsBySalaryBetween(minSalary, maxSalary);
     }
+
+    @GetMapping("/{id}/salary")
+    public double calculateEmployeeSalary(@PathVariable Long id) {
+        Employee employee = employeeSRV.getEmployeeById(id);
+        if (employee == null) {
+            return 0.0;
+        }
+        return employee.getSalary();
+    }
 }
