@@ -28,13 +28,16 @@ public class PostSRV {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(orderBy));
         return postDAO.findAll(pageable);
     }
-    public Post savePost(PostDTO postDTO, User user) {
+    public PostResponseDTO savePost(PostDTO postDTO, User user) {
+        User loadedUser = userDAO.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
+
         Post post = new Post(
                 postDTO.title(),
                 postDTO.content(),
-                user
-        );
-        return postDAO.save(post);
+                loadedUser);
+        postDAO.save(post);
+        PostResponseDTO responseDTO = new PostResponseDTO(post.getTitle(), postDTO.content(),loadedUser);
+        return responseDTO;
     }
     public Post getPostById(Long id) {
         return postDAO.findById(id).orElseThrow(() -> new NotFoundException(id));

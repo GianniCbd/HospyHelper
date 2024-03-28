@@ -42,8 +42,12 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public Review updateReview(@PathVariable Long id, @RequestBody ReviewDTO reviewDTO) {
-        return reviewSRV.updateReview(id,reviewDTO);
+    public Review updateReview(@PathVariable Long id, @RequestBody @Validated ReviewDTO reviewDTO, BindingResult validation) throws IOException {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+
+        return reviewSRV.updateReview(id, reviewDTO);
     }
 
     @DeleteMapping("/{id}")

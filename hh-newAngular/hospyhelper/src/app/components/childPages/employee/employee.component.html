@@ -1,7 +1,7 @@
 <div class="outer-container">
   <div class="container" *ngIf="employee">
     <div class="d-flex justify-content-between align-item-center">
-      <a [routerLink]="['/profilo']" class="arrow m-3"
+      <a [routerLink]="['/roomType']" class="arrow m-3" title="TipoStanze"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
@@ -13,7 +13,7 @@
             d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
           /></svg
       ></a>
-      <a [routerLink]="['/accommodation']" class="arrow m-3">
+      <a [routerLink]="['/opex']" class="arrow m-3" title="Spese">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="25"
@@ -31,7 +31,7 @@
     <div class="container-fluid">
       <h5 class="elenco">Elenco Impiegati</h5>
       <ul class="list-unstyled">
-        <li class="employee p-2" *ngFor="let emp of employee">
+        <li class="employee ps-2" *ngFor="let emp of employee">
           <div class="employee-details row">
             <div class="col-md-6">
               <p class="paragIndex"><strong>Nome Impiegato:</strong></p>

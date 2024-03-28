@@ -1,7 +1,16 @@
-<div class="outer-container py-5">
+<div class="outer-container">
   <div class="container py-3" *ngIf="currentUser">
     <div class="d-flex justify-content-start align-items-center">
-      <h3>{{ currentUser.name }} -</h3>
+      <h3>
+        {{ currentUser.name }}
+        <span
+          ><img
+            src="../../../assets/all/waving-hand-svgrepo-com.svg"
+            alt="hi"
+            width="30px"
+            height="30px"
+        /></span>
+      </h3>
       <h3 class="mx-3">Gestisci le tue Strutture:</h3>
       <button
         id="addButton"
@@ -11,116 +20,139 @@
         <i class="bi bi-house-add-fill"></i>
       </button>
     </div>
-
-    <div>
-      <ul class="list-unstyled">
-        <li
-          *ngFor="let accommodation of accommodation"
-          class="border-bottom border-bottom-dark"
+    <div class="d-flex justify-content-between">
+      <section class="d-flex flex-column align-items-start mt-5 pe-2">
+        <button
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          [routerLink]="['/booking']"
         >
-          <div class="infoContainer d-flex justify-content-between">
-            <div class="accName d-flex align-items-center">
-              <img
-                src="../../../assets/images/socialMediaIcon/hotel-svgrepo-com.svg"
-                alt=""
-                width="30px"
-              />
-              <strong class="ps-2">{{ accommodation.name }}</strong>
-            </div>
-            <div class="accAddress d-flex align-items-center">
-              <img
-                src="../../../assets/images/socialMediaIcon/location-indicator-red-svgrepo-com.svg"
-                alt=""
-                width="30px"
-              />
-              <strong class="ps-2">{{ accommodation.address }}</strong>
-            </div>
-            <div class="d-flex align-items-center">
-              <img
-                src="../../../assets/images/socialMediaIcon/city-svgrepo-com.svg"
-                alt=""
-                width="30px"
-              />
-              <strong class="accCity ps-2">{{ accommodation.city }}</strong>
-            </div>
-            <div class="gFrame">
-              <iframe
-                width="280"
-                height="180"
-                frameborder="0"
-                style="border: 0"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDki91SXmUlklagsT7ckGL1Jt_F-WBQsZw&maptype=roadmap&q=Roma"
-                allowfullscreen
-              >
-              </iframe>
-            </div>
-          </div>
-          <div class="d-flex justify-content-start">
-            <button
-              class="btn btn-secondary m-1"
-              (click)="editAccommodation(accommodation)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-pencil-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
-                />
-              </svg>
-            </button>
+          <span class="d-none d-lg-inline">Prenotazioni</span>
+          <span class="d-inline d-lg-none">
+            <i class="bi bi-calendar-check"></i>
+          </span>
+        </button>
+        <button
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          [routerLink]="['/room']"
+        >
+          <span class="d-none d-lg-inline">Stanze</span>
+          <span class="d-inline d-lg-none">
+            <i class="bi bi-door-open"></i>
+          </span>
+        </button>
+        <button
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          [routerLink]="['/roomType']"
+        >
+          <span class="d-none d-lg-inline">Tipologie di Stanze</span>
+          <span class="d-inline d-lg-none">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+          </span>
+        </button>
+        <button
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          [routerLink]="['/employee']"
+        >
+          <span class="d-none d-lg-inline">Personale</span>
+          <span class="d-inline d-lg-none">
+            <i class="bi bi-person"></i>
+          </span>
+        </button>
+        <button
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          [routerLink]="['/opex']"
+        >
+          <span class="d-none d-lg-inline">Spese</span>
+          <span class="d-inline d-lg-none">
+            <i class="bi bi-cash-stack"></i>
+          </span>
+        </button>
+      </section>
 
-            <button
-              class="btn btn-dark m-1"
-              (click)="deleteAccommodation(accommodation)"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-trash2-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+      <div class="col-md-10">
+        <ul class="list-unstyled">
+          <li
+            *ngFor="let accommodation of accommodation"
+            class="border-bottom border-dark"
+          >
+            <div class="infoContainer d-flex justify-content-between">
+              <div class="accName d-flex align-items-center">
+                <img
+                  src="../../../assets/images/socialMediaIcon/hotel-holidays-svgrepo-com.svg"
+                  alt=""
+                  width="30px"
                 />
-              </svg>
-            </button>
-          </div>
-        </li>
-      </ul>
+                <strong class="ps-2">{{ accommodation.name }}</strong>
+              </div>
+              <div class="accAddress d-flex align-items-center">
+                <img
+                  src="../../../assets/images/socialMediaIcon/location-indicator-red-svgrepo-com.svg"
+                  alt=""
+                  width="30px"
+                />
+                <strong class="ps-2">{{ accommodation.address }}</strong>
+              </div>
+              <div class="d-flex align-items-center">
+                <img
+                  src="../../../assets/images/socialMediaIcon/city-svgrepo-com.svg"
+                  alt=""
+                  width="30px"
+                />
+                <strong class="accCity ps-2">{{ accommodation.city }}</strong>
+              </div>
+              <div class="gFrame mt-3">
+                <iframe
+                  width="280"
+                  height="180"
+                  frameborder="0"
+                  style="border: 0"
+                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDki91SXmUlklagsT7ckGL1Jt_F-WBQsZw&maptype=roadmap&q=Roma"
+                  allowfullscreen
+                >
+                </iframe>
+              </div>
+            </div>
+            <div class="d-flex justify-content-start">
+              <button
+                class="btn btn-secondary m-1"
+                (click)="editAccommodation(accommodation)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pencil-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                  />
+                </svg>
+              </button>
+
+              <button
+                class="btn btn-dark m-1"
+                (click)="deleteAccommodation(accommodation)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-trash2-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
-    <button
-      class="button-85 mt-3 mt-md-0 btn btn-sm"
-      [routerLink]="['/booking']"
-    >
-      Prenotazioni
-    </button>
-    <button class="button-85 mt-3 mt-md-0 btn btn-sm" [routerLink]="['/room']">
-      Stanze
-    </button>
-    <button
-      class="button-85 mt-3 mt-md-0 btn btn-sm"
-      [routerLink]="['/roomType']"
-    >
-      Tipologie di Stanze
-    </button>
-    <button
-      class="button-85 mt-3 mt-md-0 btn btn-sm"
-      [routerLink]="['/employee']"
-    >
-      Personale
-    </button>
-    <button class="button-85 mt-3 mt-md-0 btn btn-sm" [routerLink]="['/opex']">
-      Spese
-    </button>
   </div>
 </div>
 

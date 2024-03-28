@@ -24,6 +24,7 @@ import { BookingComponent } from './components/childPages/booking/booking.compon
 import { EmployeeComponent } from './components/childPages/employee/employee.component';
 import { OpexComponent } from './components/childPages/opex/opex.component';
 import { PostComponent } from './components/post/post.component';
+import { ReviewComponent } from './components/childPages/review/review.component';
 
 const routes: Route[] = [
   {
@@ -81,6 +82,10 @@ const routes: Route[] = [
     component: PostComponent,
   },
   {
+    path: 'review',
+    component: ReviewComponent,
+  },
+  {
     path: '**',
     redirectTo: '',
   },
@@ -105,6 +110,7 @@ const routes: Route[] = [
     EmployeeComponent,
     OpexComponent,
     PostComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

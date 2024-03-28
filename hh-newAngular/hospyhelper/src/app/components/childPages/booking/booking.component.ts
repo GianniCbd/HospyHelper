@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Accommodation } from 'src/app/models/accommodation';
 import { Booking } from 'src/app/models/booking';
 import { Page } from 'src/app/models/page';
@@ -39,6 +39,20 @@ export class BookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+  }
+
+  fetchRoom(page: number = 0, size: number = 20) {
+    this.roomSrv.getRoom(page, size).subscribe(
+      (data: any) => {
+        this.rooms = [...this.rooms, ...data.content];
+        this.page = data;
+        this.currentPage = data.number;
+        this.totalPages = data.totalPages;
+      },
+      (error) => {
+        console.error('Errore durante il recupero dei tipi di stanza:', error);
+      }
+    );
   }
 
   fetchData(page: number = 0, size: number = 3) {
@@ -85,9 +99,10 @@ export class BookingComponent implements OnInit {
           this.page = bookingsPage;
           this.currentPage = bookingsPage.number;
           this.totalPages = bookingsPage.totalPages;
-
           this.rooms = rooms.content;
+
           this.accommodations = accommodations;
+          console.log(this.rooms);
 
           console.log(this.currentPage);
           console.log(this.totalPages);
@@ -118,15 +133,29 @@ export class BookingComponent implements OnInit {
   addNewBooking() {
     this.bookingSrv.createBooking(this.newBooking).subscribe(
       (response) => {
-        this.bookings.push(response);
-        this.newBooking = {};
-        this.showCard = false;
+        const isRoomAlreadyBooked = this.bookings.some(
+          (booking) => booking.room.id === response.room.id
+        );
+
+        if (isRoomAlreadyBooked) {
+          alert('La stanza è già stata prenotata.');
+        } else {
+          this.bookings.push(response);
+          this.newBooking = {};
+          this.showCard = false;
+        }
       },
       (error) => {
-        console.error(
-          "Errore durante l'aggiunta del nuovo tipo di stanza:",
-          error
-        );
+        if (error.status === 500) {
+          alert(
+            'La stanza è già stata prenotata, la tua struttura è piena oppure scegline un altra!'
+          );
+        } else {
+          console.error(
+            "Errore durante l'aggiunta del nuovo tipo di stanza:",
+            error
+          );
+        }
       }
     );
   }

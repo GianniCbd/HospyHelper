@@ -45,12 +45,21 @@ export class EmployeeComponent implements OnInit {
       }
     );
   }
+
   calculateTotalSalary() {
-    this.totalSalary = this.employee.reduce(
-      (total, emp) => total + emp.salary,
-      0
-    );
+    this.totalSalary = 0;
+    this.employee.forEach((employee) => {
+      this.employeeSrv.getEmployeeSalary(employee.id).subscribe(
+        (salary: number) => {
+          this.totalSalary += salary;
+        },
+        (error) => {
+          console.error('Error loading salary for employee: ', error);
+        }
+      );
+    });
   }
+
   toggleTotalSalaryVisibility() {
     this.showTotalSalary = !this.showTotalSalary;
     if (this.showTotalSalary) {

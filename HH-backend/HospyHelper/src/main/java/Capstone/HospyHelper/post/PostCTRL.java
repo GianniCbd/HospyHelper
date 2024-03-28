@@ -36,12 +36,11 @@ public class PostCTRL {
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Post> savePost(@RequestBody @Validated PostDTO postDTO,  @AuthenticationPrincipal User currentAuthenticatedUser, BindingResult validation) throws IOException {
+    public PostResponseDTO savePost(@RequestBody @Validated PostDTO postDTO,  @AuthenticationPrincipal User currentAuthenticatedUser, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());
         }
-        Post savedPost = postSRV.savePost(postDTO, currentAuthenticatedUser);
-        return ResponseEntity.ok(savedPost);
+        return this.postSRV.savePost(postDTO,currentAuthenticatedUser);
     }
 
 

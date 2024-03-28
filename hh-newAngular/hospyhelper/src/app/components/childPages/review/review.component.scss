@@ -1,0 +1,293 @@
+.outer-container {
+  padding: 0 20px 30px 20px;
+  background-image: linear-gradient(
+      324deg,
+      transparent 0%,
+      transparent 45%,
+      rgba(50, 203, 201, 0.81) 45%,
+      rgba(50, 203, 201, 0.81) 47%,
+      transparent 47%,
+      transparent 100%
+    ),
+    linear-gradient(
+      208deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(50, 203, 201, 0.81) 40%,
+      rgba(50, 203, 201, 0.81) 80%,
+      transparent 80%,
+      transparent 100%
+    ),
+    linear-gradient(
+      202deg,
+      transparent 0%,
+      transparent 20%,
+      rgba(50, 203, 201, 0.81) 20%,
+      rgba(50, 203, 201, 0.81) 40%,
+      transparent 40%,
+      transparent 100%
+    ),
+    linear-gradient(
+      338deg,
+      transparent 0%,
+      transparent 10%,
+      rgba(50, 203, 201, 0.81) 10%,
+      rgba(50, 203, 201, 0.81) 72%,
+      transparent 72%,
+      transparent 100%
+    ),
+    linear-gradient(90deg, rgb(81, 86, 223), rgb(81, 86, 223));
+  height: 100vh;
+}
+
+.container {
+  padding-top: 4%;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+}
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card-front {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  cursor: pointer;
+  background-image: radial-gradient(
+    circle at center left,
+    rgb(112, 105, 114),
+    rgb(16, 13, 13)
+  );
+  color: wheat;
+}
+
+* {
+  font-family: "Lato";
+}
+
+/*decoration*/
+h1 {
+  margin: 20px 62px 0;
+
+  width: 275px;
+  font-size: 1.5em;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  padding: 30px 0;
+}
+
+.product-review-stars {
+  padding: 20px 35px 20px 20px;
+}
+
+.product-review-stars label {
+  text-shadow: 0px 0px 10px black;
+}
+
+/*end decoration*/
+
+.visuallyhidden {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+.product-review-stars label:after {
+  content: "★";
+  color: inherit;
+  -webkit-transform: scale(4);
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  transition: all 0.4s;
+  opacity: 0;
+  color: inherit;
+  visibility: hidden;
+}
+
+.product-review-stars input:checked + label:after {
+  visibility: visible;
+  -webkit-transform: scale(1);
+  opacity: 1;
+}
+
+.product-review-stars {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  width: 205px;
+}
+
+.product-review-stars label {
+  font-family: "icomoon";
+  font-size: 2em;
+  position: relative;
+  cursor: pointer;
+  color: #dfe3e4;
+}
+.product-review-stars input:checked ~ label:before {
+  opacity: 1;
+}
+.product-review-stars:hover input ~ label:before {
+  opacity: 0;
+}
+
+.product-review-stars input + label:before {
+  content: "\2605";
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, color 0.3s ease-in-out;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+}
+.product-review-stars input + label:hover:before,
+.product-review-stars input + label:hover ~ label:before {
+  opacity: 1;
+}
+.product-review-stars input + label:nth-of-type(1):after,
+.product-review-stars input + label:nth-of-type(1):before,
+.product-review-stars input + label:nth-of-type(1):hover:before,
+.product-review-stars input + label:nth-of-type(1):hover ~ label:before,
+.product-review-stars input:nth-of-type(1):checked ~ label:before {
+  color: #2ecc71;
+}
+.product-review-stars input + label:nth-of-type(2):after,
+.product-review-stars input + label:nth-of-type(2):before,
+.product-review-stars input + label:nth-of-type(2):hover:before,
+.product-review-stars input + label:nth-of-type(2):hover ~ label:before,
+.product-review-stars input:nth-of-type(2):checked ~ label:before {
+  color: #f1c40f;
+}
+.product-review-stars input + label:nth-of-type(3):after,
+.product-review-stars input + label:nth-of-type(3):before,
+.product-review-stars input + label:nth-of-type(3):hover:before,
+.product-review-stars input + label:nth-of-type(3):hover ~ label:before,
+.product-review-stars input:nth-of-type(3):checked ~ label:before {
+  color: #f39c12;
+}
+.product-review-stars input + label:nth-of-type(4):after,
+.product-review-stars input + label:nth-of-type(4):before,
+.product-review-stars input + label:nth-of-type(4):hover:before,
+.product-review-stars input + label:nth-of-type(4):hover ~ label:before,
+.product-review-stars input:nth-of-type(4):checked ~ label:before {
+  color: #e74c3c;
+}
+
+.product-review-stars input + label:nth-of-type(5):after,
+.product-review-stars input + label:nth-of-type(5):before,
+.product-review-stars label:nth-of-type(5):hover:before,
+.product-review-stars input:nth-of-type(5):checked ~ label:before {
+  color: #d35400;
+}
+
+.product-review-stars label:nth-of-type(5):hover:before {
+  color: #d35400 !important;
+}
+
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-left {
+  animation: slideInFromLeft 0.5s ease-in-out;
+}
+
+.filled {
+  color: red;
+}
+
+@media screen and (max-width: 992px) {
+  .outer-container {
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .outer-container {
+    height: 100%;
+  }
+}

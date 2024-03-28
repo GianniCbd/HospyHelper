@@ -33,7 +33,7 @@ export class RoomComponent implements OnInit {
     this.fetchRoom();
   }
 
-  fetchRoomTypes(page: number = 0, size: number = 4) {
+  fetchRoomTypes(page: number = 0, size: number = 20) {
     this.roomTypeService.getRoomType(page, size).subscribe(
       (data: any) => {
         this.roomTypes = data.content;

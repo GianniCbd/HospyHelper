@@ -29,8 +29,13 @@ public class ReviewSRV {
     public ReviewResponseDTO saveReview(ReviewDTO reviewDTO, User user) {
         User loadedUser = userDAO.findById(user.getId()).orElseThrow(() -> new NotFoundException("User not found"));
 
+        int rating = reviewDTO.rating();
+        if (rating < 1 || rating > 5) {
+            throw new IllegalArgumentException("Il rating deve essere compreso tra 1 e 5.");
+        }
+
         Review review = new Review(
-                reviewDTO.rating(),
+                rating,
                 reviewDTO.comment(),
                 loadedUser);
         reviewDAO.save(review);
@@ -44,14 +49,19 @@ public class ReviewSRV {
     public Review getReviewById(Long id) {
         return reviewDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
-    public Review updateReview(Long id, ReviewDTO rv) {
+    public Review updateReview(Long id, ReviewDTO reviewDTO) {
         Review existingReview = reviewDAO.findById(id).orElseThrow(() -> new NotFoundException("Review not found with ID: " + id));
-        existingReview.setRating(rv.rating());
-        existingReview.setComment(rv.comment());
+
+
+        existingReview.setRating(reviewDTO.rating());
+        existingReview.setComment(reviewDTO.comment());
         return reviewDAO.save(existingReview);
     }
     public void deleteReview(Long id) {
         Review review = this.getReviewById(id);
+
+
+
         reviewDAO.delete(review);
     }
 

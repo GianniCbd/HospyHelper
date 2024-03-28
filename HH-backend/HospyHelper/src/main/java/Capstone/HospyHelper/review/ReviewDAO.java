@@ -11,5 +11,4 @@ public interface ReviewDAO extends JpaRepository<Review,Long> {
     List<Review> findReviewsWithRatingGreaterThan(int rating);
 
 
-
 }

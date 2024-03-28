@@ -62,4 +62,24 @@ export class PostService {
       {}
     );
   }
+
+  incrementLikes(postId: number): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/post/${postId}/increment-likes`,
+      {}
+    );
+  }
+  decrementLikes(postId: number): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/post/${postId}/decrement-likes`,
+      {}
+    );
+  }
+
+  incrementShares(postId: number): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/post/${postId}/increment-shares`,
+      {}
+    );
+  }
 }

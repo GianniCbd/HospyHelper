@@ -26,9 +26,12 @@ public class Review {
     private User user;
 
     public Review(int rating, String comment,User user) {
+
         this.rating = rating;
         this.comment = comment;
         this.user = user;
     }
+
+
 }
 

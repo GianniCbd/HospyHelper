@@ -1,4 +1,4 @@
-<div class="community py-5">
+<div class="outer-container py-5">
   <div class="container">
     <header class="py-3">
       <div class="d-flex justify-content-start">
@@ -9,16 +9,15 @@
           width="50px"
         />
       </div>
-
       <p>Un luogo dove condividere idee, esperienze e passioni.</p>
     </header>
 
     <section>
       <div class="d-flex justify-content-start align-items mb-5">
-        <p class="me-3">Scrivi cosa ne pensi!</p>
+        <p class="me-3">Condividi con noi la tua opinione</p>
         <button
           id="addButton"
-          class="btn btn-secondary"
+          class="btn btn-dark"
           (click)="toggleCardVisibility()"
         >
           Aggiungi
@@ -26,13 +25,86 @@
       </div>
 
       <div *ngFor="let post of posts" class="post p-4 mb-3">
-        <h3 class="text-center mb-2">{{ post.title }}</h3>
+        <h3
+          class="text-center mb-2"
+          (click)="viewPostDetails(post)"
+          style="cursor: pointer"
+        >
+          {{ post.title }}
+        </h3>
         <p>{{ post.content }}</p>
-        <p>Data di creazione: {{ post.creationDate | date }}</p>
         <div class="d-flex justify-content-between">
-          <p>Likes: {{ post.likes }}</p>
-          <p>Visualizzazioni: {{ post.views }}</p>
-          <p>Condivisioni: {{ post.shares }}</p>
+          <p>Data di creazione: {{ post.creationDate | date }}</p>
+          <p>Autore: {{ post.user.name }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="d-flex">
+            <p
+              class="pe-3"
+              (click)="viewPostLikes(post)"
+              style="cursor: pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
+                />
+              </svg>
+              {{ post.likes }}
+            </p>
+            <p (click)="decrementLikes(post.id)" style="cursor: pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-hand-thumbs-down-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.38 1.38 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51q.205.03.443.051c.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.9 1.9 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2 2 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.2 3.2 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.8 4.8 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591"
+                />
+              </svg>
+            </p>
+          </div>
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-binoculars-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M4.5 1A1.5 1.5 0 0 0 3 2.5V3h4v-.5A1.5 1.5 0 0 0 5.5 1zM7 4v1h2V4h4v.882a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V13H9v-1.5a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5V13H1V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V4zM1 14v.5A1.5 1.5 0 0 0 2.5 16h3A1.5 1.5 0 0 0 7 14.5V14zm8 0v.5a1.5 1.5 0 0 0 1.5 1.5h3a1.5 1.5 0 0 0 1.5-1.5V14zm4-11H9v-.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5z"
+              />
+            </svg>
+            {{ post.views }}
+          </p>
+          <p (click)="ViewPostShares(post)" style="cursor: pointer">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-share-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"
+              />
+            </svg>
+            {{ post.shares }}
+          </p>
         </div>
         <div class="d-flex justify-content-between align-item">
           <button class="btn btn-secondary m-1" (click)="editPost(post)">
