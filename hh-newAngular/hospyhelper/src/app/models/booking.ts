@@ -11,4 +11,5 @@ export interface Booking {
   numberOfGuests: number;
   room: Room;
   accommodation: Accommodation;
+  isFlipped?: boolean;
 }

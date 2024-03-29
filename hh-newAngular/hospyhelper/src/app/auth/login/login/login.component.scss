@@ -1,65 +1,65 @@
 .container {
   height: 100vh;
   max-width: 100%;
-  background-image: radial-gradient(
-      circle at center center,
-      transparent 0%,
-      rgb(46, 238, 255) 85%
-    ),
-    linear-gradient(
-      412deg,
-      rgba(192, 192, 192, 0.05) 0%,
-      rgba(192, 192, 192, 0.05) 50%,
-      rgba(60, 60, 60, 0.05) 50%,
-      rgba(60, 60, 60, 0.05) 100%
-    ),
-    linear-gradient(
-      561deg,
-      rgba(97, 97, 97, 0.05) 0%,
-      rgba(97, 97, 97, 0.05) 50%,
-      rgba(52, 52, 52, 0.05) 50%,
-      rgba(52, 52, 52, 0.05) 100%
-    ),
-    linear-gradient(
-      574deg,
-      rgba(98, 98, 98, 0.05) 0%,
-      rgba(98, 98, 98, 0.05) 50%,
-      rgba(249, 249, 249, 0.05) 50%,
-      rgba(249, 249, 249, 0.05) 100%
-    ),
-    linear-gradient(
-      521deg,
-      rgba(1, 1, 1, 0.05) 0%,
-      rgba(1, 1, 1, 0.05) 50%,
-      rgba(202, 202, 202, 0.05) 50%,
-      rgba(202, 202, 202, 0.05) 100%
-    ),
-    linear-gradient(
-      435deg,
-      rgba(61, 61, 61, 0.05) 0%,
-      rgba(61, 61, 61, 0.05) 50%,
-      rgba(254, 254, 254, 0.05) 50%,
-      rgba(254, 254, 254, 0.05) 100%
-    ),
-    linear-gradient(
-      510deg,
-      rgba(237, 237, 237, 0.05) 0%,
-      rgba(237, 237, 237, 0.05) 50%,
-      rgba(147, 147, 147, 0.05) 50%,
-      rgba(147, 147, 147, 0.05) 100%
-    ),
-    linear-gradient(
-      638deg,
-      rgba(183, 183, 183, 0.05) 0%,
-      rgba(183, 183, 183, 0.05) 50%,
-      rgba(57, 57, 57, 0.05) 50%,
-      rgba(57, 57, 57, 0.05) 100%
-    ),
-    radial-gradient(
-      circle at center center,
-      hsl(351, 4%, 12%),
-      hsl(351, 4%, 12%)
-    );
+  // background-image: radial-gradient(
+  //     circle at center center,
+  //     transparent 0%,
+  //     rgb(46, 238, 255) 85%
+  //   ),
+  //   linear-gradient(
+  //     412deg,
+  //     rgba(192, 192, 192, 0.05) 0%,
+  //     rgba(192, 192, 192, 0.05) 50%,
+  //     rgba(60, 60, 60, 0.05) 50%,
+  //     rgba(60, 60, 60, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     561deg,
+  //     rgba(97, 97, 97, 0.05) 0%,
+  //     rgba(97, 97, 97, 0.05) 50%,
+  //     rgba(52, 52, 52, 0.05) 50%,
+  //     rgba(52, 52, 52, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     574deg,
+  //     rgba(98, 98, 98, 0.05) 0%,
+  //     rgba(98, 98, 98, 0.05) 50%,
+  //     rgba(249, 249, 249, 0.05) 50%,
+  //     rgba(249, 249, 249, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     521deg,
+  //     rgba(1, 1, 1, 0.05) 0%,
+  //     rgba(1, 1, 1, 0.05) 50%,
+  //     rgba(202, 202, 202, 0.05) 50%,
+  //     rgba(202, 202, 202, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     435deg,
+  //     rgba(61, 61, 61, 0.05) 0%,
+  //     rgba(61, 61, 61, 0.05) 50%,
+  //     rgba(254, 254, 254, 0.05) 50%,
+  //     rgba(254, 254, 254, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     510deg,
+  //     rgba(237, 237, 237, 0.05) 0%,
+  //     rgba(237, 237, 237, 0.05) 50%,
+  //     rgba(147, 147, 147, 0.05) 50%,
+  //     rgba(147, 147, 147, 0.05) 100%
+  //   ),
+  //   linear-gradient(
+  //     638deg,
+  //     rgba(183, 183, 183, 0.05) 0%,
+  //     rgba(183, 183, 183, 0.05) 50%,
+  //     rgba(57, 57, 57, 0.05) 50%,
+  //     rgba(57, 57, 57, 0.05) 100%
+  //   ),
+  //   radial-gradient(
+  //     circle at center center,
+  //     hsl(351, 4%, 12%),
+  //     hsl(351, 4%, 12%)
+  //   );
   padding-top: 50px;
   cursor: pointer;
 }
@@ -73,11 +73,12 @@
 .logo {
   position: absolute;
   top: 49%;
-  left: 50%;
+  left: 70%;
   transform: translate(-50%, -50%);
   max-width: 100%;
   max-height: 100%;
   z-index: -1;
+  opacity: 0.4;
 }
 
 .card {

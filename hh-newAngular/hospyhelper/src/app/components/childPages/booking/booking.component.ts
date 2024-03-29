@@ -48,6 +48,11 @@ export class BookingComponent implements OnInit {
         this.page = data;
         this.currentPage = data.number;
         this.totalPages = data.totalPages;
+        console.log(data);
+
+        if (this.currentPage < this.totalPages - 1) {
+          this.fetchRoom(this.currentPage + 1, size);
+        }
       },
       (error) => {
         console.error('Errore durante il recupero dei tipi di stanza:', error);
@@ -99,13 +104,13 @@ export class BookingComponent implements OnInit {
           this.page = bookingsPage;
           this.currentPage = bookingsPage.number;
           this.totalPages = bookingsPage.totalPages;
-          this.rooms = rooms.content;
+          console.log(accommodations);
 
           this.accommodations = accommodations;
-          console.log(this.rooms);
 
-          console.log(this.currentPage);
-          console.log(this.totalPages);
+          if (page === 0) {
+            this.rooms = rooms.content;
+          }
         },
         (error) => {
           console.error(

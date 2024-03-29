@@ -20,10 +20,11 @@
         <i class="bi bi-house-add-fill"></i>
       </button>
     </div>
+
     <div class="d-flex justify-content-between">
       <section class="d-flex flex-column align-items-start mt-5 pe-2">
         <button
-          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm w-100"
           [routerLink]="['/booking']"
         >
           <span class="d-none d-lg-inline">Prenotazioni</span>
@@ -32,7 +33,7 @@
           </span>
         </button>
         <button
-          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm w-100"
           [routerLink]="['/room']"
         >
           <span class="d-none d-lg-inline">Stanze</span>
@@ -41,7 +42,7 @@
           </span>
         </button>
         <button
-          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm w-100"
           [routerLink]="['/roomType']"
         >
           <span class="d-none d-lg-inline">Tipologie di Stanze</span>
@@ -50,7 +51,7 @@
           </span>
         </button>
         <button
-          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm w-100"
           [routerLink]="['/employee']"
         >
           <span class="d-none d-lg-inline">Personale</span>
@@ -59,7 +60,7 @@
           </span>
         </button>
         <button
-          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm"
+          class="button-85 mt-3 mb-5 mt-md-0 btn btn-sm w-100"
           [routerLink]="['/opex']"
         >
           <span class="d-none d-lg-inline">Spese</span>
@@ -76,7 +77,7 @@
             class="border-bottom border-dark"
           >
             <div class="infoContainer d-flex justify-content-between">
-              <div class="accName d-flex align-items-center">
+              <div class="accName d-flex align-items-center ps-2">
                 <img
                   src="../../../assets/images/socialMediaIcon/hotel-holidays-svgrepo-com.svg"
                   alt=""
@@ -100,7 +101,7 @@
                 />
                 <strong class="accCity ps-2">{{ accommodation.city }}</strong>
               </div>
-              <div class="gFrame mt-3">
+              <div class="gFrame mt-3 pe-2">
                 <iframe
                   width="280"
                   height="180"

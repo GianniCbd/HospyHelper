@@ -1,4 +1,4 @@
-<div class="outer-container">
+<div class="outer-container pt-5">
   <div class="container" *ngIf="employee">
     <div class="d-flex justify-content-between align-item-center">
       <a [routerLink]="['/roomType']" class="arrow m-3" title="TipoStanze"
@@ -30,70 +30,65 @@
 
     <div class="container-fluid">
       <h5 class="elenco">Elenco Impiegati</h5>
-      <ul class="list-unstyled">
-        <li class="employee ps-2" *ngFor="let emp of employee">
-          <div class="employee-details row">
-            <div class="col-md-6">
-              <p class="paragIndex"><strong>Nome Impiegato:</strong></p>
-              <p class="paragIndex"><strong>Età:</strong></p>
-              <p class="paragIndex"><strong>Email:</strong></p>
-              <p class="paragIndex"><strong>Stipendio:</strong></p>
-              <p class="paragIndex"><strong>Ruolo:</strong></p>
-              <p class="paragIndex"><strong>Struttura:</strong></p>
+      <div class="row">
+        <div
+          class="employee ps-2 col-md-5 col-lg-4"
+          *ngFor="let emp of employee"
+        >
+          <div class="d-flex justify-content-between align-items-center">
+            <div
+              class="employee-details row d-flex flex-column"
+              (click)="openEmployeeCard(emp)"
+            >
+              <div class="col-md-12 mt-3">
+                <p>
+                  <span>
+                    <img
+                      src="../../../../assets/images/opex/employee-svgrepo-com (1).svg"
+                      alt=""
+                      width="40px"
+                      height="40px"
+                    />
+                  </span>
+                  <span class="employeeP"
+                    >{{ emp.name }} {{ emp.surname }}</span
+                  >
+                </p>
+              </div>
             </div>
-            <div class="col-md-6">
-              <p>
-                <span class="employeeP">{{ emp.name }} {{ emp.surname }}</span>
-              </p>
-              <p>
-                <span class="employeeP">{{ emp.age }}</span>
-              </p>
-              <p>
-                <span class="employeeP">{{ emp.email }}</span>
-              </p>
-              <p>
-                <span class="employeeP">{{ emp.salary }}</span>
-              </p>
-              <p>
-                <span class="employeeP">{{ emp.roleEmployee }}</span>
-              </p>
-              <p>
-                <span class="employeeP">{{ emp.accommodation.name }}</span>
-              </p>
+            <div>
+              <button class="btn btn-secondary" (click)="editEmp(emp)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-pencil-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                  />
+                </svg>
+              </button>
+              <button class="btn btn-dark ms-2" (click)="deleteEmployee(emp)">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-trash2-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-          <div>
-            <button class="btn btn-secondary" (click)="editEmp(emp)">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-pencil-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
-                />
-              </svg>
-            </button>
-            <button class="btn btn-dark ms-2" (click)="deleteEmployee(emp)">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-trash2-fill"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
-                />
-              </svg>
-            </button>
-          </div>
-        </li>
-      </ul>
+        </div>
+      </div>
       <div class="d-flex justify-content-center mt-5">
         <button
           class="btn btn-secondary me-3"
@@ -133,195 +128,220 @@
           >
         </div>
       </div>
-      <!-- NewEmployee******************************************************************************************** -->
-      <div class="d-flex justify-content-between align-item">
-        <div class="col-md-3">
-          <div class="card card-front" *ngIf="showCard">
-            <div class="card-body">
-              <h5 class="card-title">Aggiungi Dipendente</h5>
-              <form>
-                <div class="form-group">
-                  <label for="newDipendente">Nome Dipendente</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="newDipendente"
-                    name="newDipendente"
-                    [(ngModel)]="newEmployee.name"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="newSurname">Cognome Dipendente</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="newSurname"
-                    name="newSurname"
-                    [(ngModel)]="newEmployee.surname"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="newAge">Età</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="newAge"
-                    name="newAge"
-                    [(ngModel)]="newEmployee.age"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="newEmail">Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="newEmail"
-                    name="newEmail"
-                    [(ngModel)]="newEmployee.email"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="newSalary">Stipendio</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="newSalary"
-                    name="newSalary"
-                    [(ngModel)]="newEmployee.salary"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="newRole">Ruolo</label>
-                  <select
-                    class="form-control"
-                    id="newRole"
-                    name="newRole"
-                    [(ngModel)]="newEmployee.roleEmployee"
-                  >
-                    <option value="RECEPTIONIST">Receptionist</option>
-                    <option value="CONCIERGE">Concierge</option>
-                    <option value="CLEANER">Cleaner</option>
-                    <option value="HR">HR</option>
-                    <option value="WAITER">Waiter</option>
-                    <option value="WAITRESS">Waitress</option>
-                    <option value="MANAGER">Manager</option>
-                    <option value="CHEF">Chef</option>
-                    <option value="KITCHEN_PORTER">Kitchen Porter</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="accommodation">Struttura</label>
-                  <select
-                    class="form-control"
-                    id="accommodation"
-                    name="accommodation"
-                    [(ngModel)]="newEmployee.accommodation"
-                  >
-                    <option
-                      *ngFor="let accommodation of accommodation"
-                      [ngValue]="accommodation"
-                    >
-                      {{ accommodation.name }}
-                    </option>
-                  </select>
-                </div>
-                <div class="d-flex justify-content-between align-item mt-3">
-                  <button class="btn btn-secondary" (click)="addNewEmployee()">
-                    Aggiungi
-                  </button>
-                  <button class="btn btn-dark" (click)="close()">chiudi</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- UPDATE******************************************************************************** -->
-
-      <div class="col-md-3" *ngIf="editingEmployee">
-        <div class="card card-front">
+    </div>
+    <!-- NewEmployee******************************************************************************************** -->
+    <div class="d-flex justify-content-between align-item">
+      <div class="col-md-3">
+        <div class="card card-front" *ngIf="showCard">
           <div class="card-body">
-            <h5 class="card-title">Modifica Prenotazione</h5>
+            <h5 class="card-title">Aggiungi Dipendente</h5>
             <form>
               <div class="form-group">
-                <label for="editName">Nome</label>
+                <label for="newDipendente">Nome Dipendente</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editName"
-                  name="editName"
-                  [(ngModel)]="editingEmployee.name"
+                  id="newDipendente"
+                  name="newDipendente"
+                  [(ngModel)]="newEmployee.name"
                 />
               </div>
               <div class="form-group">
-                <label for="editSurname">Cognome</label>
+                <label for="newSurname">Cognome Dipendente</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="editSurname"
-                  name="editSurname"
-                  [(ngModel)]="editingEmployee.surname"
+                  id="newSurname"
+                  name="newSurname"
+                  [(ngModel)]="newEmployee.surname"
                 />
               </div>
-
               <div class="form-group">
-                <label for="editAge">Età</label>
+                <label for="newAge">Età</label>
                 <input
-                  type="number"
+                  type="text"
                   class="form-control"
-                  id="editAge"
-                  name="editAge"
-                  [(ngModel)]="editingEmployee.age"
+                  id="newAge"
+                  name="newAge"
+                  [(ngModel)]="newEmployee.age"
                 />
               </div>
-
               <div class="form-group">
-                <label for="editEmail">Email</label>
+                <label for="newEmail">Email</label>
                 <input
                   type="email"
                   class="form-control"
-                  id="editEmail"
-                  name="editEmail"
-                  [(ngModel)]="editingEmployee.email"
+                  id="newEmail"
+                  name="newEmail"
+                  [(ngModel)]="newEmployee.email"
                 />
               </div>
-
               <div class="form-group">
-                <label for="editSalary">Stipendio</label>
+                <label for="newSalary">Stipendio</label>
                 <input
                   type="number"
                   class="form-control"
-                  id="editSalary"
-                  name="editSalary"
-                  [(ngModel)]="editingEmployee.salary"
+                  id="newSalary"
+                  name="newSalary"
+                  [(ngModel)]="newEmployee.salary"
                 />
               </div>
-
               <div class="form-group">
-                <label for="editRole">Ruolo</label>
+                <label for="newRole">Ruolo</label>
                 <select
                   class="form-control"
-                  id="editRole"
-                  name="editRole"
-                  [(ngModel)]="editingEmployee.roleEmployee"
+                  id="newRole"
+                  name="newRole"
+                  [(ngModel)]="newEmployee.roleEmployee"
                 >
-                  <option *ngFor="let role of roles" [value]="role">
-                    {{ role }}
+                  <option value="RECEPTIONIST">Receptionist</option>
+                  <option value="CONCIERGE">Concierge</option>
+                  <option value="CLEANER">Cleaner</option>
+                  <option value="HR">HR</option>
+                  <option value="WAITER">Waiter</option>
+                  <option value="WAITRESS">Waitress</option>
+                  <option value="MANAGER">Manager</option>
+                  <option value="CHEF">Chef</option>
+                  <option value="KITCHEN_PORTER">Kitchen Porter</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="accommodation">Struttura</label>
+                <select
+                  class="form-control"
+                  id="accommodation"
+                  name="accommodation"
+                  [(ngModel)]="newEmployee.accommodation"
+                >
+                  <option
+                    *ngFor="let accommodation of accommodation"
+                    [ngValue]="accommodation"
+                  >
+                    {{ accommodation.name }}
                   </option>
                 </select>
               </div>
+              <div class="d-flex justify-content-between align-item mt-3">
+                <button class="btn btn-secondary" (click)="addNewEmployee()">
+                  Aggiungi
+                </button>
+                <button class="btn btn-dark" (click)="close()">chiudi</button>
+              </div>
             </form>
-            <div class="d-flex justify-content-between align-item-center mt-2">
-              <button class="btn btn-secondary" (click)="saveEditedEmployee()">
-                Salva
-              </button>
-              <button class="btn btn-dark" (click)="cancelEdit()">
-                Annulla
-              </button>
-            </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- UPDATE******************************************************************************** -->
+
+    <div class="col-md-3" *ngIf="editingEmployee">
+      <div class="card card-front">
+        <div class="card-body">
+          <h5 class="card-title">Modifica Dati Impiegato</h5>
+          <form>
+            <div class="form-group">
+              <label for="editName">Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editName"
+                name="editName"
+                [(ngModel)]="editingEmployee.name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="editSurname">Cognome</label>
+              <input
+                type="text"
+                class="form-control"
+                id="editSurname"
+                name="editSurname"
+                [(ngModel)]="editingEmployee.surname"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="editAge">Età</label>
+              <input
+                type="number"
+                class="form-control"
+                id="editAge"
+                name="editAge"
+                [(ngModel)]="editingEmployee.age"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="editEmail">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="editEmail"
+                name="editEmail"
+                [(ngModel)]="editingEmployee.email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="editSalary">Stipendio</label>
+              <input
+                type="number"
+                class="form-control"
+                id="editSalary"
+                name="editSalary"
+                [(ngModel)]="editingEmployee.salary"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="editRole">Ruolo</label>
+              <select
+                class="form-control"
+                id="editRole"
+                name="editRole"
+                [(ngModel)]="editingEmployee.roleEmployee"
+              >
+                <option *ngFor="let role of roles" [value]="role">
+                  {{ role }}
+                </option>
+              </select>
+            </div>
+          </form>
+          <div class="d-flex justify-content-between align-item-center mt-2">
+            <button class="btn btn-secondary" (click)="saveEditedEmployee()">
+              Salva
+            </button>
+            <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAILS EMPLOYEEE -->
+
+<div class="d-flex justify-content-between align-item">
+  <div class="col-md-3">
+    <div class="card card-front2" *ngIf="showCard2">
+      <div class="card-body">
+        <h5 class="card-title">Dettagli Dipendente</h5>
+        <div>
+          <p>
+            <strong>Nome Impiegato:</strong> {{ selectedEmployee.name }}
+            {{ selectedEmployee.surname }}
+          </p>
+          <p><strong>Età:</strong> {{ selectedEmployee.age }}</p>
+          <p><strong>Email:</strong> {{ selectedEmployee.email }}</p>
+          <p><strong>Stipendio:</strong> {{ selectedEmployee.salary }}</p>
+          <p><strong>Ruolo:</strong> {{ selectedEmployee.roleEmployee }}</p>
+          <p>
+            <strong>Struttura:</strong>
+            {{ selectedEmployee.accommodation.name }}
+          </p>
+        </div>
+        <button class="btn btn-dark" (click)="showCard2 = false">Chiudi</button>
       </div>
     </div>
   </div>

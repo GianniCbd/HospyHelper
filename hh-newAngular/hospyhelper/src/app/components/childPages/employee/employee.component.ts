@@ -20,10 +20,12 @@ export class EmployeeComponent implements OnInit {
   totalSalary: number = 0;
   showTotalSalary: boolean = false;
 
+  selectedEmployee: any;
+  showCard2: boolean = false;
+
   page!: Page<Employee>;
   currentPage: number = 0;
   totalPages!: number;
-
   roles = Object.values(RoleEmployee);
 
   constructor(
@@ -35,6 +37,12 @@ export class EmployeeComponent implements OnInit {
     this.fetchAccommodation();
     this.fetchEmployee();
   }
+
+  openEmployeeCard(employee: any) {
+    this.showCard2 = true;
+    this.selectedEmployee = employee;
+  }
+
   fetchAccommodation() {
     this.accommodationService.getAccommodation().subscribe(
       (data: any) => {
@@ -67,7 +75,7 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
-  fetchEmployee(page: number = 0, size: number = 2) {
+  fetchEmployee(page: number = 0, size: number = 20) {
     this.employeeSrv.getEmployee(page, size).subscribe(
       (data: Page<Employee>) => {
         this.employee = data.content;

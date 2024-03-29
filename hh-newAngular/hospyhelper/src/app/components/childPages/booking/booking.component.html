@@ -97,46 +97,46 @@
             <div class="card mb-3">
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <p class="card-title">Cliente</p>
+                  <p class="card-title"><strong>Cliente:</strong></p>
                   <p class="card-title">{{ booking.fullName }}</p>
                 </div>
                 <div class="d-flex justify-content-between mt-1">
-                  <p class="card-text">Email:</p>
+                  <p class="card-text"><strong>Email:</strong></p>
                   <p class="card-text">{{ booking.email }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Cellulare:</p>
+                  <p class="card-text"><strong>Cellulare:</strong></p>
                   <p class="card-text">{{ booking.phone }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Numero Ospiti:</p>
+                  <p class="card-text"><strong>Numero Ospiti:</strong></p>
                   <p class="card-text">{{ booking.numberOfGuests }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Check-In:</p>
+                  <p class="card-text"><strong>Check-In:</strong></p>
                   <p class="card-text">{{ booking.checkIn }}</p>
                 </div>
 
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Check-Out:</p>
+                  <p class="card-text"><strong>Check-Out:</strong></p>
                   <p class="card-text">{{ booking.checkOut }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Numero Stanza:</p>
+                  <p class="card-text"><strong>Numero Stanza:</strong></p>
                   <p class="card-text">{{ booking.room.number }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Da Pagare:</p>
+                  <p class="card-text"><strong>Da Pagare:</strong></p>
                   <p class="card-text">{{ calculateTotalCost(booking) }}</p>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Tipo Stanza:</p>
+                  <p class="card-text"><strong>Tipo Stanza:</strong></p>
                   <a [routerLink]="['/roomType']">{{
                     booking.room.roomType.typeName
                   }}</a>
                 </div>
                 <div class="d-flex justify-content-between">
-                  <p class="card-text">Struttura:</p>
+                  <p class="card-text"><strong>Struttura:</strong></p>
                   <a [routerLink]="['/accommodation']">{{
                     booking.accommodation.name
                   }}</a>
