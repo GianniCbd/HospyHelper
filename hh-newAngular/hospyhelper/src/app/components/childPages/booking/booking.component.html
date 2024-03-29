@@ -40,7 +40,7 @@
       <div class="col-md-12 slide-in-from-left">
         <select
           [(ngModel)]="selectedOrder"
-          class="ricerca mb-2"
+          class="ricerca mb-2 ps-2"
           (change)="fetchData()"
         >
           <option value="ricerca">Ricerca</option>
@@ -181,14 +181,14 @@
       </div>
       <div class="d-flex justify-content-center mt-5">
         <button
-          class="btn btn-secondary me-3"
+          class="btn btn-dark me-3"
           (click)="prevPage()"
           [disabled]="currentPage === 0"
         >
           Previous
         </button>
         <button
-          class="btn btn-secondary ms-3"
+          class="btn btn-dark ms-3"
           (click)="nextPage()"
           [disabled]="currentPage === totalPages - 1"
         >
