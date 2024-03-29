@@ -1,0 +1,43 @@
+.outer-container {
+  background-image: linear-gradient(324deg, transparent 0%, transparent 45%, rgba(50, 203, 201, 0.81) 45%, rgba(50, 203, 201, 0.81) 47%, transparent 47%, transparent 100%), linear-gradient(208deg, transparent 0%, transparent 40%, rgba(50, 203, 201, 0.81) 40%, rgba(50, 203, 201, 0.81) 80%, transparent 80%, transparent 100%), linear-gradient(202deg, transparent 0%, transparent 20%, rgba(50, 203, 201, 0.81) 20%, rgba(50, 203, 201, 0.81) 40%, transparent 40%, transparent 100%), linear-gradient(338deg, transparent 0%, transparent 10%, rgba(50, 203, 201, 0.81) 10%, rgba(50, 203, 201, 0.81) 72%, transparent 72%, transparent 100%), linear-gradient(90deg, rgb(81, 86, 223), rgb(81, 86, 223));
+  height: 100%;
+  padding-top: 40px;
+}
+
+.container {
+  padding-top: 40px;
+}
+
+.card {
+  background: linear-gradient(45deg, #ffffff, #615f51, #f7e9b2, #d6b66c);
+  border-radius: 15px;
+  box-shadow: rgb(2, 2, 2) 0px 20px 30px -10px;
+  transition: transform 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.card-title {
+  height: 50px;
+  padding-bottom: 10px;
+}
+
+.card-text {
+  margin-top: 20px;
+  height: 35px;
+}
+
+.btn {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .col-5,
+  .col-7 {
+    width: 100%;
+  }
+}/*# sourceMappingURL=profilo.component.css.map */

@@ -1,0 +1,344 @@
+<div class="outer-container pt-5">
+  <div class="container" *ngIf="opex">
+    <div class="d-flex justify-content-between align-item-center">
+      <a [routerLink]="['/employee']" class="arrow m-3" title="Dipendenti">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-left-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
+          ></path>
+        </svg>
+      </a>
+      <a [routerLink]="['/accommodation']" class="arrow m-3" title="Struttura">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          class="bi bi-arrow-right-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"
+          ></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Prima parte: la sezione esistente -->
+        <div class="col-md-6">
+          <h2 class="elenco">Spesa forniture bimestrali</h2>
+          <ul class="list-unstyled">
+            <li class="opex ps-2" *ngFor="let op of opex">
+              <div class="opex-details row">
+                <div class="col-md-6">
+                  <p class="paragIndex">
+                    <img
+                      src="../../../../assets/images/opex/water-rate-two-svgrepo-com.svg"
+                      width="22px"
+                      class="pe-1"
+                    />
+                    <strong>Acqua:</strong> {{ op.waterBill }}
+                  </p>
+                  <p class="paragIndex">
+                    <img
+                      src="../../../../assets/images/opex/gas-cylinder-svgrepo-com.svg"
+                      width="22px"
+                      class="pe-1"
+                    /><strong>Gas:</strong> {{ op.gasBill }}
+                  </p>
+                  <p class="paragIndex">
+                    <img
+                      src="../../../../assets/images/opex/power-high-voltage-svgrepo-com.svg"
+                      width="22px"
+                      class="pe-1"
+                    />
+                    <strong>Elettricità:</strong> {{ op.powerBill }}
+                  </p>
+                  <p class="paragIndex">
+                    <img
+                      src="../../../../assets/images/socialMediaIcon/hotel-svgrepo-com.svg"
+                      width="22px"
+                      class="pe-1"
+                    />
+                    <strong>Nome alloggio:</strong> {{ op.accommodation.name }}
+                  </p>
+                </div>
+              </div>
+              <div class="mb-4 pb-2 border-bottom">
+                <button class="btn btn-secondary" (click)="editOp(op)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-pencil-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                    />
+                  </svg>
+                </button>
+                <button class="btn btn-dark ms-2" (click)="deleteOpex(op)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-trash2-fill"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </li>
+          </ul>
+          <div class="mt-5">
+            <div
+              class="bottoni d-flex justify-content-between align-items-center pb-5 mt-3"
+            >
+              <button
+                class="btn button-85 my-2"
+                role="button"
+                (click)="toggleCardVisibility()"
+              >
+                Aggiungi Opex
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="article col-md-6">
+          <h5 class="mb-2">
+            L'Importanza della Gestione Ottimale delle Forniture per una
+            Struttura Alberghiera
+          </h5>
+          <p class="mb-2">
+            Nell'ambito dell'ospitalità, la gestione efficiente delle risorse è
+            un elemento fondamentale per garantire sia la sostenibilità
+            ambientale che la redditività economica di una struttura
+            alberghiera. In particolare, il consumo di forniture come gas, acqua
+            e corrente assume un ruolo di primaria importanza, e ottimizzarlo
+            può portare a una serie di benefici significativi.
+          </p>
+          <h5 class="mb-2">Riduzione dei Costi Operativi</h5>
+          <p class="mb-2">
+            Una gestione oculata delle forniture permette di ridurre i costi
+            operativi di una struttura alberghiera. L'energia elettrica, ad
+            esempio, rappresenta una voce significativa nelle spese, e ridurne
+            il consumo attraverso l'adozione di pratiche di risparmio energetico
+            può tradursi in un notevole risparmio finanziario nel lungo termine.
+            Analogamente, una corretta gestione dell'acqua e del gas può
+            contribuire a contenere i costi operativi, consentendo di investire
+            le risorse risparmiate in miglioramenti strutturali o servizi per
+            gli ospiti.
+          </p>
+          <h5 class="mb-2">
+            Impegno per la Sostenibilità Ambientale
+            <img
+              src="../../../../assets/all/leaf-svgrepo-com (1).svg"
+              alt=""
+              height="30px"
+              width="30px"
+            />
+          </h5>
+          <p class="mb-2">
+            Oltre ai benefici economici, ottimizzare il consumo di forniture è
+            cruciale per ridurre l'impatto ambientale di una struttura
+            alberghiera. Le risorse naturali sono limitate e preziose, e una
+            gestione responsabile è essenziale per preservarle per le
+            generazioni future. Riducendo il consumo di acqua, gas e corrente,
+            gli hotel possono contribuire a limitare l'estrazione di risorse
+            naturali, il consumo di energia non rinnovabile e la produzione di
+            rifiuti, riducendo così la propria impronta ecologica.
+          </p>
+          <a
+            class="btn btn-dark mb-2"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseContent"
+            aria-expanded="false"
+            aria-controls="collapseContent"
+          >
+            Mostra di più
+          </a>
+
+          <div class="collapse" id="collapseContent">
+            <h5 class="mb-2">
+              Miglioramento dell'Immagine e Fidelizzazione della Clientela
+            </h5>
+            <p class="mb-2">
+              Un impegno visibile per la sostenibilità ambientale può anche
+              migliorare l'immagine della struttura agli occhi dei clienti.
+              Sempre più viaggiatori sono sensibili alle questioni ambientali e
+              tendono a preferire strutture che adottano pratiche sostenibili.
+              Dimostrare un impegno concreto verso la riduzione del consumo di
+              risorse può quindi attrarre una clientela più consapevole e
+              favorire la fidelizzazione degli ospiti, che potrebbero tornare a
+              scegliere la struttura in futuro o raccomandarla ad altri.
+            </p>
+            <h5 class="mb-2">
+              Strategie per Ottimizzare il Consumo di Forniture
+            </h5>
+            <p class="mb-2">
+              Esistono numerose strategie che le strutture alberghiere possono
+              adottare per ottimizzare il consumo di forniture:
+            </p>
+            <ul class="list-unstyled">
+              <li class="mb-1">
+                <strong
+                  >Installazione di Tecnologie a Risparmio Energetico:
+                </strong>
+                Utilizzare apparecchiature e impianti efficienti dal punto di
+                vista energetico può ridurre significativamente il consumo di
+                corrente.
+              </li>
+              <li class="mb-1">
+                <strong>Programmi di Sensibilizzazione e Formazione: </strong>
+                Coinvolgere il personale e gli ospiti in programmi di
+                sensibilizzazione sull'importanza del risparmio energetico e
+                idrico può favorire un comportamento più responsabile.
+              </li>
+              <li class="mb-1">
+                <strong>Monitoraggio e Analisi dei Consumi: </strong>
+                Monitorare regolarmente i consumi di acqua, gas e corrente
+                consente di individuare potenziali sprechi e adottare misure
+                correttive tempestive.
+              </li>
+              <li class="mb-1">
+                <strong
+                  >Integrazione di Sistemi di Automazione e Controllo:</strong
+                >
+                L'utilizzo di sistemi di automazione e controllo permette di
+                regolare in modo più preciso l'uso delle risorse, ad esempio
+                attraverso l'illuminazione automatica e la gestione
+                centralizzata degli impianti.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Opex*************************************************************** -->
+    <div class="d-flex justify-content-between align-items">
+      <div class="col-md-3">
+        <div class="card card-front" *ngIf="showCard">
+          <div class="card-body">
+            <h5 class="card-title">Aggiungi Opex</h5>
+            <form>
+              <div class="form-group">
+                <label for="newWaterBill">Acqua</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newWaterBill"
+                  name="newWaterBill"
+                  [(ngModel)]="newOpex.waterBill"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newGasBill">Gas</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newGasBill"
+                  name="newGasBill"
+                  [(ngModel)]="newOpex.gasBill"
+                />
+              </div>
+              <div class="form-group">
+                <label for="newPowerBill">Elettricità</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newPowerBill"
+                  name="newPowerBill"
+                  [(ngModel)]="newOpex.powerBill"
+                />
+              </div>
+              <div class="form-group">
+                <label for="accommodation">Struttura</label>
+                <select
+                  class="form-control"
+                  id="accommodation"
+                  name="accommodation"
+                  [(ngModel)]="newOpex.accommodation"
+                >
+                  <option
+                    *ngFor="let accommodation of accommodation"
+                    [ngValue]="accommodation"
+                  >
+                    {{ accommodation.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="d-flex justify-content-between align-items mt-3">
+                <button class="btn btn-secondary" (click)="addNewOpex()">
+                  Aggiungi
+                </button>
+                <button class="btn btn-dark" (click)="close()">Chiudi</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- UPDATE***************** -->
+  <div class="col-md-3" *ngIf="editingOpex">
+    <div class="card card-front">
+      <div class="card-body">
+        <h5 class="card-title">Modifica Spese Operative</h5>
+        <form>
+          <div class="form-group">
+            <label for="editWaterBill">Bolletta dell'Acqua</label>
+            <input
+              type="number"
+              class="form-control"
+              id="editWaterBill"
+              name="editWaterBill"
+              [(ngModel)]="editingOpex.waterBill"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editGasBill">Bolletta del Gas</label>
+            <input
+              type="number"
+              class="form-control"
+              id="editGasBill"
+              name="editGasBill"
+              [(ngModel)]="editingOpex.gasBill"
+            />
+          </div>
+          <div class="form-group">
+            <label for="editPowerBill">Bolletta della Luce</label>
+            <input
+              type="number"
+              class="form-control"
+              id="editPowerBill"
+              name="editPowerBill"
+              [(ngModel)]="editingOpex.powerBill"
+            />
+          </div>
+        </form>
+        <div class="d-flex justify-content-between align-item-center mt-2">
+          <button class="btn btn-secondary" (click)="saveEditedOp()">
+            Salva
+          </button>
+          <button class="btn btn-dark" (click)="cancelEdit()">Annulla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

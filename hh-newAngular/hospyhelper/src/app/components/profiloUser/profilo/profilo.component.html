@@ -1,0 +1,148 @@
+<div class="outer-container">
+  <div class="container">
+    <div class="d-flex justify-content-center align-item-center">
+      <div class="col-lg-8 col-md-10 col-sm-10 text-center">
+        <h1 class="mb-4">Benvenuto, {{ currentUser?.name }}!</h1>
+        <p class="lead mb-3">Ecco cosa puoi fare:</p>
+        <div class="row d-flex justify-content-around">
+          <div class="col col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/booking-tablet-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Controlla le prenotazioni</h4>
+                <p class="card-text mb-3">
+                  Visualizza tutte le prenotazioni effettuate.
+                </p>
+                <a href="/booking" class="btn btn-dark btn-block"
+                  >Prenotazioni</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/worker-employee-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Personale</h4>
+                <p class="card-text">
+                  Controlla e gestisci le schede dipendenti
+                </p>
+                <a [routerLink]="['/employee']" class="btn btn-dark btn-block"
+                  >Gestisci</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/cog-gear-machine-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Dati Utente</h4>
+                <p class="card-text">
+                  Modifica le informazioni del tuo profilo.
+                </p>
+                <a [routerLink]="'profilo'" class="btn btn-dark btn-block"
+                  >Modifica Dati</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/room-key-hotel-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Le stanze</h4>
+                <p class="card-text">
+                  Gestisci le tue stanze e aggiorna i tuoi dati.
+                </p>
+                <a [routerLink]="['/room']" class="btn btn-dark btn-block"
+                  >Modifica Dati</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/money-bag-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Le spese</h4>
+                <p class="card-text">
+                  Tieni sotto controllo le spese per le forniture.
+                </p>
+                <a [routerLink]="['/opex']" class="btn btn-dark btn-block"
+                  >Controlla</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="card text-center">
+              <span
+                class="badge badge-primary position-absolute"
+                style="top: 0; left: 0"
+              >
+                <img
+                  src="../../../../assets/images/socialMediaIcon/community-share-svgrepo-com.svg"
+                  alt="Immagine"
+                  style="height: 30px; width: 30px"
+                />
+              </span>
+              <div class="card-body">
+                <h4 class="card-title">Community</h4>
+                <p class="card-text">Entra a far parte della community</p>
+                <a [routerLink]="['/post']" class="btn btn-dark btn-block"
+                  >Partecipa</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

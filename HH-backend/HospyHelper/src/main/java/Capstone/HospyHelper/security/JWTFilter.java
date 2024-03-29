@@ -1,8 +1,8 @@
 package Capstone.HospyHelper.security;
 
-import Capstone.HospyHelper.entities.User;
+import Capstone.HospyHelper.auth.User;
 import Capstone.HospyHelper.exceptions.UnauthorizedException;
-import Capstone.HospyHelper.services.UserSRV;
+import Capstone.HospyHelper.auth.UserSRV;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

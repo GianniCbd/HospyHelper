@@ -1,0 +1,42 @@
+.outer-container {
+  padding-top: 40px;
+}
+
+.container {
+  padding-top: 40px;
+}
+
+.card {
+  margin-bottom: 30px;
+  border-radius: 0;
+}
+.card-title {
+  height: 50px;
+  padding-bottom: 10px;
+}
+.card-text {
+  margin-top: 20px;
+  height: 35px;
+}
+.btn {
+  margin-top: 40px;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.btn {
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .col-5,
+  .col-7 {
+    width: 100%;
+  }
+  .outer-container {
+    padding-top: 0 !important;
+  }
+}

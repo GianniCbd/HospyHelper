@@ -1,0 +1,223 @@
+<div class="outer-container">
+  <div class="container">
+    <div class="ps-4 mt-5 d-flex justify-content-center">
+      <div
+        class="bottoni d-flex justify-content-between align-items-center pb-5 mt-3"
+      >
+        <button
+          class="btn button-85 my-2"
+          role="button"
+          (click)="toggleCardVisibility()"
+        >
+          Lascia un feedback!
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let rev of reviews">
+        <div class="card mb-4 p-3 slide-in-from-left">
+          <div class="card-body">
+            <span
+              class="badge badge-primary position-absolute"
+              style="bottom: 0; right: 0"
+            >
+              <img
+                src="../../../../assets/images/HH-Photoroom.png-Photoroom.png"
+                alt="Immagine"
+                style="height: 30px; width: 30px"
+              />
+            </span>
+            <h5 class="card-title">{{ rev.user.name }}</h5>
+            <p class="card-text">{{ rev.comment }}</p>
+
+            <div class="product-review-stars">
+              <span
+                class="star"
+                [class.filled]="isFilled"
+                *ngFor="let isFilled of getStarsArray(rev.rating)"
+              >
+                <ng-container *ngIf="isFilled">&#9733;</ng-container>
+                <ng-container *ngIf="!isFilled">&#9734;</ng-container>
+              </span>
+            </div>
+
+            <div class="dropdown position-absolute" style="top: 0; right: 0">
+              <button
+                class="btn dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="3"
+                  height="16"
+                  viewBox="0 0 3 16"
+                >
+                  <circle cx="1.5" cy="1.5" r="1.5" />
+                  <circle cx="1.5" cy="7.999" r="1.5" />
+                  <circle cx="1.5" cy="14.5" r="1.5" />
+                </svg>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <a class="dropdown-item" (click)="editReview(rev)"
+                    >Modifica</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="deleteReview(rev)"
+                    >Elimina</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ADD REVIEW*************************************************************************** -->
+<div class="d-flex justify-content-between align-items">
+  <div class="col-md-3">
+    <div class="card card-front" *ngIf="showCard">
+      <div class="card-body">
+        <h5 class="card-title">Aggiungi Recensione</h5>
+        <form>
+          <div class="form-group">
+            <label for="newComment"></label>
+            <textarea
+              type="text"
+              class="form-control"
+              id="newComment"
+              name="newComment"
+              [(ngModel)]="newReview.comment"
+            ></textarea>
+          </div>
+
+          <h1>Lascia una tua valutazione!</h1>
+          <div class="product-review-stars">
+            <input
+              type="radio"
+              id="star5"
+              name="rating"
+              value="5"
+              class="visuallyhidden"
+              [(ngModel)]="newReview.rating"
+            /><label for="star5" title="Rocks!">★</label>
+            <input
+              type="radio"
+              id="star4"
+              name="rating"
+              value="4"
+              class="visuallyhidden"
+              [(ngModel)]="newReview.rating"
+            /><label for="star4" title="Pretty good">★</label>
+            <input
+              type="radio"
+              id="star3"
+              name="rating"
+              value="3"
+              class="visuallyhidden"
+              [(ngModel)]="newReview.rating"
+            /><label for="star3" title="Meh">★</label>
+            <input
+              type="radio"
+              id="star2"
+              name="rating"
+              value="2"
+              class="visuallyhidden"
+              [(ngModel)]="newReview.rating"
+            /><label for="star2" title="Kinda bad">★</label>
+            <input
+              type="radio"
+              id="star1"
+              name="rating"
+              value="1"
+              class="visuallyhidden"
+              [(ngModel)]="newReview.rating"
+            /><label for="star1" title="Sucks big time">★</label>
+          </div>
+          <div class="d-flex justify-content-between align-items mt-3">
+            <button class="btn btn-success" (click)="addNewReview()">
+              Aggiungi
+            </button>
+            <button class="btn btn-danger" (click)="close()">Chiudi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UPDATE************************************************* -->
+<div class="col-md-3" *ngIf="editingReview">
+  <div class="card card-front">
+    <div class="card-body">
+      <h5 class="card-title">Modifica Recensione</h5>
+      <form>
+        <div class="form-group">
+          <label for="editComment">Commento</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="editComment"
+            name="editComment"
+            [(ngModel)]="editingReview.comment"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <div class="product-review-stars">
+            <input
+              type="radio"
+              id="star5"
+              name="rating"
+              value="5"
+              class="visuallyhidden"
+              [(ngModel)]="editingReview.rating"
+            /><label for="star5" title="Rocks!">★</label>
+            <input
+              type="radio"
+              id="star4"
+              name="rating"
+              value="4"
+              class="visuallyhidden"
+              [(ngModel)]="editingReview.rating"
+            /><label for="star4" title="Pretty good">★</label>
+            <input
+              type="radio"
+              id="star3"
+              name="rating"
+              value="3"
+              class="visuallyhidden"
+              [(ngModel)]="editingReview.rating"
+            /><label for="star3" title="Meh">★</label>
+            <input
+              type="radio"
+              id="star2"
+              name="rating"
+              value="2"
+              class="visuallyhidden"
+              [(ngModel)]="editingReview.rating"
+            /><label for="star2" title="Kinda bad">★</label>
+            <input
+              type="radio"
+              id="star1"
+              name="rating"
+              value="1"
+              class="visuallyhidden"
+              [(ngModel)]="editingReview.rating"
+            /><label for="star1" title="Sucks big time">★</label>
+          </div>
+        </div>
+      </form>
+      <div class="d-flex justify-content-between align-item-center mt-2">
+        <button class="btn btn-primary" (click)="saveEditedReview()">
+          Salva
+        </button>
+        <button class="btn btn-primary" (click)="cancelEdit()">Annulla</button>
+      </div>
+    </div>
+  </div>
+</div>

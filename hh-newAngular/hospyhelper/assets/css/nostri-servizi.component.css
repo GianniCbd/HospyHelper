@@ -1,0 +1,78 @@
+#carouselExampleIndicators {
+  color: white;
+  padding-top: 100px;
+  color: black;
+  height: 100vh;
+}
+
+.outer-container {
+  height: 100%;
+  background-image: repeating-radial-gradient(circle at center center, transparent 0px, transparent 13px, rgba(255, 255, 255, 0.05) 13px, rgba(255, 255, 255, 0.05) 26px, transparent 26px, transparent 27px, rgba(255, 255, 255, 0.05) 27px, rgba(255, 255, 255, 0.05) 32px, transparent 32px, transparent 34px, rgba(255, 255, 255, 0.05) 34px, rgba(255, 255, 255, 0.05) 36px), repeating-radial-gradient(circle at center center, rgb(97, 121, 180) 0px, rgb(97, 121, 180) 1px, rgb(97, 121, 180) 1px, rgb(97, 121, 180) 13px, rgb(97, 121, 180) 13px, rgb(97, 121, 180) 24px, rgb(97, 121, 180) 24px, rgb(97, 121, 180) 37px, rgb(97, 121, 180) 37px, rgb(97, 121, 180) 44px, rgb(97, 121, 180) 44px, rgb(97, 121, 180) 48px);
+  background-size: 88px 88px;
+}
+
+.carousel-inner {
+  height: 100%;
+}
+
+.paragraphs {
+  width: 300px;
+  height: 300px;
+}
+
+.btn {
+  background-color: #c8a068;
+  color: black;
+  border: none;
+  float: right;
+  margin-right: calc(50% - 50px);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  animation: pulsate-bck 0.4s ease-in-out infinite both;
+  -webkit-animation: pulsate-bck 0.5s ease-in-out infinite both;
+}
+
+.carousel-control-prev {
+  padding-right: 6rem;
+}
+
+.carousel-control-next {
+  padding-left: 6rem;
+}
+
+@keyframes pulsate-bck {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 576px) {
+  #carouselExampleIndicators {
+    padding-top: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .img {
+    display: none;
+  }
+}
+@media screen and (max-width: 991px) {
+  .carousel-inner {
+    font-size: 15px;
+  }
+}/*# sourceMappingURL=nostri-servizi.component.css.map */
